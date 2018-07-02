@@ -152,7 +152,7 @@ ConfigurationOfHoneyGinger >> project [
 ConfigurationOfHoneyGinger >> stable: spec [
 	<symbolicVersion: #'stable'>
 
-	spec for: #'common' version: '1.2'.
+	spec for: #'common' version: '1.3'.
 
 ]
 
@@ -192,5 +192,18 @@ ConfigurationOfHoneyGinger >> version12: spec [
 		spec author: 'tomooda'.
 		spec timestamp: '5/28/2015 16:09'.
 		spec package: 'HoneyGinger' with: 'HoneyGinger-tomooda.141'. ].
+
+]
+
+{ #category : #versions }
+ConfigurationOfHoneyGinger >> version13: spec [
+	<version: '1.3' imports: #('0.1-baseline' )>
+
+	spec for: #'common' do: [
+		spec blessing: #'stable'.
+		spec description: 'version 1.3'.
+		spec author: 'tomooda'.
+		spec timestamp: '5/28/2015 16:30'.
+		spec package: 'HoneyGinger' with: 'HoneyGinger-tomooda.142'. ].
 
 ]
