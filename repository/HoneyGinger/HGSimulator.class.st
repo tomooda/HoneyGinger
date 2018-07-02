@@ -6122,7 +6122,7 @@ HGSimulator class >> submarineByJun4Pharo [
 	form1 := Form extent: form0 extent depth: form0 depth.
 	form2 := Form extent: form0 extent depth: form0 depth.
 	form := Form extent: form0 extent depth: form0 depth.
-	rc1 := (Smalltalk at: #JunWodenRenderingContext) on: form1.
+	rc1 := (Smalltalk at: #JunNBGLRenderingContext) on: form1.
 	rc1 projection: (JunPerspectiveProjection
 		eyePoint: (0, 0, 10)
 		sightPoint: 0, 0, 5
@@ -6133,7 +6133,7 @@ HGSimulator class >> submarineByJun4Pharo [
 	rc1 disableCullface.
 	rc1 ambientLight: Color darkGray.
 	rc1 lightIndex: 0 parallel: (0.5, 0.3, 6.0) negated color: Color gray.
-	rc2 := (Smalltalk at: #JunWodenRenderingContext) on: form2.
+	rc2 := (Smalltalk at: #JunNBGLRenderingContext) on: form2.
 	rc2 projection: (JunPerspectiveProjection
 		eyePoint: (0, 0, 10)
 		sightPoint: 0, 0, 5
