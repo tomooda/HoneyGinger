@@ -1,8 +1,13 @@
 Class {
 	#name : #HGVoronoiEdgeTest,
-	#superclass : #HGTestCase,
+	#superclass : #TestCase,
 	#category : 'HoneyGinger-Geometry-Tests'
 }
+
+{ #category : #asserting }
+HGVoronoiEdgeTest >> assert: expected equals: actual accuracy: acceptableError [
+	self assert: (expected - actual) abs <= acceptableError
+]
 
 { #category : #tests }
 HGVoronoiEdgeTest >> testForesideBackside1 [

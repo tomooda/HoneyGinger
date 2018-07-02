@@ -1,6 +1,6 @@
 Class {
 	#name : #HG2dPointTest,
-	#superclass : #HGTestCase,
+	#superclass : #TestCase,
 	#category : 'HoneyGinger-Geometry-Tests'
 }
 
@@ -23,9 +23,19 @@ HG2dPointTest class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
+{ #category : #asserting }
+HG2dPointTest >> assert: expected equals: actual accuracy: acceptableError [
+	self assert: (expected - actual) abs <= acceptableError
+]
+
+{ #category : #asserting }
+HG2dPointTest >> assert: expected equals: actual pointAccuracy: accuracy [
+	self assert: (actual - expected) r abs < accuracy
+]
+
 { #category : #tests }
 HG2dPointTest >> testAbs [
-	self assert: 3.0 equals: (HG2dPoint x: 1.0 y: -2.0) abs
+	self assert: 3.0 equals: (HG2dPoint x: 1.0 y: -2.0) abs accuracy: 1.0e-8
 ]
 
 { #category : #tests }
@@ -54,7 +64,7 @@ HG2dPointTest >> testAddOver [
 
 { #category : #tests }
 HG2dPointTest >> testAsPoint [
-	self assert: 1@2 equals: (HG2dPoint x: 1 y: 2) asPoint
+	self assert: 1@2 equals: (HG2dPoint x: 1 y: 2) asPoint pointAccuracy: 1.0e-8
 ]
 
 { #category : #tests }

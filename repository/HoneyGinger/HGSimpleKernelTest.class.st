@@ -1,6 +1,9 @@
 Class {
 	#name : #HGSimpleKernelTest,
-	#superclass : #HGKernelTest,
+	#superclass : #TestCase,
+	#instVars : [
+		'kernel'
+	],
 	#category : 'HoneyGinger-Geometry-Tests'
 }
 
@@ -21,6 +24,21 @@ HGSimpleKernelTest class >> showLicense [
 		 extent: 400 @ 400;
 		 justified;
 		 openInWindowLabeled: 'LICENSE'
+]
+
+{ #category : #asserting }
+HGSimpleKernelTest >> assert: expected equals: actual accuracy: acceptableError [
+	self assert: (expected - actual) abs <= acceptableError
+]
+
+{ #category : #setup }
+HGSimpleKernelTest >> setUp [
+	kernel := HGSimpleKernel support: 2.0
+]
+
+{ #category : #tests }
+HGSimpleKernelTest >> testAtValue [
+	0.0 to: 3.0 by: 1.0 do: [ :r | self assert: (kernel r: r) equals: (kernel at: (HG2dPoint theta: 1.0 r: 1.0) value: (HG2dPoint theta: 1.0 r: 1.0 + r)) accuracy: 1.0e-8 ]
 ]
 
 { #category : #tests }
