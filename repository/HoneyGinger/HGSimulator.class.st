@@ -6204,6 +6204,114 @@ HGSimulator class >> submarineByJun4Pharo [
 	^ simulator
 ]
 
+{ #category : #'applications-jun' }
+HGSimulator class >> submarineByJun4Pharo2 [
+	"HGSimulator submarineByJun4Pharo2"
+
+	| random form0 form1 form2 form rc1 rc2 ball ball2 a1 a2 r simulator contact |
+	random := Random new.
+	form0 := Form fromDisplay: (0 @ 0 corner: 500 @ 500).
+	form1 := Form extent: form0 extent depth: form0 depth.
+	form2 := Form extent: form0 extent depth: form0 depth.
+	form := Form extent: form0 extent depth: form0 depth.
+	rc1 := (Smalltalk at: #JunCanvasRenderingContext) onForm: form1.
+	rc1
+		projection:
+			(JunPerspectiveProjection
+				eyePoint: 0 , 0 , 10
+				sightPoint: 0 , 0 , 5
+				upVector: 0 , 1 , 0
+				fovy: 30 asDegrees
+				near: 0.1
+				far: 10.0).
+	rc1 disableCullface.
+	rc1 ambientLight: Color darkGray.
+	rc1 lightIndex: 0 parallel: (0.5 , 0.3 , 6.0) negated color: Color gray.
+	rc2 := (Smalltalk at: #JunCanvasRenderingContext) onForm: form2.
+	rc2
+		projection:
+			(JunPerspectiveProjection
+				eyePoint: 0 , 0 , 10
+				sightPoint: 0 , 0 , 5
+				upVector: 0 , 1 , 0
+				fovy: 30 asDegrees
+				near: 0.1
+				far: 5.0).
+	rc2 disableCullface.
+	rc2 ambientLight: Color darkGray.
+	rc2 lightIndex: 0 parallel: (0.5 , 0.3 , 6.0) negated color: Color gray.
+	ball := Jun3dDisplayObject sphere: 15 radius: 0.3.
+	a1 := 0.0 asDegrees.
+	a2 := 0.0 asDegrees.
+	r := 2 * 3 sqrt / 5 * 250.
+	contact := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 0.0.
+	simulator := HGSimulator new.
+	simulator color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
+	simulator extent: 500 @ 500.
+	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGPressure gasConstant: 0.3 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 40.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 60.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ true ]
+				do: [ 
+					| x y z |
+					x := a1 cos.
+					y := a1 sin.
+					z := a2 sin * 0.5 + 4.5.
+					a1 := a1 + 3 asDegrees.
+					a2 := a2 + 7 asDegrees.
+					rc1 backgroundColor: Color white.
+					rc1 clear.
+					rc1 backgroundColor: Color transparent.
+					rc1 clear.
+					(ball2 := ball transform: (Jun3dTransformation translate: x , y , z)) renderOn: rc1.
+					rc1 flush.
+					contact center: (HG2dPoint fromPoint: (x , y negated) * r + 250).
+					contact radius: (1.0 - (z - 5) abs) * r * 0.7.
+					form getCanvas
+						drawImage: form0 at: 0 @ 0;
+						paintImage: form1 at: 0 @ 0;
+						flush ]).
+	simulator addAction: (HGObstacle with: contact color: Color transparent).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: form).
+	simulator
+		addAction:
+			((HGMeshPressureVisualizer color: Color blue)
+				kernel: (HGSimpleKernel support: 60);
+				scale: 0.3).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ true ]
+				do: [ 
+					rc2 backgroundColor: Color transparent.
+					rc2 clear.
+					ball2 renderOn: rc2.
+					rc2 flush.
+					simulator form getCanvas
+						paintImage: form2 at: 0 @ 0;
+						flush ]).
+	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
+	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	simulator openInWindowLabeled: 'Submarine'.
+	^ simulator
+]
+
 { #category : #utilities }
 HGSimulator class >> verticalPanel: anArrayOfMorphs [
 	| panel |
