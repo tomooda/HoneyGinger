@@ -137,7 +137,7 @@ HGAbstractFakeHand >> in: anHGSimulator motionLineDo: aBlock [
 
 { #category : #accessing }
 HGAbstractFakeHand >> in: anHGSimulator particlesDo: aBlock [
-	(anHGSimulator particleAt: particleIndex) ifNotNilDo: aBlock
+	(anHGSimulator particleAt: particleIndex) ifNotNil: aBlock
 ]
 
 { #category : #accessing }

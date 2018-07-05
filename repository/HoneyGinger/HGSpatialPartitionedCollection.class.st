@@ -43,7 +43,8 @@ HGSpatialPartitionedCollection class >> showLicense [
 
 { #category : #accessing }
 HGSpatialPartitionedCollection >> at: anHGPoint add: anObject [
-	^ ((self indexAt: anHGPoint) ifNotNilDo: [ :index | (self at: index) add: anObject ])
+	^ (self indexAt: anHGPoint)
+		ifNotNil: [ :index | (self at: index) add: anObject ]
 ]
 
 { #category : #enumerating }

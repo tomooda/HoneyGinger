@@ -59,7 +59,7 @@ HGDotVisualizer >> draw: anHGSimulator on: aCanvas [
 
 { #category : #accessing }
 HGDotVisualizer >> in: anHGSimulator particlesDo: aBlock [
-	(anHGSimulator particleAt: particleIndex) ifNotNilDo: aBlock
+	(anHGSimulator particleAt: particleIndex) ifNotNil: aBlock
 ]
 
 { #category : #accessing }

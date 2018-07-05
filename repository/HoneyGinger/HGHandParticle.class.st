@@ -55,7 +55,7 @@ HGHandParticle >> effectIn: anHGSimulator deltaT: aNumber [
 
 { #category : #accessing }
 HGHandParticle >> in: anHGSimulator particlesDo: aBlock [
-	(anHGSimulator particleAt: particleIndex) ifNotNilDo: aBlock
+	(anHGSimulator particleAt: particleIndex) ifNotNil: aBlock
 ]
 
 { #category : #accessing }

@@ -9,7 +9,8 @@ Class {
 
 { #category : #'instance creation' }
 HoneyGingerLauncher class >> open [
-	"HoneyGingerLauncher open"
+	<script: 'HoneyGingerLauncher open'>
+
 	self new openInWindowLabeled: 'HoneyGinger Launcher'
 ]
 
@@ -34,9 +35,9 @@ HoneyGingerLauncher >> initialize [
 { #category : #actions }
 HoneyGingerLauncher >> launch: aSymbol [
 	| morph |
-	simulator ifNotNilDo: [ :sim | sim delete ].
+	simulator ifNotNil: [ :sim | sim delete ].
 	morph := HGSimulator perform: aSymbol.
-	[morph isKindOf: SystemWindow] whileFalse: [morph := morph owner].
+	[ morph isKindOf: SystemWindow ] whileFalse: [ morph := morph owner ].
 	simulator := morph
 ]
 
