@@ -139,13 +139,12 @@ HGVoronoiDiagram >> addRegionAt: aPoint [
 	thePoint := HG2dPoint x: aPoint x asFloat y: aPoint y asFloat.
 	newRegion := HGVoronoiRegion at: thePoint.
 	(self regionThatContains: thePoint)
-		ifNotNilDo: [ :region | 
+		ifNotNil: [ :region | 
 			| agenda done |
 			agenda := OrderedCollection with: region.
 			done := OrderedCollection with: region with: newRegion.
 			[ agenda notEmpty ]
-				whileTrue: [ 
-					| currentRegion |
+				whileTrue: [ | currentRegion |
 					currentRegion := agenda removeLast.
 					(currentRegion
 						cutAgainst: newRegion
@@ -153,10 +152,11 @@ HGVoronoiDiagram >> addRegionAt: aPoint [
 							| nextRegion |
 							nextRegion := edge theOtherSide: currentRegion.
 							(done includes: nextRegion)
-								ifFalse: [ 
-									done add: nextRegion.
-									agenda add: nextRegion ] ]) ifNotNilDo: [ :newEdge | edges add: newEdge ] ].
-			done do: [ :affected | affected purgeExtraEdges do: [ :e | edges remove: e] ] ].
+								ifFalse: [ done add: nextRegion.
+									agenda add: nextRegion ] ])
+						ifNotNil: [ :newEdge | edges add: newEdge ] ].
+			done
+				do: [ :affected | affected purgeExtraEdges do: [ :e | edges remove: e ] ] ].
 	^ regions add: newRegion
 ]
 
@@ -187,32 +187,33 @@ HGVoronoiDiagram >> origin: aPoint1 corner: aPoint2 pairsDo: aTwoArgumentBlock [
 			from := edge fromT.
 			to := edge toT.
 			(edge tAtX: x1)
-				ifNotNilDo: [ :t | 
+				ifNotNil: [ :t | 
 					edge vector x > 0.0
 						ifTrue: [ from := from max: t ]
 						ifFalse: [ to := to min: t ] ].
 			(edge tAtY: y1)
-				ifNotNilDo: [ :t | 
+				ifNotNil: [ :t | 
 					edge vector y > 0.0
 						ifTrue: [ from := from max: t ]
 						ifFalse: [ to := to min: t ] ].
 			(edge tAtX: x2)
-				ifNotNilDo: [ :t | 
+				ifNotNil: [ :t | 
 					edge vector x > 0.0
 						ifTrue: [ to := to min: t ]
 						ifFalse: [ from := from max: t ] ].
 			(edge tAtY: y2)
-				ifNotNilDo: [ :t | 
+				ifNotNil: [ :t | 
 					edge vector y > 0.0
 						ifTrue: [ to := to min: t ]
 						ifFalse: [ from := from max: t ] ].
 			(from <= to and: [ from isInfinite not and: [ to isInfinite not ] ])
-				ifTrue: [ 
-					| fromPoint toPoint |
+				ifTrue: [ | fromPoint toPoint |
 					fromPoint := edge atT: from.
 					toPoint := edge atT: to.
 					((fromPoint x between: x1 and: x2)
-						and: [ (toPoint x between: x1 and: x2) and: [ (fromPoint y between: y1 and: y2) and: [ toPoint y between: y1 and: y2 ] ] ])
+						and: [ (toPoint x between: x1 and: x2)
+								and: [ (fromPoint y between: y1 and: y2)
+										and: [ toPoint y between: y1 and: y2 ] ] ])
 						ifTrue: [ aTwoArgumentBlock value: (edge atT: from) value: (edge atT: to) ] ] ]
 ]
 

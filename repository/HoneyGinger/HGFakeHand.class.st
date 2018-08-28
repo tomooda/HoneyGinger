@@ -33,17 +33,15 @@ HGFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 			((anHGSimulator bounds containsPoint: globalPoint)
 				ifTrue: [ cursor ]
 				ifFalse: [ Cursor normal ]).
-	position := globalPoint - bounds origin.
+	position := (globalPoint - bounds origin) / anHGSimulator scale.
 	canvas := anHGSimulator form getCanvas.
 	lastPosition
-		ifNil: [ 
-			self
+		ifNil: [ self
 				in: anHGSimulator
 				particlesDo: [ :particle | 
 					particle position set: position.
 					particle velocity set: HG2dPoint zero ] ]
-		ifNotNil: [ 
-			| deltaPosition |
+		ifNotNil: [ | deltaPosition |
 			deltaPosition := position - lastPosition.
 			self
 				in: anHGSimulator

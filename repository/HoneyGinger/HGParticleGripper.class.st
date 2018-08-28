@@ -68,7 +68,7 @@ HGParticleGripper >> effectIn: anHGSimulator deltaT: aNumber [
 
 { #category : #enumerating }
 HGParticleGripper >> in: anHGSimulator particlesDo: aBlock [
-	offsets ifNotNilDo: [ :dict | dict keysDo: aBlock]
+	offsets ifNotNil: [ :dict | dict keysDo: aBlock ]
 ]
 
 { #category : #accessing }

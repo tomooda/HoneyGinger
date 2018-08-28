@@ -271,7 +271,7 @@ HGTriangulator >> minAngleOn: vertex1 on: vertex2 on: vertex3 [
 HGTriangulator >> neighborPairParams: anHG2dTriangle do: aBlock [
 	(triangles at: anHG2dTriangle)
 		do: [ :params | 
-			(triangles at: (params at: 1))
+			(triangles at: (params at: 1) ifAbsent: [#()])
 				do: [ :pairParams | 
 					(pairParams at: 1) == anHG2dTriangle
 						ifTrue: [ aBlock value: params value: pairParams ] ] ]

@@ -166,9 +166,12 @@ HGElasticBody >> merge: anHGElasticBody [
 	anHGElasticBody particlesDo: [ :particle | particles add: particle ].
 	anHGElasticBody
 		pairsDo: [ :particle1 :particle2 | 
-			(pairs detect: [ :edge | (edge at: 1) == particle2 and: [ (edge at: 2) == particle1 ] ] ifNone: [  ])
+			(pairs
+				detect:
+					[ :edge | (edge at: 1) == particle2 and: [ (edge at: 2) == particle1 ] ]
+				ifNone: [  ])
 				ifNil: [ pairs add: (Array with: particle1 with: particle2) ]
-				ifNotNilDo: [ :pairEdge | pairs remove: pairEdge ] ]
+				ifNotNil: [ :pairEdge | pairs remove: pairEdge ] ]
 ]
 
 { #category : #geometry }

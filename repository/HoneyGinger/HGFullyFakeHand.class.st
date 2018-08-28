@@ -27,23 +27,21 @@ HGFullyFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 			((anHGSimulator bounds containsPoint: globalPoint)
 				ifTrue: [ cursor ]
 				ifFalse: [ Cursor normal ]).
-	position := globalPoint - bounds origin.
+	position := (globalPoint - bounds origin) / anHGSimulator scale.
 	canvas := anHGSimulator form getCanvas.
 	lastPosition
-		ifNil: [ 
-			self
+		ifNil: [ self
 				in: anHGSimulator
 				particlesDo: [ :particle | 
 					particle position set: position.
 					particle velocity set: (lastVelocity := HG2dPoint zero) ] ]
-		ifNotNil: [ 
-			| deltaPosition velocity |
+		ifNotNil: [ | deltaPosition velocity |
 			deltaPosition := position - lastPosition.
 			velocity := deltaPosition * (mickey / aNumber).
 			self
 				in: anHGSimulator
 				particlesDo: [ :particle | 
-					particle velocity set:  velocity.
+					particle velocity set: velocity.
 					lastVelocity := velocity ] ].
 	lastPosition := position
 ]

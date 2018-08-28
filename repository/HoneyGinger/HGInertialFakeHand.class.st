@@ -46,13 +46,11 @@ HGInertialFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 			((anHGSimulator bounds containsPoint: globalPoint)
 				ifTrue: [ cursor ]
 				ifFalse: [ Cursor normal ]).
-	position := globalPoint - bounds origin.
+	position := (globalPoint - bounds origin) / anHGSimulator scale.
 	canvas := anHGSimulator form getCanvas.
 	lastPosition
-		ifNotNil: [ 
-			(self collidesIn: anHGSimulator)
-				ifFalse: [ 
-					| deltaPosition |
+		ifNotNil: [ (self collidesIn: anHGSimulator)
+				ifFalse: [ | deltaPosition |
 					deltaPosition := position - lastPosition.
 					self
 						in: anHGSimulator

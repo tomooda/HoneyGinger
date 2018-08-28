@@ -27,25 +27,26 @@ HGWorldSubmorphsObstacle >> boundsExpansion: aNumber [
 
 { #category : #simulating }
 HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
-	| position morphicPosition |
+	| scale position morphicPosition |
+	scale := anHGSimulator scale.
 	position := anHGParticle position.
-	morphicPosition := (position x + anHGSimulator left) @ (position y + anHGSimulator top).
+	morphicPosition := (position x * scale + anHGSimulator left) @ (position y * scale + anHGSimulator top).
 	World
 		submorphsDo: [ :submorph | 
 			submorph ~~ simulatorTopMorph
-				ifTrue: [ 
-					self
+				ifTrue: [ self
 						effect: anHGParticle
 						position: position
 						morphicPosition: morphicPosition
 						morphicBounds: submorph bounds.
 					position := anHGParticle position.
-					morphicPosition := (position x + anHGSimulator left) @ (position y + anHGSimulator top) ] ].
+					morphicPosition := (position x * scale + anHGSimulator left)
+						@ (position y * scale + anHGSimulator top) ] ].
 	self
 		effect: anHGParticle
 		position: position
 		morphicPosition: morphicPosition
-		morphicBounds: (ActiveHand bounds)
+		morphicBounds: ActiveHand bounds
 ]
 
 { #category : #private }

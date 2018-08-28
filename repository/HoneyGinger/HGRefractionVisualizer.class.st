@@ -49,7 +49,7 @@ HGRefractionVisualizer >> draw: anHGSimulator on: aCanvas [
 	xstep := (anHGSimulator simulationCorner x - anHGSimulator simulationOrigin x) / xgrids asFloat.
 	ystep := (anHGSimulator simulationCorner y - anHGSimulator simulationOrigin y) / ygrids asFloat.
 	extent := (xstep @ ystep) ceiling.
-	offset := form extent - anHGSimulator extent // 2.
+	offset := 0.
 	0 to: xgrids - 1 do: [ :xIndex | 
 		| x |
 		x := xstep / 2.0 + (xstep * xIndex) + anHGSimulator simulationOrigin x.

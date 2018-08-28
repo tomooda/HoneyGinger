@@ -41,11 +41,10 @@ HGHandParticle >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position |
 	bounds := anHGSimulator bounds.
 	globalPoint := ActiveHand position.
-	position := globalPoint - bounds origin.
-	lastPosition ifNil: [lastPosition := position].
+	position := (globalPoint - bounds origin) / anHGSimulator scale.
+	lastPosition ifNil: [ lastPosition := position ].
 	(ActiveHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
-		ifTrue: [ 
-			self
+		ifTrue: [ self
 				in: anHGSimulator
 				particlesDo: [ :particle | 
 					particle position set: position.
