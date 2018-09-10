@@ -2831,10 +2831,9 @@ HGSimulator class >> jetbathSourceCode [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : #esug2018 }
 HGSimulator class >> lagoonDots [
-	"HGSimulator lagoonDots"
-
+	<script: 'HGSimulator lagoonDots'>
 	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
@@ -2864,20 +2863,22 @@ HGSimulator class >> lagoonDots [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : #esug2018 }
 HGSimulator class >> lagoonGraffiti [
-	"HGSimulator lagoonGraffiti"
-
+	<script: 'HGSimulator lagoonGraffiti'>
 	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addInitializer: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -2886,27 +2887,69 @@ HGSimulator class >> lagoonGraffiti [
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.01).
-	simulator addAction: (HGBorderlineFillPressureVisualizer pressure: 0.01 color: Color lightBlue).
 	simulator
-		addAction: (HGBorderlineFillPressureVisualizer pressure: 0.4 color: (Color lightBlue mixed: 0.95 with: Color blue)).
-	simulator
-		addAction: (HGBorderlineFillPressureVisualizer pressure: 1.6 color: (Color lightBlue mixed: 0.9 with: Color blue)).
+		addAction: (HGBorderlineFillPressureVisualizer pressure: 0.01 color: Color lightBlue).
 	simulator
 		addAction:
-			((HGBorderlinePressureVisualizer pressure: 0.1 width: 1 color: Color black)
+			(HGBorderlineFillPressureVisualizer
+				pressure: 0.2
+				color: (Color lightBlue mixed: 0.95 with: Color blue)).
+	simulator
+		addAction:
+			(HGBorderlineFillPressureVisualizer
+				pressure: 1.6
+				color: (Color lightBlue mixed: 0.9 with: Color blue)).
+	simulator
+		addAction:
+			((HGBorderlinePressureVisualizer pressure: 0.01 width: 1 color: Color black)
 				xgrids: 60;
 				ygrids: 60;
 				yourself).
-	simulator
+	"	simulator
 		addAction:
 			((HGBorderlinePressureVisualizer pressure: 0.8 width: 1 color: Color black)
 				xgrids: 50;
 				ygrids: 50;
 				yourself).
+"
 	simulator addAction: HGLocalityMap new.
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	500 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon (Graffiti)') position: 400 @ 1.
+	^ simulator
+]
+
+{ #category : #esug2018 }
+HGSimulator class >> lagoonGrid [
+	<script: 'HGSimulator lagoonGrid'>
+	| random simulator |
+	random := Random new.
+	simulator := HGSimulator new.
+	simulator extent: 500 @ 500.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator
+		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: HGMeshVelocityVisualizer new.
+	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
+	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	(simulator openInWindowLabeled: 'Lagoon Refraction World') position: 400 @ 1.
 	^ simulator
 ]
 
@@ -3352,10 +3395,9 @@ HGSimulator class >> lagoonReflectionWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : #esug2018 }
 HGSimulator class >> lagoonRefractionWorld [
-	"HGSimulator lagoonRefractionWorld"
-
+	<script: 'HGSimulator lagoonRefractionWorld'>
 	| random simulator |
 	random := Random new.
 	simulator := HGSimulator new.
@@ -3392,22 +3434,24 @@ HGSimulator class >> lagoonRefractionWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : #esug2018 }
 HGSimulator class >> lagoonSmokeyWorld [
-	"HGSimulator lagoonSmokeyWorld"
-
+	<script: 'HGSimulator lagoonSmokeyWorld'>
 	| random simulator |
 	random := Random new.
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addInitializer: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -3417,7 +3461,12 @@ HGSimulator class >> lagoonSmokeyWorld [
 	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
-	simulator addAction: (HGSmokeyVisualizer kernel: (HGSimpleKernel support: 20.0) scale: 5.0 color: (Color lightGray alpha: 0.3)).
+	simulator
+		addAction:
+			(HGSmokeyVisualizer
+				kernel: (HGSimpleKernel support: 20.0)
+				scale: 5.0
+				color: (Color lightGray alpha: 0.3)).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
 	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon Refraction World'.
@@ -3987,12 +4036,14 @@ HGSimulator class >> polymer800 [
 HGSimulator class >> powder1000 [
 	"HGSimulator powder1000"
 
-	| random origin simulator bindingAction stick |
+	| random origin simulator stick |
 	random := Random new.
 	simulator := HGSimulator new.
 	simulator color: Color white.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGViscosityInitialization with: 0.1).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -4001,14 +4052,14 @@ HGSimulator class >> powder1000 [
 		addAction:
 			(HGTriggerBlockAction
 				whenever: [ ActiveHand anyButtonPressed ]
-				do: [ 
-					simulator
+				do: [ simulator
 						particlesDo: [ :p | 
 							p
 								addForce: (origin unitVector: p position)
 								by: (500000.0 / (origin to: stick center distance: p position) squared min: 3000.0) ] ]).
 	simulator addAction: (HGPressure gasConstant: 0.1 kernel: (HGSimpleKernel support: 3.0)).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 3.0) maxPressure: 100.0).
+	simulator
+		addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 3.0) maxPressure: 100.0).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 25.0)).
@@ -4018,22 +4069,23 @@ HGSimulator class >> powder1000 [
 	simulator addAction: HGVelocityIntegration new.
 	simulator
 		addAction:
-			(HGObstacle with: (stick := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 40.0) color: (Color gray: 0.8)).
+			(HGObstacle
+				with: (stick := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 40.0)
+				color: (Color gray: 0.8)).
 	simulator
 		addAction:
 			(HGTriggerBlockAction
 				whenever: [ true ]
-				do: [ 
-					| position |
-					position := ActiveHand position.
+				do: [ | position |
+					position := (ActiveHand position - simulator position) / simulator scale
+						+ simulator position.
 					(simulator bounds containsPoint: position)
 						ifTrue: [ stick center: (HG2dPoint fromPoint: position - simulator position) ] ]).
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 0.5 color: Color black).
 	1000
-		timesRepeat: [ 
-			| position p |
+		timesRepeat: [ | position p |
 			position := random next @ random next * 500.
 			p := simulator addParticleAt: position temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'powder 1000'.
@@ -4082,7 +4134,8 @@ HGSimulator class >> powder2000 [
 				whenever: [ true ]
 				do: [ 
 					| position |
-					position := ActiveHand position.
+					position := (ActiveHand position - simulator position) / simulator scale
+						+ simulator position.
 					(simulator bounds containsPoint: position)
 						ifTrue: [ stick center: (HG2dPoint fromPoint: position - simulator position) ] ]).
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
@@ -4139,7 +4192,8 @@ HGSimulator class >> powder3000 [
 				whenever: [ true ]
 				do: [ 
 					| position |
-					position := ActiveHand position.
+					position := (ActiveHand position - simulator position) / simulator scale
+						+ simulator position.
 					(simulator bounds containsPoint: position)
 						ifTrue: [ stick center: (HG2dPoint fromPoint: position - simulator position) ] ]).
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
@@ -4154,17 +4208,18 @@ HGSimulator class >> powder3000 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : #esug2018 }
 HGSimulator class >> powder4000 [
-	"HGSimulator powder4000"
-
-	| random origin simulator bindingAction stick |
+	<script: 'HGSimulator powder4000'>
+	| random origin simulator stick |
 	random := Random new.
 	simulator := HGSimulator new.
 	simulator color: Color white.
 	simulator extent: 500 @ 500.
-	simulator particleMapResolution: 10.  
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator particleMapResolution: 10.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGViscosityInitialization with: 0.1).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -4173,14 +4228,14 @@ HGSimulator class >> powder4000 [
 		addAction:
 			(HGTriggerBlockAction
 				whenever: [ ActiveHand anyButtonPressed ]
-				do: [ 
-					simulator
+				do: [ simulator
 						particlesDo: [ :p | 
 							p
 								addForce: (origin unitVector: p position)
 								by: (500000.0 / (origin to: stick center distance: p position) squared min: 3000.0) ] ]).
 	simulator addAction: (HGPressure gasConstant: 0.1 kernel: (HGSimpleKernel support: 3.0)).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 3.0) maxPressure: 100.0).
+	simulator
+		addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 3.0) maxPressure: 100.0).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 25.0)).
@@ -4190,22 +4245,23 @@ HGSimulator class >> powder4000 [
 	simulator addAction: HGVelocityIntegration new.
 	simulator
 		addAction:
-			(HGObstacle with: (stick := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 40.0) color: (Color gray: 0.8)).
+			(HGObstacle
+				with: (stick := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 40.0)
+				color: (Color gray: 0.8)).
 	simulator
 		addAction:
 			(HGTriggerBlockAction
 				whenever: [ true ]
-				do: [ 
-					| position |
-					position := ActiveHand position.
+				do: [ | position |
+					position := (ActiveHand position - simulator position) / simulator scale
+						+ simulator position.
 					(simulator bounds containsPoint: position)
 						ifTrue: [ stick center: (HG2dPoint fromPoint: position - simulator position) ] ]).
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 0.5 color: Color black).
 	4000
-		timesRepeat: [ 
-			| position p |
+		timesRepeat: [ | position p |
 			position := random next @ random next * 500.
 			p := simulator addParticleAt: position temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'powder 4000'.
@@ -5608,21 +5664,23 @@ HGSimulator class >> smokeInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : #esug2018 }
 HGSimulator class >> splashDots [
-	"HGSimulator splashDots"
-
-	| simulator forms random |
+	<script: 'HGSimulator splashDots'>
+	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGRandomPosition origin: 300 @ 150 corner: 500 @ 500).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 380).
 	simulator addAction: (HGHandParticle at: 1).
 	simulator addAction: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: (HGGravity g: (HG2dPoint x: 0 y: 0.98)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: HGForceIntegration new.
@@ -5633,7 +5691,41 @@ HGSimulator class >> splashDots [
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 1.5 color: Color blue).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
+	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 2000.
+	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	simulator openInWindowLabeled: 'Splash (Dots)'.
+	^ simulator
+]
+
+{ #category : #esug2018 }
+HGSimulator class >> splashDotsAndLine [
+	<script: 'HGSimulator splashDotsAndLine'>
+	| simulator |
+	simulator := HGSimulator new.
+	simulator extent: 500 @ 500.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer: (HGRandomPosition origin: 300 @ 150 corner: 500 @ 500).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 380).
+	simulator addAction: (HGHandParticle at: 1).
+	simulator addAction: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator
+		addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator addAction: (HGGravity g: (HG2dPoint x: 0 y: 0.98)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 20.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: (HGDotsVisualizer radius: 1.5 color: Color blue).
+	simulator
+		addAction: (HGBorderlinePressureVisualizer pressure: 0.5 width: 1 color: Color blue).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 2000.
 	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Splash (Dots)'.
@@ -5672,21 +5764,23 @@ HGSimulator class >> splashPolygon [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : #esug2018 }
 HGSimulator class >> splashPressureBorderline [
-	"HGSimulator splashPressureBorderline"
-
+	<script: 'HGSimulator splashPressureBorderline'>
 	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator addInitializer: (HGRandomPosition origin: 300 @ 150 corner: 500 @ 500).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 380).
 	simulator addAction: (HGHandParticle at: 1).
 	simulator addAction: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: (HGGravity g: (HG2dPoint x: 0 y: 0.98)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: HGForceIntegration new.
@@ -5696,8 +5790,8 @@ HGSimulator class >> splashPressureBorderline [
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
-	simulator addAction: (HGBorderlinePressureVisualizer pressure: 0.4 width: 1 color: Color blue).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
+	simulator
+		addAction: (HGBorderlinePressureVisualizer pressure: 0.4 width: 1 color: Color blue).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 2000.
 	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Splash (Borderline)'.
@@ -5940,9 +6034,8 @@ HGSimulator class >> stationaryVelocityViewer [
 
 { #category : #'applications-presentations' }
 HGSimulator class >> steampaint [
-	"HGSimulator steampaint"
-
-	| random form mask simulator rate gravity window refraction smoke |
+	<script: 'HGSimulator steampaint'>
+	| random form simulator rate gravity refraction smoke |
 	random := Random new.
 	form := Form
 		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Pictures' / 'flunch.jpg') readStream.
@@ -5950,16 +6043,18 @@ HGSimulator class >> steampaint [
 	rate := 1.0.
 	simulator := HGSimulator new.
 	simulator extent: form extent.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint fromPoint: form extent).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint fromPoint: form extent).
 	simulator addInitializer: (HGRandomPosition origin: 0 @ 0 corner: form extent).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addInitializer: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (gravity := HGGravity
-					g: (HG2dPoint x: 0 y: -2.0)).
-	simulator addAction: (HGPressure gasConstant: 0.01 kernel: (HGSimpleKernel support: 15.0)).
+	simulator addAction: (gravity := HGGravity g: (HG2dPoint x: 0 y: -2.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.01 kernel: (HGSimpleKernel support: 15.0)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -5968,7 +6063,12 @@ HGSimulator class >> steampaint [
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: HGLocalityMap withOutOfBoundsRemoval.
 	simulator addAction: (HGBackgroundImageVisualizer form: form).
-	simulator addAction: (smoke := HGSmokeyVisualizer kernel: (HGSimpleKernel support: 20.0) scale: 0.0 color: Color white).
+	simulator
+		addAction:
+			(smoke := HGSmokeyVisualizer
+				kernel: (HGSimpleKernel support: 20.0)
+				scale: 0.0
+				color: Color white).
 	simulator
 		addAction:
 			(refraction := HGRefractionVisualizer
@@ -5978,37 +6078,134 @@ HGSimulator class >> steampaint [
 				scale: 0.0
 				image: nil).
 	simulator
-		addAction: (HGTriggerBlockAction
-				whenever: [ActiveHand anyButtonPressed and: [simulator bounds containsPoint: ActiveHand position]]
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ ActiveHand anyButtonPressed
+						and: [ simulator bounds containsPoint: ActiveHand position ] ]
 				do: [ | point |
 					point := ActiveHand position - simulator position.
-					simulator addAction: (HGTriggerBlockAction whenever: [simulator random next < rate] do: [(simulator
-								addParticleAt: simulator random next - 0.5 @ (simulator random next * 2.0 - 1.8) * 40 + point
-								temperature: 370.0
-								mass: 300.0)
-								viscosity: 79.0])]).
+					simulator
+						addAction:
+							(HGTriggerBlockAction
+								whenever: [ simulator random next < rate ]
+								do: [ (simulator
+										addParticleAt: (simulator random next - 0.5) @ (simulator random next * 2.0 - 1.8) * 40 + point
+										temperature: 370.0
+										mass: 300.0) viscosity: 79.0 ]) ]).
 	((self
-		verticalPanel: (Array
-				with: (self
-						selectorPanel: 'Refraction'
-						do: [:scale | 
-							refraction scale: scale * 1.0]
-						withAll: #(0 10 20 30 ))
-				with: (self
-						selectorPanel: 'Smoke'
-						do: [:scale | 
-							smoke scale: scale]
-						withAll: #(0 100 200 300 ))
-				with: (self
-						selectorPanel: 'Upstream'
-						do: [:gy | gravity g y: gy negated]
-						withAll: #(0.1 0.2 0.5 1.0 2.0 4.0 8.0 ))
-				with: (self
-						selectorPanel: 'Amount'
-						do: [:m | rate := m / 100.0]
-						withAll: #(1 10 100)))) addMorphBack: simulator;
-		 openInWindowLabeled: 'Steam-Paint') position: 400 @ 1.
-	simulator setupSimulation; startStepping.
+		verticalPanel:
+		(Array
+		with:
+			(self
+				selectorPanel: 'Refraction'
+				do: [ :scale | refraction scale: scale * 1.0 ]
+				withAll: #(0 10 20 30))
+		with:
+			(self
+				selectorPanel: 'Smoke'
+				do: [ :scale | smoke scale: scale ]
+				withAll: #(0 100 200 300))
+		with:
+			(self
+				selectorPanel: 'Upstream'
+				do: [ :gy | gravity g y: gy negated ]
+				withAll: #(0.1 0.2 0.5 1.0 2.0 4.0 8.0))
+		with:
+			(self selectorPanel: 'Amount' do: [ :m | rate := m / 100.0 ] withAll: #(1 10 100))))
+		addMorphBack: simulator;
+		openInWindowLabeled: 'Steam-Paint') position: 400 @ 1.
+	simulator
+		setupSimulation;
+		startStepping.
+	^ simulator
+]
+
+{ #category : #esug2018 }
+HGSimulator class >> steampaint2 [
+	<script: 'HGSimulator steampaint2'>
+
+	| random form simulator rate gravity refraction smoke |
+	random := Random new.
+	form := Form
+		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') readStream.
+	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
+	rate := 1.0.
+	simulator := HGSimulator new.
+	simulator extent: form extent.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint fromPoint: form extent).
+	simulator addInitializer: (HGRandomPosition origin: 0 @ 0 corner: form extent).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (gravity := HGGravity g: (HG2dPoint x: 0 y: -2.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.01 kernel: (HGSimpleKernel support: 15.0)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: HGLocalityMap withOutOfBoundsRemoval.
+	simulator addAction: (HGBackgroundImageVisualizer form: form).
+	simulator
+		addAction:
+			(smoke := HGSmokeyVisualizer
+				kernel: (HGSimpleKernel support: 20.0)
+				scale: 0.0
+				color: Color white).
+	simulator
+		addAction:
+			(refraction := HGRefractionVisualizer
+				xgrids: 60
+				ygrids: 60
+				kernel: (HGSimpleKernel support: 5)
+				scale: 0.0
+				image: nil).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ ActiveHand anyButtonPressed
+						and: [ simulator bounds containsPoint: ActiveHand position ] ]
+				do: [ | point |
+					point := ActiveHand position - simulator position.
+					simulator
+						addAction:
+							(HGTriggerBlockAction
+								whenever: [ simulator random next < rate ]
+								do: [ (simulator
+										addParticleAt: (simulator random next - 0.5) @ (simulator random next * 2.0 - 1.8) * 40 + point
+										temperature: 370.0
+										mass: 300.0) viscosity: 79.0 ]) ]).
+	((self
+		verticalPanel:
+		(Array
+		with:
+			(self
+				selectorPanel: 'Refraction'
+				do: [ :scale | refraction scale: scale * 1.0 ]
+				withAll: #(0 10 20 30))
+		with:
+			(self
+				selectorPanel: 'Smoke'
+				do: [ :scale | smoke scale: scale ]
+				withAll: #(0 100 200 300))
+		with:
+			(self
+				selectorPanel: 'Upstream'
+				do: [ :gy | gravity g y: gy negated ]
+				withAll: #(0.1 0.2 0.5 1.0 2.0 4.0 8.0))
+		with:
+			(self selectorPanel: 'Amount' do: [ :m | rate := m / 100.0 ] withAll: #(1 10 100))))
+		addMorphBack: simulator;
+		openInWindowLabeled: 'Steam-Paint') position: 400 @ 1.
+	simulator
+		setupSimulation;
+		startStepping.
 	^ simulator
 ]
 
@@ -6324,45 +6521,54 @@ HGSimulator class >> washoutDots [
 	"HGSimulator washoutDots"
 
 	| source random simulator clicked oldClicked trindingElasticForceAction |
-	source := thisContext method getSource.
+	source := thisContext method sourceCode.
 	random := Random new.
 	simulator := HGSimulator new.
 	clicked := false.
-	simulator color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
+	simulator
+		color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator
 		addInitializer:
 			(HGAddTrindingElasticBody
 				on:
-					(trindingElasticForceAction := HGHardTrindingElasticForce steps: 3 convergenceCoefficient: 0.1 color: Color gray)
+					(trindingElasticForceAction := HGHardTrindingElasticForce
+						steps: 3
+						convergenceCoefficient: 0.1
+						color: Color gray)
 				region: (HG2dCircle center: (HG2dPoint x: 400 y: 250) radius: 80.0)
 				numberOfParticles: 20
 				mass: 200.0).
 	simulator
 		addAction:
 			(HGTriggerBlockAction
-				whenever: [ 
-					oldClicked := clicked.
+				whenever: [ oldClicked := clicked.
 					clicked := ActiveHand anyButtonPressed.
 					oldClicked not and: [ clicked ] ]
-				do: [ 
-					| p d |
-					p := HG2dPoint fromPoint: ActiveHand position - simulator position.
+				do: [ | p d |
+					p := HG2dPoint
+						fromPoint: ActiveHand position - simulator position.
 					d := HG2dPoint x: 20.0 y: 20.0.
 					simulator
 						addAction:
-							(HGPump
-								v: (p unitVector: (HG2dPoint x: 250.0 y: 250.0)) * 10.0
-								at: (p)) ]).
+							(HGPump v: (p unitVector: (HG2dPoint x: 250.0 y: 250.0)) * 10.0 at: p) ]).
 	simulator addAction: HGTemperatureViscosityCurve normalizedButter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 1.0 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 1.0 kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: trindingElasticForceAction.
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 5.0) maxPressure: 1000.0).
+	simulator
+		addAction:
+			(HGPressureRepulsion
+				kernel: (HGSimpleKernel support: 5.0)
+				maxPressure: 1000.0).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
-	simulator addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.9).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 3 color: Color blue).
@@ -6426,46 +6632,60 @@ HGSimulator class >> washoutRefraction [
 	"HGSimulator washoutRefraction"
 
 	| source random simulator clicked oldClicked trindingElasticForceAction |
-	source := thisContext method getSource.
+	source := thisContext method sourceCode.
 	random := Random new.
 	simulator := HGSimulator new.
 	clicked := false.
-	simulator color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
+	simulator
+		color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
 	simulator
 		addInitializer:
 			(HGAddTrindingElasticBody
 				on:
-					(trindingElasticForceAction := HGHardTrindingElasticForce steps: 3 convergenceCoefficient: 0.1 color: Color gray)
+					(trindingElasticForceAction := HGHardTrindingElasticForce
+						steps: 3
+						convergenceCoefficient: 0.1
+						color: Color gray)
 				region: (HG2dCircle center: (HG2dPoint x: 400 y: 250) radius: 80.0)
 				numberOfParticles: 20
 				mass: 200.0).
 	simulator
 		addAction:
 			(HGTriggerBlockAction
-				whenever: [ 
-					oldClicked := clicked.
+				whenever: [ oldClicked := clicked.
 					clicked := ActiveHand anyButtonPressed.
 					oldClicked not and: [ clicked ] ]
-				do: [ 
-					| p d |
-					p := HG2dPoint fromPoint: ActiveHand position - simulator position.
+				do: [ | p d |
+					p := HG2dPoint
+						fromPoint: ActiveHand position - simulator position.
 					d := HG2dPoint x: 20.0 y: 20.0.
 					simulator
 						addAction:
-							(HGPump
-								v: (p unitVector: (HG2dPoint x: 250.0 y: 250.0)) * 10.0
-								at: (p)) ]).
+							(HGPump v: (p unitVector: (HG2dPoint x: 250.0 y: 250.0)) * 10.0 at: p) ]).
 	simulator addAction: HGTemperatureViscosityCurve normalizedButter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 1.0 kernel: (HGSimpleKernel support: 20.0)).
-	simulator addAction: (HGRefractionVisualizer scale: 3.0 image: (Form fromDisplay: (0@0 corner: 500@500))).
+	simulator
+		addAction: (HGPressure gasConstant: 1.0 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction:
+			(HGRefractionVisualizer
+				scale: 3.0
+				image: (Form fromDisplay: (0 @ 0 corner: 500 @ 500))).
+	simulator addAction: (HGMeshPressureVisualizer scale: 0.02 bias: 0.0 color: Color blue).
 	simulator addAction: trindingElasticForceAction.
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 5.0) maxPressure: 1000.0).
+	simulator
+		addAction:
+			(HGPressureRepulsion
+				kernel: (HGSimpleKernel support: 5.0)
+				maxPressure: 1000.0).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
-	simulator addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 20.0)).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.9).
 	simulator addAction: HGLocalityMap new.
 	simulator openInWindowLabeled: 'Washout (Refraction)'.
@@ -6495,8 +6715,7 @@ HGSimulator class >> waterImageViewer [
 
 { #category : #'applications-presentations' }
 HGSimulator class >> waterpaint [
-	"HGSimulator waterpaint"
-
+	<script: 'HGSimulator waterpaint'>
 	| random form mask simulator gravity window |
 	random := Random new.
 	form := Form
@@ -6544,6 +6763,76 @@ HGSimulator class >> waterpaint [
 			(HGTriggerBlockAction
 				whenever: [ random next < 0.1 ]
 				do: [ gravity g: (HG2dPoint theta: random next * 3.14 * 2 r: 0.2) ]).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ ActiveHand anyButtonPressed
+						and: [ simulator bounds containsPoint: ActiveHand position ] ]
+				do: [ | point |
+					point := ActiveHand position - simulator position.
+					mask getCanvas
+						fillOval: (point - 20 extent: 41 @ 41) color: Color black;
+						flush.
+					simulator random next < 0.3
+						ifTrue: [ (simulator addParticleAt: point temperature: 370.0 mass: 300.0) viscosity: 79.0 ] ]).
+	simulator
+		setupSimulation;
+		startStepping.
+	window := (simulator openInWindowLabeled: 'Water-Paint') position: 400 @ 1.
+	^ simulator
+]
+
+{ #category : #esug2018 }
+HGSimulator class >> waterpaint2 [
+	<script: 'HGSimulator waterpaint2'>
+
+	| random form mask simulator gravity window |
+	random := Random new.
+	form := Form
+		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') readStream.
+	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
+	mask := Form extent: form extent depth: 1.
+	mask getCanvas fillColor: Color white.
+	simulator := HGSimulator new.
+	simulator extent: form extent.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint fromPoint: form extent).
+	simulator addInitializer: (HGRandomPosition origin: 0 @ 0 corner: form extent).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (gravity := HGGravity g: (HG2dPoint x: 0.0 y: 0.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator
+		addAction:
+			(HGObstacle
+				with: (HG2dBlockRegion on: [ :position | (mask colorAt: position asPoint) luminance > 0.5 ])).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: (HGBackgroundImageVisualizer form: form).
+	simulator
+		addAction:
+			(HGRefractionVisualizer
+				xgrids: 100
+				ygrids: 100
+				kernel: (HGSimpleKernel support: 40)
+				scale: 2.0
+				image: nil).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ random next < 0.06 ]
+				do: [ gravity g: (HG2dPoint theta: random next * 3.14 * 2 r: 0.5) ]).
 	simulator
 		addAction:
 			(HGTriggerBlockAction
