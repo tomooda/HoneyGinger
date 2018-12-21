@@ -2858,7 +2858,7 @@ HGSimulator class >> lagoonDots [
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 2 color: Color black).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	800 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon (Dots)') position: 400 @ 1.
 	^ simulator
 ]
@@ -2914,7 +2914,7 @@ HGSimulator class >> lagoonGraffiti [
 "
 	simulator addAction: HGLocalityMap new.
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
-	500 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	800 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon (Graffiti)') position: 400 @ 1.
 	^ simulator
 ]
@@ -2948,7 +2948,7 @@ HGSimulator class >> lagoonGrid [
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: HGMeshVelocityVisualizer new.
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	800 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon Refraction World') position: 400 @ 1.
 	^ simulator
 ]
@@ -3423,13 +3423,13 @@ HGSimulator class >> lagoonRefractionWorld [
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
 	simulator
-		addAction: (HGRefractionVisualizer scale: 10.0 image: (Form fromDisplay: (0 @ 0 corner: 500 @ 500))).
+		addAction: (HGRefractionVisualizer xgrids: 100 ygrids: 100 kernel: (HGSimpleKernel support: 20) scale: 2.0 image: (Form fromDisplay: (0 @ 0 corner: 500 @ 500))).
 	simulator
 		addAction:
 			((HGMeshPressureVisualizer scale: 0.1 bias: 0.1 color: Color blue)
 				kernel: (HGSimpleKernel support: 30)).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	800 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon Refraction World') position: 400 @ 1.
 	^ simulator
 ]
@@ -3468,7 +3468,7 @@ HGSimulator class >> lagoonSmokeyWorld [
 				scale: 5.0
 				color: (Color lightGray alpha: 0.3)).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	800 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon Refraction World'.
 	^ simulator
 ]
@@ -6127,7 +6127,7 @@ HGSimulator class >> steampaint2 [
 	| random form simulator rate gravity refraction smoke |
 	random := Random new.
 	form := Form
-		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') readStream.
+		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') binaryReadStream.
 	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
 	rate := 1.0.
 	simulator := HGSimulator new.
@@ -6785,11 +6785,10 @@ HGSimulator class >> waterpaint [
 { #category : #esug2018 }
 HGSimulator class >> waterpaint2 [
 	<script: 'HGSimulator waterpaint2'>
-
 	| random form mask simulator gravity window |
 	random := Random new.
 	form := Form
-		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') readStream.
+		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'beach.png') binaryReadStream.
 	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
 	mask := Form extent: form extent depth: 1.
 	mask getCanvas fillColor: Color white.
@@ -6805,8 +6804,7 @@ HGSimulator class >> waterpaint2 [
 	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
 	simulator addAction: (gravity := HGGravity g: (HG2dPoint x: 0.0 y: 0.0)).
-	simulator
-		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
@@ -6836,8 +6834,8 @@ HGSimulator class >> waterpaint2 [
 	simulator
 		addAction:
 			(HGTriggerBlockAction
-				whenever: [ ActiveHand anyButtonPressed
-						and: [ simulator bounds containsPoint: ActiveHand position ] ]
+				whenever:
+					[ ActiveHand anyButtonPressed and: [ simulator bounds containsPoint: ActiveHand position ] ]
 				do: [ | point |
 					point := ActiveHand position - simulator position.
 					mask getCanvas
