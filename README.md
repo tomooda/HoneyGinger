@@ -28,4 +28,4 @@ Metacello new
     repository: 'github://tomooda/HoneyGinger/repository';
     load.
 ```
-For demos, see the class-side methods of class `HGSimulation`.
+For demos, see the class-side methods of class `HGSimulator`.
