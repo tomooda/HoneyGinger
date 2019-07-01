@@ -18,3 +18,14 @@ A SPH simulator with rich visualization and interactivity
 [![Borderline](http://img.youtube.com/vi/SdVXyTKnRyc/0.jpg)](http://www.youtube.com/watch?v=SdVXyTKnRyc)
 [![Graffiti](http://img.youtube.com/vi/xEUHcnFiATs/0.jpg)](http://www.youtube.com/watch?v=xEUHcnFiATs)
 [![Obstacles](http://img.youtube.com/vi/j3lvhBzMLy4/0.jpg)](http://www.youtube.com/watch?v=j3lvhBzMLy4)
+
+## Installation
+
+To install in Pharo 7, execute the following lines in a playground:
+```
+Metacello new
+    baseline: 'HoneyGinger';
+    repository: 'github://tomooda/HoneyGinger/repository';
+    load.
+```
+For demos, see the class-side methods of class `HGSimulator`.
