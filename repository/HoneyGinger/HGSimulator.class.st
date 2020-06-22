@@ -1163,7 +1163,7 @@ HGSimulator class >> graffitiInUserImage: rate [
 	"HGSimulator graffitiInUserImage: 0.5"
 
 	| form luminances border cursorForm simulator background gravity |
-	form := Form fromDisplay: (0@0 corner: 50@50).
+	form := Form fromDisplay: (0@0 corner: 500@500).
 	luminances := OrderedCollection new: 2500.
 	1 to: 50 do: [ :x | 1 to: 50 do: [ :y | luminances add: (form colorAt: x @ y) luminance ] ].
 	border := luminances asSortedCollection at: ((2500 * rate) rounded min: 2500 max: 1).
@@ -1198,7 +1198,7 @@ HGSimulator class >> graffitiInUserImage: rate [
 			(HGObstacle with: (HG2dBlockRegion on: [ :position | (background form colorAt: position asPoint) luminance < border ])).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.0).
 	simulator addAction: HGLocalityMap new.
-	simulator addAction: (background := HGBackgroundImageVisualizer form: (form magnifyBy: 10)).
+	simulator addAction: (background := HGBackgroundImageVisualizer form: (form magnifyBy: 1)).
 	simulator
 		addAction:
 			((HGBorderlineFillPressureVisualizer pressure: 0.05 color: (Color blue alpha: 0.5)) kernel: (HGSimpleKernel support: 20)).
@@ -2122,10 +2122,9 @@ HGSimulator class >> impossibeRiverRefraction [
 	simulator addInitializer: (HGRandomPosition origin: 300 @ 300 corner: 500 @ 500).
 	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
-	simulator addAction: (HGHandParticle at: 1).
 	simulator addAction: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator addAction: (HGPressure gasConstant: 0.6 kernel: (HGSimpleKernel support: 40.0)).
 	simulator
 		addAction:
 			(HGLocalAction
@@ -2140,20 +2139,8 @@ HGSimulator class >> impossibeRiverRefraction [
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGBackgroundImageVisualizer form: (Form fromDisplay: (0@0 corner: 500@500))).
-	simulator addAction: (HGMeshPressureVisualizer scale: 0.1 bias: 0.0 color: Color blue lighter).
+	simulator addAction: (HGMeshPressureVisualizer scale: 0.05 bias: 0.2 color: Color blue lighter).
 	simulator addAction: (HGRefractionVisualizer scale: 10.0).
-	simulator
-		addAction:
-			((HGStationaryVelocityVisualizer
-				at: (HG2dPoint x: 250.0 y: 100.0)
-				kernel: (HGSimpleKernel support: 20.0)
-				radius: 2.0
-				width: 2.0
-				scale: 10.0
-				color: Color brown)
-				isTouchy: false;
-				yourself).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
 	simulator addParticleAt: 0 @ 0 temperature: nil mass: 1000.
 	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'Impossible River in Mesh'.
@@ -2188,18 +2175,7 @@ HGSimulator class >> impossibeRiverSmokey [
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
-	simulator
-		addAction:
-			((HGStationaryVelocityVisualizer
-				at: (HG2dPoint x: 250.0 y: 100.0)
-				kernel: (HGSimpleKernel support: 20.0)
-				radius: 2.0
-				width: 2.0
-				scale: 10.0
-				color: Color brown)
-				isTouchy: false;
-				yourself).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
+	simulator addAction: (HGBackgroundImageVisualizer form: (Form fromDisplay: (0@0 corner: 500@500))).
 	simulator addAction: (HGSmokeyVisualizer kernel: (HGSimpleKernel support: 25.0) scale: 20.0 color: (Color lightGray alpha: 0.3)).
 	simulator addParticleAt: 0 @ 0 temperature: nil mass: 1000.
 	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
@@ -3354,7 +3330,7 @@ HGSimulator class >> lagoonReflectionWorld [
 
 { #category : #'applications-UI' }
 HGSimulator class >> lagoonRefractionWorld [
-	"HGSimulator lagoonRefractionWorld"
+	<script: 'HGSimulator lagoonRefractionWorld'>
 
 	| random simulator |
 	random := Random new.
@@ -3363,32 +3339,40 @@ HGSimulator class >> lagoonRefractionWorld [
 	simulator
 		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
 		corner: (HG2dPoint x: 500.0 y: 500.0).
-	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
-	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator
+		addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
+	simulator
+		addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addInitializer: HGTemperatureViscosityCurve butter.
-	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator
+		addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
 	simulator
 		addAction: (HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+	simulator
+		addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator
+		addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
-	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
+	simulator
+		addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
-	simulator
-		addAction: (HGRefractionVisualizer scale: 10.0 image: (Form fromDisplay: (0 @ 0 corner: 500 @ 500))).
+	simulator addAction: HGWorldImageVisualizer new.
+	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: nil).
 	simulator
 		addAction:
 			((HGMeshPressureVisualizer scale: 0.1 bias: 0.1 color: Color blue)
 				kernel: (HGSimpleKernel support: 30)).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
-	(simulator openInWindowLabeled: 'Lagoon Refraction World') position: 400 @ 1.
+	400
+		timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	(simulator openInWindowLabeled: 'HoneyGinger')
+		position: 400 @ 1.
 	^ simulator
 ]
 
@@ -6106,99 +6090,7 @@ HGSimulator class >> stickyBeansAtDie [
 
 { #category : #'applications-jun' }
 HGSimulator class >> submarineByJun4Pharo [
-	"HGSimulator submarineByJun4Pharo"
-
-	| random form0 form1 form2 form rc1 rc2 ball ball2 a1 a2 r simulator contact |
-	random := Random new.
-	form0 := Form fromDisplay: (0@0 corner: 500@500).
-	form1 := Form extent: form0 extent depth: form0 depth.
-	form2 := Form extent: form0 extent depth: form0 depth.
-	form := Form extent: form0 extent depth: form0 depth.
-	rc1 := (Smalltalk at: #JunNBGLRenderingContext) on: form1.
-	rc1 projection: (JunPerspectiveProjection
-		eyePoint: (0, 0, 10)
-		sightPoint: 0, 0, 5
-		upVector: 0 , 1, 0
-		fovy: 30 asDegrees
-		near: 0.1
-		far: 10.0).
-	rc1 disableCullface.
-	rc1 ambientLight: Color darkGray.
-	rc1 lightIndex: 0 parallel: (0.5, 0.3, 6.0) negated color: Color gray.
-	rc2 := (Smalltalk at: #JunNBGLRenderingContext) on: form2.
-	rc2 projection: (JunPerspectiveProjection
-		eyePoint: (0, 0, 10)
-		sightPoint: 0, 0, 5
-		upVector: 0 , 1, 0
-		fovy: 30 asDegrees
-		near: 0.1
-		far: 5.0).
-	rc2 disableCullface.
-	rc2 ambientLight: Color darkGray.
-	rc2 lightIndex: 0 parallel: (0.5, 0.3, 6.0) negated color: Color gray.
-	ball := Jun3dDisplayObject sphere: 15 radius: 0.3.
-	a1 := 0.0 asDegrees.
-	a2 := 0.0 asDegrees.
-	r := 2 * 3 sqrt / 5 * 250.
-	contact := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 0.0.
-	simulator := HGSimulator new.
-	simulator color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
-	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
-	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
-	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
-	simulator addInitializer: (HGTemperatureInitialization with: 370).
-	simulator addInitializer: HGTemperatureViscosityCurve butter.
-	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
-	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.3 kernel: (HGSimpleKernel support: 30.0)).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 40.0)).
-	simulator addAction: HGForceIntegration new.
-	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 60.0)).
-	simulator addAction: HGForceIntegration new.
-	simulator addAction: HGVelocityIntegration new.
-	simulator addAction: (HGTriggerBlockAction whenever: [true] do: [ 
-		| x y z |
-		x := a1 cos.
-		y := a1 sin.
-		z := a2 sin * 0.5 + 4.5.
-		a1 := a1 + 3 asDegrees.
-		a2 := a2 + 7 asDegrees. 
-		rc1 backgroundColor: (Color white).
-		rc1 clear.
-		rc1 backgroundColor: (Color transparent).
-		rc1 clear.
-		(ball2 := ball transform: (Jun3dTransformation translate: x, y, z)) renderOn: rc1.
-		rc1 flush.
-		contact center: (HG2dPoint fromPoint: x, y negated * r + 250).
-		contact radius: (1.0 - (z - 5) abs * r * 0.7).
-		form getCanvas drawImage: form0 at: 0@0; paintImage: form1 at: 0@0; flush]).
-	simulator
-		addAction:
-			(HGObstacle
-				with:
-					(contact)
-				color: (Color transparent)).
-	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
-	simulator addAction: HGLocalityMap new.
-	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: (form)).
-	simulator addAction: ((HGMeshPressureVisualizer color: Color blue) kernel: (HGSimpleKernel support: 60); scale:0.3).
-	simulator addAction: (HGTriggerBlockAction whenever: [true] do: [ 
-		rc2 backgroundColor: (Color transparent).
-		rc2 clear.
-		ball2 renderOn: rc2.
-		rc2 flush.
-		simulator form getCanvas paintImage: form2 at: 0@0; flush]).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
-	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
-	simulator openInWindowLabeled: 'Submarine'.
-	^ simulator
-]
-
-{ #category : #'applications-jun' }
-HGSimulator class >> submarineByJun4Pharo2 [
-	"HGSimulator submarineByJun4Pharo2"
+	<script: 'HGSimulator submarineByJun4Pharo'>
 
 	| random form0 form1 form2 form rc1 rc2 ball ball2 a1 a2 r simulator contact |
 	random := Random new.
@@ -6210,28 +6102,28 @@ HGSimulator class >> submarineByJun4Pharo2 [
 	rc1
 		projection:
 			(JunPerspectiveProjection
-				eyePoint: 0 , 0 , 10
-				sightPoint: 0 , 0 , 5
-				upVector: 0 , 1 , 0
+				eyePoint: 0 ,, 0 ,, 10
+				sightPoint: 0 ,, 0 ,, 5
+				upVector: 0 ,, 1 ,, 0
 				fovy: 30 asDegrees
 				near: 0.1
 				far: 10.0).
 	rc1 disableCullface.
-	rc1 ambientLight: Color darkGray.
-	rc1 lightIndex: 0 parallel: (0.5 , 0.3 , 6.0) negated color: Color gray.
+	rc1 ambientLight: Color black.
+	rc1 lightIndex: 0 parallel: (0.5 ,, 0.3 ,, 6.0) negated color: Color darkGray.
 	rc2 := (Smalltalk at: #JunCanvasRenderingContext) onForm: form2.
 	rc2
 		projection:
 			(JunPerspectiveProjection
-				eyePoint: 0 , 0 , 10
-				sightPoint: 0 , 0 , 5
-				upVector: 0 , 1 , 0
+				eyePoint: 0 ,, 0 ,, 10
+				sightPoint: 0 ,, 0 ,, 5
+				upVector: 0 ,, 1 ,, 0
 				fovy: 30 asDegrees
 				near: 0.1
 				far: 5.0).
 	rc2 disableCullface.
 	rc2 ambientLight: Color darkGray.
-	rc2 lightIndex: 0 parallel: (0.5 , 0.3 , 6.0) negated color: Color gray.
+	rc2 lightIndex: 0 parallel: (0.5 ,, 0.3 ,, 6.0) negated color: Color gray.
 	ball := Jun3dDisplayObject sphere: 15 radius: 0.3.
 	a1 := 0.0 asDegrees.
 	a2 := 0.0 asDegrees.
@@ -6254,6 +6146,7 @@ HGSimulator class >> submarineByJun4Pharo2 [
 	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 60.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: HGWorldImageVisualizer new.
 	simulator
 		addAction:
 			(HGTriggerBlockAction
@@ -6269,18 +6162,125 @@ HGSimulator class >> submarineByJun4Pharo2 [
 					rc1 clear.
 					rc1 backgroundColor: Color transparent.
 					rc1 clear.
-					(ball2 := ball transform: (Jun3dTransformation translate: x , y , z)) renderOn: rc1.
+					(ball2 := ball transform: (Jun3dTransformation translate: x ,, y ,, z)) renderOn: rc1.
 					rc1 flush.
-					contact center: (HG2dPoint fromPoint: (x , y negated) * r + 250).
+					contact center: (HG2dPoint fromPoint: (x ,, y negated) * r + 250).
 					contact radius: (1.0 - (z - 5) abs) * r * 0.7.
-					form getCanvas
-						drawImage: form0 at: 0 @ 0;
+					simulator form getCanvas
 						paintImage: form1 at: 0 @ 0;
 						flush ]).
 	simulator addAction: (HGObstacle with: contact color: Color transparent).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
-	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: form).
+	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: nil).
+	simulator
+		addAction:
+			((HGMeshPressureVisualizer color: Color blue)
+				kernel: (HGSimpleKernel support: 60);
+				scale: 0.3).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ true ]
+				do: [ 
+					rc2 backgroundColor: Color transparent.
+					rc2 clear.
+					ball2 renderOn: rc2.
+					rc2 flush.
+					simulator form getCanvas
+						paintImage: form2 at: 0 @ 0;
+						flush ]).
+	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
+	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	simulator openInWindowLabeled: 'Submarine'.
+	^ simulator
+]
+
+{ #category : #'applications-jun' }
+HGSimulator class >> submarineByJun4Pharo2 [
+	<script: 'HGSimulator submarineByJun4Pharo2'>
+
+	| random form0 form1 form2 form rc1 rc2 ball ball2 a1 a2 r simulator contact |
+	random := Random new.
+	form0 := Form fromDisplay: (0 @ 0 corner: 500 @ 500).
+	form1 := Form extent: form0 extent depth: form0 depth.
+	form2 := Form extent: form0 extent depth: form0 depth.
+	form := Form extent: form0 extent depth: form0 depth.
+	rc1 := (Smalltalk at: #JunCanvasRenderingContext) onForm: form1.
+	rc1
+		projection:
+			(JunPerspectiveProjection
+				eyePoint: 0 ,, 0 ,, 10
+				sightPoint: 0 ,, 0 ,, 5
+				upVector: 0 ,, 1 ,, 0
+				fovy: 30 asDegrees
+				near: 0.1
+				far: 10.0).
+	rc1 disableCullface.
+	rc1 ambientLight: Color black.
+	rc1 lightIndex: 0 parallel: (0.5 ,, 0.3 ,, 6.0) negated color: Color darkGray.
+	rc2 := (Smalltalk at: #JunCanvasRenderingContext) onForm: form2.
+	rc2
+		projection:
+			(JunPerspectiveProjection
+				eyePoint: 0 ,, 0 ,, 10
+				sightPoint: 0 ,, 0 ,, 5
+				upVector: 0 ,, 1 ,, 0
+				fovy: 30 asDegrees
+				near: 0.1
+				far: 5.0).
+	rc2 disableCullface.
+	rc2 ambientLight: Color darkGray.
+	rc2 lightIndex: 0 parallel: (0.5 ,, 0.3 ,, 6.0) negated color: Color gray.
+	ball := Jun3dDisplayObject sphere: 15 radius: 0.3.
+	a1 := 0.0 asDegrees.
+	a2 := 0.0 asDegrees.
+	r := 2 * 3 sqrt / 5 * 250.
+	contact := HG2dCircle center: (HG2dPoint x: 250.0 y: 250.0) radius: 0.0.
+	simulator := HGSimulator new.
+	simulator color: ((Color brown mixed: 0.4 with: Color gray) alpha: 0.2).
+	simulator extent: 500 @ 500.
+	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer: (HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGPositionNoise withBlock: [ random next @ random next * 0.01 ]).
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGPressure gasConstant: 0.3 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 40.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 60.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: HGWorldImageVisualizer new.
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ true ]
+				do: [ 
+					| x y z |
+					x := a1 cos.
+					y := a1 sin.
+					z := a2 sin * 0.5 + 4.5.
+					a1 := a1 + 3 asDegrees.
+					a2 := a2 + 7 asDegrees.
+					rc1 backgroundColor: Color white.
+					rc1 clear.
+					rc1 backgroundColor: Color transparent.
+					rc1 clear.
+					(ball2 := ball transform: (Jun3dTransformation translate: x ,, y ,, z)) renderOn: rc1.
+					rc1 flush.
+					contact center: (HG2dPoint fromPoint: (x ,, y negated) * r + 250).
+					contact radius: (1.0 - (z - 5) abs) * r * 0.7.
+					simulator form getCanvas
+						paintImage: form1 at: 0 @ 0;
+						flush ]).
+	simulator addAction: (HGObstacle with: contact color: Color transparent).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: (HGRefractionVisualizer scale: 10.0 image: nil).
 	simulator
 		addAction:
 			((HGMeshPressureVisualizer color: Color blue)

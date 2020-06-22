@@ -30,18 +30,19 @@ HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumb
 	| scale position morphicPosition |
 	scale := anHGSimulator scale.
 	position := anHGParticle position.
-	morphicPosition := (position x * scale + anHGSimulator left) @ (position y * scale + anHGSimulator top).
-	World
-		submorphsDo: [ :submorph | 
-			submorph ~~ simulatorTopMorph
-				ifTrue: [ self
-						effect: anHGParticle
-						position: position
-						morphicPosition: morphicPosition
-						morphicBounds: submorph bounds.
-					position := anHGParticle position.
-					morphicPosition := (position x * scale + anHGSimulator left)
-						@ (position y * scale + anHGSimulator top) ] ].
+	morphicPosition := (position x * scale + anHGSimulator left)
+		@ (position y * scale + anHGSimulator top).
+	1 to: (World submorphs indexOf: simulatorTopMorph) - 1 do: [ :index | 
+		| submorph |
+		submorph := World submorphs at: index.
+		self
+			effect: anHGParticle
+			position: position
+			morphicPosition: morphicPosition
+			morphicBounds: submorph bounds.
+		position := anHGParticle position.
+		morphicPosition := (position x * scale + anHGSimulator left)
+			@ (position y * scale + anHGSimulator top) ].
 	self
 		effect: anHGParticle
 		position: position
