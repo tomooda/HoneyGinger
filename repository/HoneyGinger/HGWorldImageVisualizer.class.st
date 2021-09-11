@@ -10,6 +10,7 @@ Class {
 
 { #category : #drawing }
 HGWorldImageVisualizer >> draw: anHGSimulator on: aCanvas [
+	"aCanvas drawImage: World imageForm at: simulatorMorph position negated."
 	World submorphs size to: (World submorphs indexOf: simulatorTopMorph) + 1
 	by: -1 do: [ :index | 
 		| morph form |

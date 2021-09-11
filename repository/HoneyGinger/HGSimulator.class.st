@@ -1836,7 +1836,7 @@ HGSimulator class >> impossibeRiverBorderlineFill [
 
 { #category : #'applications-flows' }
 HGSimulator class >> impossibeRiverDots [
-	"HGSimulator impossibeRiverDots"
+	<script: 'HGSimulator impossibeRiverDots'>
 
 	| simulator |
 	simulator := HGSimulator new.
@@ -1931,35 +1931,42 @@ HGSimulator class >> impossibeRiverGraffiti [
 
 { #category : #'applications-flows' }
 HGSimulator class >> impossibeRiverMesh [
-	"HGSimulator impossibeRiverMesh"
-
+	<script: 'HGSimulator impossibeRiverMesh'>
 	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
-	simulator addInitializer: (HGRandomPosition origin: 300 @ 300 corner: 500 @ 500).
-	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		addInitializer: (HGRandomPosition origin: 300 @ 300 corner: 500 @ 500).
+	simulator
+		addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addAction: (HGHandParticle at: 1).
 	simulator addAction: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
 	simulator
 		addAction:
 			(HGLocalAction
 				on: (HGGravity g: (HG2dPoint x: 0 y: 9.8))
-				in: (HG2dRectangle origin: (HG2dPoint fromPoint: 400 @ 0) corner: (HG2dPoint fromPoint: 500 @ 500))).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+				in:
+					(HG2dRectangle
+						origin: (HG2dPoint fromPoint: 400 @ 0)
+						corner: (HG2dPoint fromPoint: 500 @ 500))).
+	simulator
+		addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator
+		addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
-	simulator
-		addAction:
-			((HGMeshVelocityVisualizer new)).
+	simulator addAction: HGMeshVelocityVisualizer new.
 	simulator
 		addAction:
 			((HGStationaryVelocityVisualizer
@@ -1971,9 +1978,11 @@ HGSimulator class >> impossibeRiverMesh [
 				color: Color brown)
 				isTouchy: false;
 				yourself).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
+	simulator
+		addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
 	simulator addParticleAt: 0 @ 0 temperature: nil mass: 1000.
-	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
+	399
+		timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'Impossible River in Mesh'.
 	^ simulator
 ]
@@ -2066,33 +2075,43 @@ HGSimulator class >> impossibeRiverPolygon [
 
 { #category : #'applications-flows' }
 HGSimulator class >> impossibeRiverPressureMap [
-	"HGSimulator impossibeRiverPressureMap"
-
+	<script: 'HGSimulator impossibeRiverPressureMap'>
 	| simulator |
 	simulator := HGSimulator new.
 	simulator extent: 500 @ 500.
-	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
-	simulator addInitializer: (HGRandomPosition origin: 300 @ 300 corner: 500 @ 500).
-	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator
+		addInitializer: (HGRandomPosition origin: 300 @ 300 corner: 500 @ 500).
+	simulator
+		addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
 	simulator addInitializer: (HGTemperatureInitialization with: 370).
 	simulator addAction: (HGHandParticle at: 1).
 	simulator addAction: HGTemperatureViscosityCurve butter.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
+	simulator
+		addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 20.0)).
 	simulator
 		addAction:
 			(HGLocalAction
 				on: (HGGravity g: (HG2dPoint x: 0 y: 9.8))
-				in: (HG2dRectangle origin: (HG2dPoint fromPoint: 400 @ 0) corner: (HG2dPoint fromPoint: 500 @ 500))).
-	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+				in:
+					(HG2dRectangle
+						origin: (HG2dPoint fromPoint: 400 @ 0)
+						corner: (HG2dPoint fromPoint: 500 @ 500))).
+	simulator
+		addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
-	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator
+		addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGBoundingBox reflectionRate: 1.0).
 	simulator addAction: HGLocalityMap new.
-	simulator addAction: (HGMeshPressureVisualizer scale: 0.2 bias: 0.0 color: Color blue).
+	simulator
+		addAction: (HGMeshPressureVisualizer scale: 0.2 bias: 0.0 color: Color blue).
 	simulator
 		addAction:
 			((HGStationaryVelocityVisualizer
@@ -2104,16 +2123,18 @@ HGSimulator class >> impossibeRiverPressureMap [
 				color: Color brown)
 				isTouchy: false;
 				yourself).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
+	simulator
+		addAction: (HGDotVisualizer at: 1 radius: 3.0 color: Color red).
 	simulator addParticleAt: 0 @ 0 temperature: nil mass: 1000.
-	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
+	399
+		timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'Impossible River in Mesh'.
 	^ simulator
 ]
 
 { #category : #'applications-flows' }
 HGSimulator class >> impossibeRiverRefraction [
-	"HGSimulator impossibeRiverRefraction"
+	<script: 'HGSimulator impossibeRiverRefraction'>
 
 	| simulator |
 	simulator := HGSimulator new.
