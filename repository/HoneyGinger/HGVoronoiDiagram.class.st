@@ -12,119 +12,127 @@ Class {
 
 { #category : #examples }
 HGVoronoiDiagram class >> exampleVoronoiDiagram [
+
 	"HGVoronoiDiagram exampleVoronoiDiagram"
 
 	| random form diagram |
 	random := Random new.
 	form := Form extent: 500 @ 500 depth: 32.
 	diagram := HGVoronoiDiagram new.
-	200 timesRepeat: [ | p |
+	200 timesRepeat: [ 
+		| p |
 		p := random next @ random next * 500.
-		diagram addRegionAt: p ].	
-	form getCanvas
-		ifNotNilDo: [ :canvas | 
-			canvas fillColor: Color lightBlue.
-			diagram
-				origin: 0 @ 0
-				corner: 500 @ 500
-				pairsDo: [ :p1 :p2 | 
-					canvas
-						line: p1 x @ p1 y
-						to: p2 x @ p2 y
-						width: 10
-						color: (Color white alpha: 0.02).
-					canvas
-						line: p1 x @ p1 y
-						to: p2 x @ p2 y
-						width: 5
-						color: (Color white alpha: 0.02).
-					canvas
-						line: p1 x @ p1 y
-						to: p2 x @ p2 y
-						width: 1
-						color: (Color white alpha: 0.1) ].
-			"diagram regionsDo: [ :region | canvas fillOval: (region center asPoint extent: 1 @ 1) color: Color red ]" ].
+		diagram addRegionAt: p ].
+	form getCanvas ifNotNil: [ :canvas | 
+		canvas fillColor: Color lightBlue.
+		diagram origin: 0 @ 0 corner: 500 @ 500 pairsDo: [ :p1 :p2 | 
+			canvas
+				line: p1 x @ p1 y
+				to: p2 x @ p2 y
+				width: 10
+				color: (Color white alpha: 0.02).
+			canvas
+				line: p1 x @ p1 y
+				to: p2 x @ p2 y
+				width: 5
+				color: (Color white alpha: 0.02).
+			canvas
+				line: p1 x @ p1 y
+				to: p2 x @ p2 y
+				width: 1
+				color: (Color white alpha: 0.1) ]
+		"diagram regionsDo: [ :region | canvas fillOval: (region center asPoint extent: 1 @ 1) color: Color red ]" ].
 	form asMorph openInWindowLabeled: 'Voronoi'.
 	^ diagram
 ]
 
 { #category : #examples }
 HGVoronoiDiagram class >> exampleVoronoiMap [
+
 	"HGVoronoiDiagram exampleVoronoiMap"
 
 	| random form diagram |
 	random := Random new.
 	form := Form extent: 500 @ 500 depth: 32.
 	diagram := HGVoronoiDiagram new.
-	400
-		timesRepeat: [ 
-			| p |
-			p := random next @ random next * 500.
-			diagram addRegionAt: p ].
-	form getCanvas
-		ifNotNilDo: [ :canvas | 
-			canvas fillColor: Color white.
-			diagram
-				regionsDo: [ :region | 
-					| points |
-					points := OrderedCollection new: 10.
-					region origin: 0 @ 0 corner: 500 @ 500 pointsDo: [ :p | points add: p asPoint ].
-					canvas
-						drawPolygon: points
-						color: Color random
-						borderWidth: 0
-						borderColor: Color black ].
-			diagram
+	400 timesRepeat: [ 
+		| p |
+		p := random next @ random next * 500.
+		diagram addRegionAt: p ].
+	form getCanvas ifNotNil: [ :canvas | 
+		canvas fillColor: Color white.
+		diagram regionsDo: [ :region | 
+			| points |
+			points := OrderedCollection new: 10.
+			region
 				origin: 0 @ 0
 				corner: 500 @ 500
-				pairsDo: [ :p1 :p2 | 
-					canvas
-						line: p1 x @ p1 y
-						to: p2 x @ p2 y
-						width: 1
-						color: Color black ].
-			diagram regionsDo: [ :region | canvas fillOval: (region center asPoint extent: 1 @ 1) color: Color red ] ].
+				pointsDo: [ :p | points add: p asPoint ].
+			canvas
+				drawPolygon: points
+				color: Color random
+				borderWidth: 0
+				borderColor: Color black ].
+		diagram origin: 0 @ 0 corner: 500 @ 500 pairsDo: [ :p1 :p2 | 
+			canvas
+				line: p1 x @ p1 y
+				to: p2 x @ p2 y
+				width: 1
+				color: Color black ].
+		diagram regionsDo: [ :region | 
+			canvas
+				fillOval: (region center asPoint extent: 1 @ 1)
+				color: Color red ] ].
 	form asMorph openInWindowLabeled: 'Voronoi Map'.
 	^ diagram
 ]
 
 { #category : #examples }
 HGVoronoiDiagram class >> exampleVoronoiPlotter [
+
 	"HGVoronoiDiagram exampleVoronoiPlotter"
 
 	| random hueStep hueStream hueBlock imageMorph diagram colorDict plotter |
 	random := Random new.
 	hueStep := 360.0.
 	hueStream := (hueStep / 2.0 to: 360.0 by: hueStep) asArray readStream.
-	hueBlock := [hueStream atEnd ifTrue: [hueStep := hueStep / 2.0. hueStream := (hueStep / 2.0 to: 360.0 by: hueStep) asArray readStream]. hueStream next].
+	hueBlock := [ 
+	            hueStream atEnd ifTrue: [ 
+		            hueStep := hueStep / 2.0.
+		            hueStream := (hueStep / 2.0 to: 360.0 by: hueStep)
+			                         asArray readStream ].
+	            hueStream next ].
 	imageMorph := (Form extent: 500 @ 500 depth: 32) asMorph.
 	diagram := HGVoronoiDiagram new.
 	colorDict := IdentityDictionary new.
-	imageMorph
-		on: #mouseDown
-		send: #value
-		to: [ 
-			Transcript
-				cr;
-				show: ActiveHand position printString.
-			colorDict
-				at: (diagram addRegionAt: ActiveHand position - imageMorph position)
-				put: (Color h: hueBlock value s: 1.0 v: 1.0).
-			imageMorph form getCanvas
-				ifNotNilDo: [ :canvas | 
-					canvas fillColor: Color white.
-					diagram
-						regionsDo: [ :region | 
-							| points |
-							points := OrderedCollection new: 10.
-							region origin: 0 @ 0 corner: 500 @ 500 pointsDo: [ :p | points add: p asPoint ].
-							canvas
-								drawPolygon: points
-								color: (colorDict at: region)
-								borderWidth: 0
-								borderColor: Color black ].
-					diagram regionsDo: [ :region | canvas fillOval: (region center asPoint - 2 extent: 4 @ 4) color: Color black ].
-					imageMorph changed ] ].
+	imageMorph on: #mouseDown send: #value to: [ 
+		Transcript
+			cr;
+			show: World activeHand position printString.
+		colorDict
+			at:
+			(diagram addRegionAt:
+				 World activeHand position - imageMorph position)
+			put: (Color h: hueBlock value s: 1.0 v: 1.0).
+		imageMorph form getCanvas ifNotNil: [ :canvas | 
+			canvas fillColor: Color white.
+			diagram regionsDo: [ :region | 
+				| points |
+				points := OrderedCollection new: 10.
+				region
+					origin: 0 @ 0
+					corner: 500 @ 500
+					pointsDo: [ :p | points add: p asPoint ].
+				canvas
+					drawPolygon: points
+					color: (colorDict at: region)
+					borderWidth: 0
+					borderColor: Color black ].
+			diagram regionsDo: [ :region | 
+				canvas
+					fillOval: (region center asPoint - 2 extent: 4 @ 4)
+					color: Color black ].
+			imageMorph changed ] ].
 	plotter := Morph new.
 	plotter changeTableLayout.
 	plotter listDirection: #bottomToTop.

@@ -12,8 +12,8 @@ Class {
 HGWalker class >> atHand [
 	"HGWalker atHand"
 	| walker |
-	walker := self v: (Point r: 30.0 degrees: (World topLeft - ActiveHand center) degrees) w: 0.05.
-	walker center: ActiveHand position.
+	walker := self v: (Point r: 30.0 degrees: (World topLeft - World activeHand center) degrees) w: 0.05.
+	walker center: World activeHand position.
 	walker extent: 50@30.
 	walker openInWorld
 ]

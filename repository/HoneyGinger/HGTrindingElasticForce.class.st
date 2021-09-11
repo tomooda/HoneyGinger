@@ -122,7 +122,7 @@ HGTrindingElasticForce >> effectIn: anHGSimulator deltaT: aNumber [
 ]
 
 { #category : #simulating }
-HGTrindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber. [
+HGTrindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [.
 	^ self subclassResponsibility 
 ]
 

@@ -21,7 +21,7 @@ HGRecyclingBoundingBox class >> sprintAtHand [
 			particle velocity: HG2dPoint zero.
 			particle
 				position:
-					(HG2dPoint fromPoint: (simulator random next - 0.5) @ (simulator random next * 2.0 - 1.8) * 40.0 + ActiveHand position - simulator position ) ]
+					(HG2dPoint fromPoint: (simulator random next - 0.5) @ (simulator random next * 2.0 - 1.8) * 40.0 + World activeHand position - simulator position ) ]
 ]
 
 { #category : #simulating }

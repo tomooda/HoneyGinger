@@ -6,7 +6,7 @@ Class {
 		'radius',
 		'lastPosition'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -43,12 +43,12 @@ HGParticleGripper >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 HGParticleGripper >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position oldPosition currentParticle |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
+	globalPoint := World activeHand position.
 	position := HG2dPoint fromPoint: globalPoint - bounds origin.
 	lastPosition ifNil: [ lastPosition := position ].
 	oldPosition := nil.
 	currentParticle := nil.
-	(ActiveHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
+	(World activeHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
 		ifTrue: [ 
 			offsets
 				ifNil: [ 

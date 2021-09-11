@@ -9,7 +9,7 @@ Class {
 		'image',
 		'cursor'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -131,8 +131,10 @@ HGAbstractFakeHand >> image: aForm [
 
 { #category : #evaluating }
 HGAbstractFakeHand >> in: anHGSimulator motionLineDo: aBlock [
-	^ lastPosition
-		ifNotNilDo: [ :p1 | (anHGSimulator particleAt: particleIndex) ifNotNilDo: [ :particle | aBlock value: p1 value: particle position ] ]
+
+	^ lastPosition ifNotNil: [ :p1 | 
+		  (anHGSimulator particleAt: particleIndex) ifNotNil: [ :particle | 
+			  aBlock value: p1 value: particle position ] ]
 ]
 
 { #category : #accessing }

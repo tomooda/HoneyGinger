@@ -8,7 +8,7 @@ Class {
 		'step',
 		'size'
 	],
-	#category : 'HoneyGinger-Geometry-Neighbors'
+	#category : #'HoneyGinger-Geometry-Neighbors'
 }
 
 { #category : #copyrights }
@@ -49,12 +49,14 @@ HGSpatialPartitionedCollection >> at: anHGPoint add: anObject [
 
 { #category : #enumerating }
 HGSpatialPartitionedCollection >> at: anHGPoint do: aBlock [
-	^((self indexAt: anHGPoint) ifNotNilDo: [ :index | (self at: index) do: aBlock ])
+	^((self indexAt: anHGPoint) ifNotNil: [ :index | (self at: index) do: aBlock ])
 ]
 
 { #category : #accessing }
 HGSpatialPartitionedCollection >> at: anHGPoint remove: anObject [
-	^ self at: ((self indexAt: anHGPoint) ifNotNilDo: [ :partition | partition remove: anObject ])
+
+	^ self at: ((self indexAt: anHGPoint) ifNotNil: [ :partition | 
+			   partition remove: anObject ])
 ]
 
 { #category : #enumerating }

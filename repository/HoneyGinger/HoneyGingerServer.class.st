@@ -8,7 +8,7 @@ Class {
 		'clientIDs',
 		'acceptingProcess'
 	],
-	#category : 'HoneyGinger-Communications-Server'
+	#category : #'HoneyGinger-Communications-Server'
 }
 
 { #category : #copyrights }
@@ -158,7 +158,12 @@ HoneyGingerServer >> shutdown [
 
 { #category : #servicing }
 HoneyGingerServer >> startup [
+
 	acceptingProcess := [ 
-	[ [ (socket waitForAcceptFor: Socket standardTimeout) ifNotNilDo: [ :serverSocket | self serveFor: serverSocket ] ] repeat ]
-		ifError: [ socket close ] ] fork
+	                    [ 
+	                    [ 
+	                    (socket waitForAcceptFor: Socket standardTimeout) 
+		                    ifNotNil: [ :serverSocket | 
+		                    self serveFor: serverSocket ] ] repeat ] 
+		                    ifError: [ socket close ] ] fork
 ]

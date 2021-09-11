@@ -12,7 +12,7 @@ Class {
 		'durationScale',
 		'kernel'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #'instance creation' }
@@ -23,7 +23,7 @@ HGStationaryPressureSpeaker class >> kernel: anHGKernel [
 { #category : #simulating }
 HGStationaryPressureSpeaker >> effectIn: anHGSimulator deltaT: aNumber [ 
 	| newPosition position sound pitch volume velocity denominator |
-	newPosition := ActiveHand position.
+	newPosition := World activeHand position.
 	(anHGSimulator bounds containsPoint: newPosition)
 		ifFalse: [^ self].
 	position := HG2dPoint fromPoint: newPosition - anHGSimulator bounds origin.
@@ -65,7 +65,7 @@ HGStationaryPressureSpeaker >> kernel: anHGKernel [
 { #category : #simulating }
 HGStationaryPressureSpeaker >> oldeffectIn: anHGSimulator deltaT: aNumber [ 
 	| newPosition position sound pitch volume velocity denominator |
-	newPosition := ActiveHand position.
+	newPosition := World activeHand position.
 	(anHGSimulator bounds containsPoint: newPosition)
 		ifFalse: [^ self].
 	position := HG2dPoint fromPoint: newPosition - anHGSimulator bounds origin.

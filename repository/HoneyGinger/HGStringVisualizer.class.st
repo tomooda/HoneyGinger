@@ -6,7 +6,7 @@ Class {
 		'color',
 		'defaultString'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #'instance creation' }
@@ -45,20 +45,19 @@ HGStringVisualizer >> defaultString: anObject [
 
 { #category : #drawing }
 HGStringVisualizer >> draw: anHGSimulator on: aCanvas [
-	| h  |
+
+	| h |
 	h := font height / 2.0.
-	anHGSimulator
-		particlesDo: [ :particle | 
-			particle position
-				ifNotNilDo: [ :p | 
-					| string w |
-					string := particle at: #string ifAbsent: [ defaultString ].
-					w := (font widthOfString: string) / 2.0.
-					aCanvas
-						drawString: string
-						at: ((p x - w) @ (p y - h))
-						font: font
-						color: color ] ]
+	anHGSimulator particlesDo: [ :particle | 
+		particle position ifNotNil: [ :p | 
+			| string w |
+			string := particle at: #string ifAbsent: [ defaultString ].
+			w := (font widthOfString: string) / 2.0.
+			aCanvas
+				drawString: string
+				at: p x - w @ (p y - h)
+				font: font
+				color: color ] ]
 ]
 
 { #category : #accessing }

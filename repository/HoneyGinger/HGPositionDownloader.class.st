@@ -1,7 +1,7 @@
 Class {
 	#name : #HGPositionDownloader,
 	#superclass : #HGDownloader,
-	#category : 'HoneyGinger-Actions-Networking'
+	#category : #'HoneyGinger-Actions-Networking'
 }
 
 { #category : #copyrights }
@@ -25,6 +25,8 @@ HGPositionDownloader class >> showLicense [
 
 { #category : #simulating }
 HGPositionDownloader >> effectIn: anHGSimulator deltaT: aNumber [
-	self getStream
-		downloadDo: [ :index :data | (anHGSimulator particleAt: index) ifNotNilDo: [ :particle | particle position: data ] ]
+
+	self getStream downloadDo: [ :index :data | 
+		(anHGSimulator particleAt: index) ifNotNil: [ :particle | 
+			particle position: data ] ]
 ]

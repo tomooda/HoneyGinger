@@ -6,6 +6,13 @@ Class {
 
 { #category : #baselines }
 BaselineOfHoneyGinger >> baseline: spec [
+
 	<baseline>
-	spec for: #common do: [ spec package: 'HoneyGinger' ]
+	spec
+		baseline: 'GitBridge'
+		with: [ spec repository: 'github://jecisc/GitBridge/src' ].
+	spec for: #common do: [ 
+		spec
+			package: 'HoneyGinger'
+			with: [ spec requires: #( 'GitBridge' ) ] ]
 ]

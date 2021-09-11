@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'lastVelocity'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -21,8 +21,8 @@ HGFullyFakeHand class >> MITLicense [
 HGFullyFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position canvas |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
-	ActiveHand
+	globalPoint := World activeHand position.
+	World activeHand
 		showTemporaryCursor:
 			((anHGSimulator bounds containsPoint: globalPoint)
 				ifTrue: [ cursor ]

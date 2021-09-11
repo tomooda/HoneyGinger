@@ -10,7 +10,7 @@ Class {
 		'color',
 		'isTouchy'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -81,7 +81,7 @@ HGStationaryVelocityVisualizer >> effectIn: anHGSimulator deltaT: aNumber [
 	isTouchy
 		ifTrue: [ 
 			| newPosition |
-			newPosition := ActiveHand position.
+			newPosition := World activeHand position.
 			(anHGSimulator bounds containsPoint: newPosition)
 				ifTrue: [ position := HG2dPoint fromPoint: newPosition - anHGSimulator bounds origin ] ].
 	super effectIn: anHGSimulator deltaT: aNumber

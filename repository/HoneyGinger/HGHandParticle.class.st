@@ -5,7 +5,7 @@ Class {
 		'particleIndex',
 		'lastPosition'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -40,10 +40,10 @@ HGHandParticle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 HGHandParticle >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
+	globalPoint := World activeHand position.
 	position := (globalPoint - bounds origin) / anHGSimulator scale.
 	lastPosition ifNil: [ lastPosition := position ].
-	(ActiveHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
+	(World activeHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
 		ifTrue: [ self
 				in: anHGSimulator
 				particlesDo: [ :particle | 

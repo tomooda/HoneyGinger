@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'dumpingRate'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -40,8 +40,8 @@ HGInertialFakeHand >> dumpingRate: aNumber [
 HGInertialFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position canvas |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
-	ActiveHand
+	globalPoint := World activeHand position.
+	World activeHand
 		showTemporaryCursor:
 			((anHGSimulator bounds containsPoint: globalPoint)
 				ifTrue: [ cursor ]

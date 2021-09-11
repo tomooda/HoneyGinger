@@ -1,7 +1,7 @@
 Class {
 	#name : #HGFakeHand,
 	#superclass : #HGAbstractFakeHand,
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -25,31 +25,30 @@ HGFakeHand class >> showLicense [
 
 { #category : #simulating }
 HGFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
+
 	| bounds globalPoint position canvas |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
-	ActiveHand
-		showTemporaryCursor:
-			((anHGSimulator bounds containsPoint: globalPoint)
-				ifTrue: [ cursor ]
-				ifFalse: [ Cursor normal ]).
-	position := (globalPoint - bounds origin) / anHGSimulator scale.
+	globalPoint := World activeHand position.
+	World activeHand showTemporaryCursor:
+		((anHGSimulator bounds containsPoint: globalPoint)
+			 ifTrue: [ cursor ]
+			 ifFalse: [ Cursor normal ]).
+	position := globalPoint - bounds origin / anHGSimulator scale.
 	canvas := anHGSimulator form getCanvas.
 	lastPosition
-		ifNil: [ self
-				in: anHGSimulator
-				particlesDo: [ :particle | 
-					particle position set: position.
-					particle velocity set: HG2dPoint zero ] ]
-		ifNotNil: [ | deltaPosition |
+		ifNil: [ 
+			self in: anHGSimulator particlesDo: [ :particle | 
+				particle position set: position.
+				particle velocity set: HG2dPoint zero ] ]
+		ifNotNil: [ 
+			| deltaPosition |
 			deltaPosition := position - lastPosition.
-			self
-				in: anHGSimulator
-				particlesDo: [ :particle | 
-					particle addPosition: deltaPosition by: mickey.
-					particle velocity set: deltaPosition * (mickey / aNumber).
-					canvas
-						translucentImage: image
-						at: (particle position x - (image width // 2)) @ (particle position y - (image height // 2)) ] ].
+			self in: anHGSimulator particlesDo: [ :particle | 
+				particle addPosition: deltaPosition by: mickey.
+				particle velocity set: deltaPosition * (mickey / aNumber).
+				canvas
+					translucentImage: image
+					at: particle position x - (image width // 2)
+						@ (particle position y - (image height // 2)) ] ].
 	lastPosition := position
 ]

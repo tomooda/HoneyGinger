@@ -5,7 +5,7 @@ Class {
 		'simulatorTopMorph',
 		'boundsExpansion'
 	],
-	#category : 'HoneyGinger-Actions-Simulation'
+	#category : #'HoneyGinger-Actions-Simulation'
 }
 
 { #category : #'instance creation' }
@@ -27,11 +27,12 @@ HGWorldSubmorphsObstacle >> boundsExpansion: aNumber [
 
 { #category : #simulating }
 HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
+
 	| scale position morphicPosition |
 	scale := anHGSimulator scale.
 	position := anHGParticle position.
-	morphicPosition := (position x * scale + anHGSimulator left)
-		@ (position y * scale + anHGSimulator top).
+	morphicPosition := position x * scale + anHGSimulator left
+	                   @ (position y * scale + anHGSimulator top).
 	1 to: (World submorphs indexOf: simulatorTopMorph) - 1 do: [ :index | 
 		| submorph |
 		submorph := World submorphs at: index.
@@ -41,13 +42,13 @@ HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumb
 			morphicPosition: morphicPosition
 			morphicBounds: submorph bounds.
 		position := anHGParticle position.
-		morphicPosition := (position x * scale + anHGSimulator left)
-			@ (position y * scale + anHGSimulator top) ].
+		morphicPosition := position x * scale + anHGSimulator left
+		                   @ (position y * scale + anHGSimulator top) ].
 	self
 		effect: anHGParticle
 		position: position
 		morphicPosition: morphicPosition
-		morphicBounds: ActiveHand bounds
+		morphicBounds: World activeHand bounds
 ]
 
 { #category : #private }

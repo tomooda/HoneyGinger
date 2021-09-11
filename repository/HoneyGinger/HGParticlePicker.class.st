@@ -5,7 +5,7 @@ Class {
 		'pickedParticle',
 		'lastPosition'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : #'HoneyGinger-Actions-UI'
 }
 
 { #category : #copyrights }
@@ -35,12 +35,12 @@ HGParticlePicker >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 HGParticlePicker >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position oldPosition currentParticle |
 	bounds := anHGSimulator bounds.
-	globalPoint := ActiveHand position.
+	globalPoint := World activeHand position.
 	position := globalPoint - bounds origin.
 	lastPosition ifNil: [ lastPosition := position ].
 	oldPosition := nil.
 	currentParticle := nil.
-	(ActiveHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
+	(World activeHand anyButtonPressed and: [ bounds containsPoint: globalPoint ])
 		ifTrue: [ 
 			pickedParticle ifNil: [ self pickParticleAt: (HG2dPoint fromPoint: position) in: anHGSimulator ].
 			pickedParticle
@@ -55,7 +55,8 @@ HGParticlePicker >> effectIn: anHGSimulator deltaT: aNumber [
 
 { #category : #enumerating }
 HGParticlePicker >> in: anHGSimulator particlesDo: aBlock [
-	pickedParticle ifNotNilDo: aBlock
+
+	pickedParticle ifNotNil: aBlock
 ]
 
 { #category : #accessing }
