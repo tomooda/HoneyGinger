@@ -1,6 +1,6 @@
 Class {
-	#name : #HGImageClipper,
-	#superclass : #Morph,
+	#name : 'HGImageClipper',
+	#superclass : 'Morph',
 	#instVars : [
 		'basedir',
 		'filenameIndex',
@@ -9,27 +9,29 @@ Class {
 		'sourceImageMorph',
 		'clippedImageMorph'
 	],
-	#category : 'HoneyGinger-Utilities'
+	#category : 'HoneyGinger-Utilities',
+	#package : 'HoneyGinger',
+	#tag : 'Utilities'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGImageClipper class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGImageClipper class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGImageClipper >> basedir: aFileDirectory [
 	basedir := aFileDirectory.
 	self updateBreadsMorphs.
 	self changed: #filenames
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> breadsDirectoriesFor: aFileDirectory [
 	| components dir parent |
 	components := OrderedCollection with: aFileDirectory.
@@ -42,22 +44,22 @@ HGImageClipper >> breadsDirectoriesFor: aFileDirectory [
 	^ components reversed
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> fileChanged: aString [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGImageClipper >> filename [
 	^ [self filenames at: filenameIndex] ifError: []
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGImageClipper >> filenameIndex [
 	^ filenameIndex
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGImageClipper >> filenameIndex: anInteger [
 	filenameIndex := anInteger.
 	self updateSourceImage.
@@ -65,17 +67,17 @@ HGImageClipper >> filenameIndex: anInteger [
 	self changed: #filename
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> filenames [
 	^ basedir entries collect: [:e | e name]
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> flushSourceImage [
 	sourceImageMorph image: (Form extent: 64 @ 64 depth: 32)
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGImageClipper >> initialize [
 	super initialize.
 	filenameIndex := 0.
@@ -102,7 +104,7 @@ HGImageClipper >> initialize [
 	self addMorph: clippedImageMorph fullFrame: (LayoutFrame fractions: (0.5 @ 0.5 corner: 1 @ 1))
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> newBreadFor: aFileDirectory [
 	| buttonMorph |
 	buttonMorph := PluggableButtonMorph on: self getState: nil action: nil.
@@ -110,7 +112,7 @@ HGImageClipper >> newBreadFor: aFileDirectory [
 	^ buttonMorph
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> updateBreadsMorphs [
 	| dirs morphs |
 	dirs := self breadsDirectoriesFor: basedir.
@@ -124,7 +126,7 @@ HGImageClipper >> updateBreadsMorphs [
 		ifFalse: [ dirs size + 1 to: morphs size do: [ :index | breadMorphs removeMorph: (morphs at: index)]]
 ]
 
-{ #category : #updating }
+{ #category : 'updating' }
 HGImageClipper >> updateSourceImage [
 	| name |
 	name := self filename.

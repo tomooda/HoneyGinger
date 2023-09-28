@@ -1,25 +1,27 @@
 Class {
-	#name : #HGElasticBody,
-	#superclass : #Object,
+	#name : 'HGElasticBody',
+	#superclass : 'Object',
 	#instVars : [
 		'trindings',
 		'particles',
 		'pairs'
 	],
-	#category : 'HoneyGinger-Particles'
+	#category : 'HoneyGinger-Particles',
+	#package : 'HoneyGinger',
+	#tag : 'Particles'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGElasticBody class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGElasticBody class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HGElasticBody class >> isolatedBodiesWithAll: aCollectionOfHGTrinding [
 	| bodies |
 	bodies := OrderedCollection new.
@@ -41,7 +43,7 @@ HGElasticBody class >> isolatedBodiesWithAll: aCollectionOfHGTrinding [
 	^ bodies
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGElasticBody class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -50,14 +52,14 @@ HGElasticBody class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGElasticBody class >> with: anHGTrinding [
 	^ (self new)
 		add: anHGTrinding;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGElasticBody class >> with: trinding1 with: trinding2 [
 	^ (self new)
 		add: trinding1;
@@ -65,7 +67,7 @@ HGElasticBody class >> with: trinding1 with: trinding2 [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGElasticBody class >> with: trinding1 with: trinding2 with: trinding3 [
 	^ (self new)
 		add: trinding1;
@@ -74,7 +76,7 @@ HGElasticBody class >> with: trinding1 with: trinding2 with: trinding3 [
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGElasticBody class >> with: trinding1 with: trinding2 with: trinding3 with: trinding4 [
 	^ (self new)
 		add: trinding1;
@@ -84,7 +86,7 @@ HGElasticBody class >> with: trinding1 with: trinding2 with: trinding3 with: tri
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGElasticBody class >> withAll: aCollectionOfHGTrinding [
 	| body |
 	body := self new.
@@ -92,13 +94,13 @@ HGElasticBody class >> withAll: aCollectionOfHGTrinding [
 	^ body
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 HGElasticBody >> add: anHGTrinding [
 	self merge: anHGTrinding.
 	^ anHGTrinding
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGElasticBody >> borderAt: anHG2dPoint [
 	| minDistance nearestPoint |
 	minDistance := Float infinity.
@@ -115,7 +117,7 @@ HGElasticBody >> borderAt: anHG2dPoint [
 	^ nearestPoint
 ]
 
-{ #category : #constraints }
+{ #category : 'constraints' }
 HGElasticBody >> bump: anHGParticle [
 	((self includesParticle: anHGParticle) not and: [ self contains: anHGParticle position ])
 		ifTrue: [ 
@@ -136,22 +138,22 @@ HGElasticBody >> bump: anHGParticle [
 					vertex2 velocity: v ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGElasticBody >> contains: anHG2dPoint [
 	^ trindings anySatisfy: [ :trinding | trinding contains: anHG2dPoint ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGElasticBody >> hasContactWith: anHGElasticBodyOrTrinding [
 	^ particles anySatisfy: [ :particle | anHGElasticBodyOrTrinding includesParticle: particle ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGElasticBody >> includesParticle: anHGParticle [
 	^ particles includes: anHGParticle  
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGElasticBody >> initialize [
 	super initialize.
 	trindings := OrderedCollection new.
@@ -160,7 +162,7 @@ HGElasticBody >> initialize [
 
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 HGElasticBody >> merge: anHGElasticBody [
 	anHGElasticBody trindingsDo: [ :trinding | trindings add: trinding ].
 	anHGElasticBody particlesDo: [ :particle | particles add: particle ].
@@ -174,7 +176,7 @@ HGElasticBody >> merge: anHGElasticBody [
 				ifNotNil: [ :pairEdge | pairs remove: pairEdge ] ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGElasticBody >> nearestPointAndEdgeTo: anHG2dPoint do: aBlock [
 	| minDistance nearestPoint nearestVertex1 nearestVertex2 |
 	minDistance := Float infinity.
@@ -195,17 +197,17 @@ HGElasticBody >> nearestPointAndEdgeTo: anHG2dPoint do: aBlock [
 	nearestPoint ifNotNil: [aBlock value: nearestPoint value: nearestVertex1 value: nearestVertex2  ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGElasticBody >> pairsDo: aBlock [
 	pairs do: [ :pair | aBlock valueWithArguments: pair]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGElasticBody >> particlesDo: aBlock [
 	particles do: aBlock
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGElasticBody >> trindingsDo: aBlock [
 	trindings do: aBlock
 ]

@@ -1,20 +1,22 @@
 Class {
-	#name : #HoneyGingerLauncher,
-	#superclass : #Morph,
+	#name : 'HoneyGingerLauncher',
+	#superclass : 'Morph',
 	#instVars : [
 		'simulator'
 	],
-	#category : 'HoneyGinger-Utilities'
+	#category : 'HoneyGinger-Utilities',
+	#package : 'HoneyGinger',
+	#tag : 'Utilities'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HoneyGingerLauncher class >> open [
 	<script: 'HoneyGingerLauncher open'>
 
 	self new openInWindowLabeled: 'HoneyGinger Launcher'
 ]
 
-{ #category : #initialization }
+{ #category : 'initialization' }
 HoneyGingerLauncher >> initialize [
 	super initialize.
 	self color: Color white.
@@ -32,7 +34,7 @@ HoneyGingerLauncher >> initialize [
 	^ self
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 HoneyGingerLauncher >> launch: aSymbol [
 	| morph |
 	simulator ifNotNil: [ :sim | sim delete ].
@@ -41,7 +43,7 @@ HoneyGingerLauncher >> launch: aSymbol [
 	simulator := morph
 ]
 
-{ #category : #menu }
+{ #category : 'menu' }
 HoneyGingerLauncher >> simulatorSelectors [
 	^ #(
 	greasyPit sandtrap3D

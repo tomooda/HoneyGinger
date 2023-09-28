@@ -1,14 +1,16 @@
 Class {
-	#name : #HGJet,
-	#superclass : #HGAction,
+	#name : 'HGJet',
+	#superclass : 'HGAction',
 	#instVars : [
 		'region',
 		'v'
 	],
-	#category : 'HoneyGinger-Actions-Mechanics'
+	#category : 'HoneyGinger-Actions-Mechanics',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Mechanics'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGJet class >> v: anHG2dPoint in: anHG2dRegion [
 	^ (self new)
 		v: anHG2dPoint;
@@ -16,13 +18,13 @@ HGJet class >> v: anHG2dPoint in: anHG2dRegion [
 		yourself
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGJet >> draw: anHGSimulator on: aCanvas [
 	aCanvas frameOval: (self region origin asPoint corner: self region corner asPoint) color: Color black.
 	aCanvas line: self region center asPoint to: (self region center + self v) asPoint width: 5 color: Color black
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGJet >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	(region contains: anHGParticle position)
 		ifTrue: [ 
@@ -31,28 +33,28 @@ HGJet >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 			anHGParticle position: self region center copy ]
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGJet >> effectIn: anHGSimulator deltaT: aNumber [
 	super effectIn: anHGSimulator deltaT: aNumber .
 	self draw: anHGSimulator on: anHGSimulator form getCanvas
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGJet >> region [
 	^ region
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGJet >> region: anObject [
 	region := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGJet >> v [
 	^ v
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGJet >> v: anObject [
 	v := anObject
 ]

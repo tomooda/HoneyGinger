@@ -1,23 +1,25 @@
 Class {
-	#name : #HoneyGingerDeserializer,
-	#superclass : #HoneyGingerObjectProtocol,
+	#name : 'HoneyGingerDeserializer',
+	#superclass : 'HoneyGingerObjectProtocol',
 	#instVars : [
 		'indexedObjects'
 	],
-	#category : 'HoneyGinger-Communications-Serializers'
+	#category : 'HoneyGinger-Communications-Serializers',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Serializers'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerDeserializer class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerDeserializer class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerDeserializer class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -26,18 +28,18 @@ HoneyGingerDeserializer class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HoneyGingerDeserializer >> initialize [
 	super initialize.
 	indexedObjects := OrderedCollection new
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> next [
 	^ self readObject
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> next: anInteger [
 	| nexts |
 	nexts := Array new: anInteger.
@@ -45,12 +47,12 @@ HoneyGingerDeserializer >> next: anInteger [
 	^ nexts
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> read [
 	^ self readDict
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readBinary: firstByte [
 	| byte length bits stopBit bytes |
 	byte := firstByte.
@@ -68,12 +70,12 @@ HoneyGingerDeserializer >> readBinary: firstByte [
 	^ bytes
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readDefine [
 	^ indexedObjects addLast: (self readObject)
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readDict [
 	| dict key |
 	dict := Dictionary new.
@@ -81,30 +83,30 @@ HoneyGingerDeserializer >> readDict [
 	^ dict
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readDo: aBlock [
 	| key |
 	[ (key := self readObject) ~= HGEndMark ] whileTrue: [ aBlock value: key value: self readObject ]
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readEnd [
 	^ HGEndMark
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readFloat [
 	^ Float
 		fromIEEE32Bit:
 			((((stream next bitShift: 24) bitOr: (stream next bitShift: 16)) bitOr: (stream next bitShift: 8)) bitOr: stream next)
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readHG2dPoint [
 	^HG2dPoint x: self readFloat y: self readFloat
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readIndex: firstByte [
 	| byte index bits stopBit bytes |
 	byte := firstByte.
@@ -120,7 +122,7 @@ HoneyGingerDeserializer >> readIndex: firstByte [
 	^ (indexedObjects at: index) deepCopy
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readInteger: firstByte [
 	| byte sign integer bits stopBit bytes |
 	byte := firstByte.
@@ -139,7 +141,7 @@ HoneyGingerDeserializer >> readInteger: firstByte [
 		ifFalse: [ integer negated ]
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readList [
 	| buffer object |
 	buffer := Array new writeStream.
@@ -147,17 +149,17 @@ HoneyGingerDeserializer >> readList [
 	^ buffer contents
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readNil [
 	^ nil
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readObject [
 	^self readObject: stream next
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readObject: firstByte [
 	| selector |
 	selector := #(#readEnd #readFloat #readString #readList #readDict #readDefine #readNil)
@@ -175,7 +177,7 @@ HoneyGingerDeserializer >> readObject: firstByte [
 	^ self error: 'Undefined type in the stream'
 ]
 
-{ #category : #reading }
+{ #category : 'reading' }
 HoneyGingerDeserializer >> readString [
 	| buffer code |
 	buffer := String new writeStream.
@@ -183,7 +185,7 @@ HoneyGingerDeserializer >> readString [
 	^ buffer contents
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanBinary: firstByte into: destStream [
 	| byte length bits stopBit |
 	byte := firstByte.
@@ -199,17 +201,17 @@ HoneyGingerDeserializer >> scanBinary: firstByte into: destStream [
 	length timesRepeat: [ destStream nextPut: stream next ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanDefineInto: destStream [
 	self scanObjectInto: destStream
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanDictInto: destStream [
 	[ (self scanObjectInto: destStream) ~= HGEndMark ] whileTrue: [ self scanObjectInto: destStream ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanDo: aBlock [
 	| key |
 	[ (key := self readObject) ~= HGEndMark ]
@@ -220,12 +222,12 @@ HoneyGingerDeserializer >> scanDo: aBlock [
 			aBlock value: key value: buffer contents ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanEndInto: destStream [
 	^ HGEndMark
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanFloatInto: destStream [
 	destStream nextPut: stream next.
 	destStream nextPut: stream next.
@@ -233,13 +235,13 @@ HoneyGingerDeserializer >> scanFloatInto: destStream [
 	destStream nextPut: stream next
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanHG2dPointInto: destStream [
 	self scanFloatInto: destStream.
 	self scanFloatInto: destStream
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanIndex: firstByte into: destStream [
 	| stopBit byte |
 	stopBit := firstByte bitAnd: HGIndexStopBit.
@@ -249,7 +251,7 @@ HoneyGingerDeserializer >> scanIndex: firstByte into: destStream [
 			stopBit := byte bitAnd: 2r10000000 ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanInteger: firstByte into: destStream [
 	| byte stopBit |
 	byte := firstByte.
@@ -260,17 +262,17 @@ HoneyGingerDeserializer >> scanInteger: firstByte into: destStream [
 			stopBit := byte bitAnd: 2r10000000 ]
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanListInto: destStream [
 	[ (self scanObjectInto: destStream) ~= HGEndMark ] whileTrue
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanNilInto: destStream [
 	"well, nothing to do... that's my trouble..."
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanObject: firstByte into: destStream [
 	| selector |
 	selector := #(#scanEndInto: #scanFloatInto: #scanStringInto: #scanListInto: #scanDictInto: #scanDefineInto: #scanNilInto:)
@@ -288,14 +290,14 @@ HoneyGingerDeserializer >> scanObject: firstByte into: destStream [
 	^ self error: 'Undefined type in the stream'
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanObjectInto: destStream [
 	| byte |
 	destStream nextPut: (byte := stream next).
 	^ self scanObject: byte into: destStream
 ]
 
-{ #category : #scanning }
+{ #category : 'scanning' }
 HoneyGingerDeserializer >> scanStringInto: destStream [
 	[ 
 	| code |

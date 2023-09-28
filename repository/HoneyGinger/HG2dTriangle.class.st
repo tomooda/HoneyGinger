@@ -1,25 +1,27 @@
 Class {
-	#name : #HG2dTriangle,
-	#superclass : #HG2dRegion,
+	#name : 'HG2dTriangle',
+	#superclass : 'HG2dRegion',
 	#instVars : [
 		'vertex1',
 		'vertex2',
 		'vertex3'
 	],
-	#category : 'HoneyGinger-Geometry-Regions'
+	#category : 'HoneyGinger-Geometry-Regions',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Regions'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dTriangle class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dTriangle class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 HG2dTriangle class >> example1 [
 	"HG2dTriangle example1"
 	| triangle |
@@ -28,12 +30,12 @@ HG2dTriangle class >> example1 [
 	^triangle
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dTriangle class >> on: anHG2dPoint1 on: anHG2dPoint2 on: anHG2dPoint3 [
 	^ self new setVertex1: anHG2dPoint1 vertex2: anHG2dPoint2 vertex3: anHG2dPoint3
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dTriangle class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -42,12 +44,12 @@ HG2dTriangle class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> area [
 	^ (vertex1 to: vertex2 cross: vertex3) / 2.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> borderAt: anHG2dPoint [
 	|  point distance minDistance nearestPoint |
 	point := vertex1 to: vertex2 nearestFrom: anHG2dPoint.
@@ -69,12 +71,12 @@ HG2dTriangle >> borderAt: anHG2dPoint [
 	^ nearestPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> center [
 	^ vertex1 + vertex2 + vertex3 / 3.0
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dTriangle >> conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint [
 	^ (self contains: anHG2dPoint)
 		or: [ 
@@ -86,7 +88,7 @@ HG2dTriangle >> conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint [
 								or: [ vertex3 to: vertex1 conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint ] ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dTriangle >> contains: anHG2dPoint [
 	^ (bounds contains: anHG2dPoint)
 		and: [ 
@@ -94,7 +96,7 @@ HG2dTriangle >> contains: anHG2dPoint [
 				and: [ (vertex2 to: vertex3 cross: anHG2dPoint) >= 0.0 and: [ (vertex3 to: vertex1 cross: anHG2dPoint) >= 0.0 ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> depth: anHG2dPoint [
 	^ (self contains: anHG2dPoint)
 		ifTrue: [ 
@@ -103,7 +105,7 @@ HG2dTriangle >> depth: anHG2dPoint [
 		ifFalse: [ 0.0 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> distance: anHG2dPoint [
 	^ (self contains: anHG2dPoint)
 		ifTrue: [ 0.0 ]
@@ -112,7 +114,7 @@ HG2dTriangle >> distance: anHG2dPoint [
 				min: (vertex3 to: vertex1 distance: anHG2dPoint) ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HG2dTriangle >> drawOn: aCanvas color: aColor [
 	"Display the receiver, a spline curve, approximated by straight 
 	line segments."
@@ -122,7 +124,7 @@ HG2dTriangle >> drawOn: aCanvas color: aColor [
 		fillStyle: aColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> minAngle [
 	| area d l12 l23 l31 angle1 angle2 angle3 |
 	area := vertex1 to: vertex2 cross: vertex3.
@@ -140,7 +142,7 @@ HG2dTriangle >> minAngle [
 				ifFalse: [ area / (l12 * l23) sqrt ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> normAt: anHG2dPoint [
 	| nearestPointBlock point distance minDistance norm |
 	nearestPointBlock := [ :p1 :p2 :p3 | (p2 - p1) * ((p1 to: p2 dot: p3) min: 1.0 max: 0.0) + p1 ].
@@ -163,7 +165,7 @@ HG2dTriangle >> normAt: anHG2dPoint [
 	^ norm unit
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HG2dTriangle >> printOn: aStream [
 	aStream nextPutAll: self class name.
 	aStream nextPut: $(.
@@ -177,7 +179,7 @@ HG2dTriangle >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HG2dTriangle >> setVertex1: anHG2dPoint1 vertex2: anHG2dPoint2 vertex3: anHG2dPoint3 [
 	vertex1 := anHG2dPoint1.
 	vertex2 := anHG2dPoint2.
@@ -187,17 +189,17 @@ HG2dTriangle >> setVertex1: anHG2dPoint1 vertex2: anHG2dPoint2 vertex3: anHG2dPo
 		corner: (HG2dPoint x: ((vertex1 x max: vertex2 x) max: vertex3 x) y: ((vertex1 y max: vertex2 y) max: vertex3 y))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> vertex1 [
 	^ vertex1
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> vertex2 [
 	^ vertex2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dTriangle >> vertex3 [
 	^ vertex3
 ]

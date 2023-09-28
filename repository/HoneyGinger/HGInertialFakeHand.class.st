@@ -1,23 +1,25 @@
 Class {
-	#name : #HGInertialFakeHand,
-	#superclass : #HGAbstractFakeHand,
+	#name : 'HGInertialFakeHand',
+	#superclass : 'HGAbstractFakeHand',
 	#instVars : [
 		'dumpingRate'
 	],
-	#category : #'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGInertialFakeHand class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGInertialFakeHand class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGInertialFakeHand class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -26,17 +28,17 @@ HGInertialFakeHand class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGInertialFakeHand >> dumpingRate [
 	^ dumpingRate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGInertialFakeHand >> dumpingRate: aNumber [
 	dumpingRate := aNumber
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGInertialFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position canvas |
 	bounds := anHGSimulator bounds.
@@ -68,7 +70,7 @@ HGInertialFakeHand >> effectIn: anHGSimulator deltaT: aNumber [
 	lastPosition := position
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGInertialFakeHand >> initialize [
 	super initialize.
 	dumpingRate := 0.5

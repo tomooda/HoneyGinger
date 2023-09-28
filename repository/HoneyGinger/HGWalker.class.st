@@ -1,14 +1,16 @@
 Class {
-	#name : #HGWalker,
-	#superclass : #Morph,
+	#name : 'HGWalker',
+	#superclass : 'Morph',
 	#instVars : [
 		'v',
 		'w'
 	],
-	#category : 'HoneyGinger-Utilities'
+	#category : 'HoneyGinger-Utilities',
+	#package : 'HoneyGinger',
+	#tag : 'Utilities'
 }
 
-{ #category : #utility }
+{ #category : 'utility' }
 HGWalker class >> atHand [
 	"HGWalker atHand"
 	| walker |
@@ -18,25 +20,25 @@ HGWalker class >> atHand [
 	walker openInWorld
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGWalker class >> v: aPoint w: aNumber [
 	^ self new setV: aPoint w: aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGWalker >> setV: aPoint w: aNumber [
 	v := aPoint.
 	w := aNumber
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGWalker >> step [
 	v := Point r: v r degrees: v theta + w * 180.0 / Float pi.
 	self position: self position + v.
 	(World containsPoint: self center) ifFalse: [self delete]
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGWalker >> stepTime [
 	^ 20
 ]

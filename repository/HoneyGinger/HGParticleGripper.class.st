@@ -1,25 +1,27 @@
 Class {
-	#name : #HGParticleGripper,
-	#superclass : #HGAction,
+	#name : 'HGParticleGripper',
+	#superclass : 'HGAction',
 	#instVars : [
 		'offsets',
 		'radius',
 		'lastPosition'
 	],
-	#category : #'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGParticleGripper class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGParticleGripper class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGParticleGripper class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -28,18 +30,18 @@ HGParticleGripper class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGParticleGripper class >> within: aNumber [
 	^ (self new)
 		radius: aNumber;
 		yourself
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGParticleGripper >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGParticleGripper >> effectIn: anHGSimulator deltaT: aNumber [
 	| bounds globalPoint position oldPosition currentParticle |
 	bounds := anHGSimulator bounds.
@@ -66,17 +68,17 @@ HGParticleGripper >> effectIn: anHGSimulator deltaT: aNumber [
 	lastPosition := oldPosition
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGParticleGripper >> in: anHGSimulator particlesDo: aBlock [
 	offsets ifNotNil: [ :dict | dict keysDo: aBlock ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGParticleGripper >> radius [
 	^ radius
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGParticleGripper >> radius: aNumber [
 	radius := aNumber
 ]

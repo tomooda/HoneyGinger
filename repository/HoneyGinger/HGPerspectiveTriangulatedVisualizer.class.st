@@ -1,28 +1,30 @@
 Class {
-	#name : #HGPerspectiveTriangulatedVisualizer,
-	#superclass : #HGPerspectiveVisualizer,
+	#name : 'HGPerspectiveTriangulatedVisualizer',
+	#superclass : 'HGPerspectiveVisualizer',
 	#instVars : [
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPerspectiveTriangulatedVisualizer class >> color: aColor eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock [
 	^ (self eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock) color: aColor; yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveTriangulatedVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveTriangulatedVisualizer >> color: aColor [
 	color := aColor
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGPerspectiveTriangulatedVisualizer >> draw: anHGSimulator on: aCanvas [
 	| triangulator particleMap kernel |
 	self drawCornersIn: anHGSimulator on: aCanvas.
@@ -69,7 +71,7 @@ HGPerspectiveTriangulatedVisualizer >> draw: anHGSimulator on: aCanvas [
 								on: aCanvas ] ] ]
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGPerspectiveTriangulatedVisualizer >> drawTriangle: aPoint1 and: aPoint2 and: aPoint3 color: aColor on: aCanvas [
 	^ self subclassResponsibility 
 ]

@@ -1,14 +1,16 @@
 Class {
-	#name : #HGHardBindingElasticForce,
-	#superclass : #HGBindingElasticForce,
+	#name : 'HGHardBindingElasticForce',
+	#superclass : 'HGBindingElasticForce',
 	#instVars : [
 		'convergenceCoefficient',
 		'steps'
 	],
-	#category : 'HoneyGinger-Actions-Elasticity'
+	#category : 'HoneyGinger-Actions-Elasticity',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Elasticity'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGHardBindingElasticForce class >> steps: anInteger convergenceCoefficient: aNumber color: aColor [
 	^ (super color: aColor)
 		steps: anInteger;
@@ -16,7 +18,7 @@ HGHardBindingElasticForce class >> steps: anInteger convergenceCoefficient: aNum
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGHardBindingElasticForce class >> steps: anInteger convergenceCoefficient: aNumber color: aColor width: width [
 	^ (super color: aColor)
 		steps: anInteger;
@@ -25,17 +27,17 @@ HGHardBindingElasticForce class >> steps: anInteger convergenceCoefficient: aNum
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardBindingElasticForce >> convergenceCoefficient [
 	^ convergenceCoefficient
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardBindingElasticForce >> convergenceCoefficient: anObject [
 	convergenceCoefficient := anObject
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGHardBindingElasticForce >> effect: particle1 and: particle2 deltaPosition: delta deltaT: deltaT [
 	| v |
 	particle1 addPosition: (particle1 position unitVector: particle2 position) by: delta / 2.0.
@@ -45,7 +47,7 @@ HGHardBindingElasticForce >> effect: particle1 and: particle2 deltaPosition: del
 	particle2 velocity: v
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGHardBindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 	| distanceBlock alpha |
 	distanceBlock := [ :particle1 :particle2 | particle1 velocity * aNumber + particle1 position distance: particle2 velocity * aNumber + particle2 position ].
@@ -65,12 +67,12 @@ HGHardBindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 			alpha := alpha * convergenceCoefficient ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardBindingElasticForce >> steps [
 	^ steps
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardBindingElasticForce >> steps: anObject [
 	steps := anObject
 ]

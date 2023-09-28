@@ -1,15 +1,17 @@
 Class {
-	#name : #HGVoronoiEdgeTest,
-	#superclass : #TestCase,
-	#category : 'HoneyGinger-Geometry-Tests'
+	#name : 'HGVoronoiEdgeTest',
+	#superclass : 'TestCase',
+	#category : 'HoneyGinger-Geometry-Tests',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Tests'
 }
 
-{ #category : #asserting }
+{ #category : 'asserting' }
 HGVoronoiEdgeTest >> assert: expected equals: actual accuracy: acceptableError [
 	self assert: (expected - actual) abs <= acceptableError
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HGVoronoiEdgeTest >> testForesideBackside1 [
 	"tests if the HGVoronoiEdge class can create a line between the given two regions."
 

@@ -1,6 +1,6 @@
 Class {
-	#name : #HGAbstractBorderlinePressureVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGAbstractBorderlinePressureVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'pressure',
 		'kernel',
@@ -8,10 +8,12 @@ Class {
 		'ygrids',
 		'marchingSquares'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> bottom: args [
 	| leftBottomValue left |
 	leftBottomValue := (args at: 3) abs asFloat.
@@ -19,7 +21,7 @@ HGAbstractBorderlinePressureVisualizer >> bottom: args [
 	^ (leftBottomValue / (leftBottomValue + (args at: 4) abs) * ((args at: 6) - left) + left) @ (args at: 8)
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGAbstractBorderlinePressureVisualizer >> draw: anHGSimulator on: aCanvas [
 	| simulationOrigin simulationCorner pressureArrayBlock upperPressures xstep ystep args |
 	simulationOrigin := anHGSimulator simulationOrigin.
@@ -80,7 +82,7 @@ HGAbstractBorderlinePressureVisualizer >> draw: anHGSimulator on: aCanvas [
 		upperPressures := lowerPressures ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> indexFor: leftTop and: rightTop and: leftBottom and: rightBottom [
 	^ (leftTop > 0.0
 		ifTrue: [ 1 ]
@@ -99,7 +101,7 @@ HGAbstractBorderlinePressureVisualizer >> indexFor: leftTop and: rightTop and: l
 				ifFalse: [ 0 ])
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGAbstractBorderlinePressureVisualizer >> initialize [
 	super initialize.
 	marchingSquares := Array new: 2r1111.
@@ -107,17 +109,17 @@ HGAbstractBorderlinePressureVisualizer >> initialize [
 	self initialize1000to1111
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> kernel [
 	^ kernel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> kernel: anHGKernel [
 	kernel := anHGKernel
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> left: args [
 	| leftTopValue top |
 	leftTopValue := (args at: 1) abs asFloat.
@@ -125,27 +127,27 @@ HGAbstractBorderlinePressureVisualizer >> left: args [
 	^ (args at: 5) @ (leftTopValue / (leftTopValue + (args at: 3) abs) * ((args at: 8) - top) + top)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> leftBottom: args [
 	^ (args at: 5) @ (args at: 8)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> leftTop: args [
 	^ (args at: 5) @ (args at: 7)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> pressure [
 	^ pressure
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> pressure: aNumber [
 	pressure := aNumber
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> right: args [
 	| rightTopValue top |
 	rightTopValue := (args at: 2) abs asFloat.
@@ -153,17 +155,17 @@ HGAbstractBorderlinePressureVisualizer >> right: args [
 	^ (args at: 6) @ (rightTopValue / (rightTopValue + (args at: 4) abs) * ((args at: 8) - top) + top)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> rightBottom: args [
 	^ (args at: 6) @ (args at: 8)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> rightTop: args [
 	^ (args at: 6) @ (args at: 7)
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGAbstractBorderlinePressureVisualizer >> top: args [
 	| leftTopValue left |
 	leftTopValue := (args at: 1) abs asFloat.
@@ -171,22 +173,22 @@ HGAbstractBorderlinePressureVisualizer >> top: args [
 	^ (leftTopValue / (leftTopValue + (args at: 2) abs) * ((args at: 6) - left) + left) @ (args at: 7)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> xgrids [
 	^ xgrids
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> xgrids: aNumber [
 	xgrids := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> ygrids [
 	^ ygrids
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAbstractBorderlinePressureVisualizer >> ygrids: aNumber [
 	ygrids := aNumber
 ]

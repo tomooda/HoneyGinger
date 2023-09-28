@@ -1,6 +1,6 @@
 Class {
-	#name : #HGTrinding,
-	#superclass : #Object,
+	#name : 'HGTrinding',
+	#superclass : 'Object',
 	#instVars : [
 		'particle1',
 		'particle2',
@@ -9,20 +9,22 @@ Class {
 		'standardDistance23',
 		'standardDistance31'
 	],
-	#category : 'HoneyGinger-Particles'
+	#category : 'HoneyGinger-Particles',
+	#package : 'HoneyGinger',
+	#tag : 'Particles'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTrinding class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTrinding class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGTrinding class >> among: anHGPartcile1 and: anHGPartcile2 and: anHGPartcile3 [
 	| trinding |
 	trinding := (self new)
@@ -36,7 +38,7 @@ HGTrinding class >> among: anHGPartcile1 and: anHGPartcile2 and: anHGPartcile3 [
 	^ trinding
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTrinding class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -45,12 +47,12 @@ HGTrinding class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> area [
 	^ (particle1 position to: particle2 position cross: particle3 position) / 2.0
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> borderAt: anHG2dPoint [
 	|  vertex1 vertex2 vertex3 point distance minDistance nearestPoint |
 	vertex1 := particle1 position.
@@ -75,12 +77,12 @@ HGTrinding >> borderAt: anHG2dPoint [
 	^ nearestPoint
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> center [
 	^ HG2dPoint x: (particle1 position x + particle2 position x + particle3 position x) / 3.0 y: (particle1 position y + particle2 position y + particle3 position y) / 3.0
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGTrinding >> contains: anHG2dPoint [
 	^ (((particle1 position x min: particle2 position x) min: particle3 position x) <= anHG2dPoint x
 		and: [ 
@@ -96,27 +98,27 @@ HGTrinding >> contains: anHG2dPoint [
 			sign1 = 0 or: [ sign2 = 0 or: [ sign3 = 0 or: [ sign1 = sign2 and: [ sign2 = sign3 ] ] ] ] ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> distance12 [
 	^ particle1 position distance: particle2 position
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> distance23 [
 	^ particle2 position distance: particle3 position
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> distance31 [
 	^ particle3 position distance: particle1 position
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGTrinding >> includesParticle: anHGPartcile [
 	^ anHGPartcile == particle1 or: [ anHGPartcile == particle2 or: [ anHGPartcile == particle3 ] ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGTrinding >> nearestEdgeTo: anHG2dPoint do: aBlock [
 	| vertex1 vertex2 vertex3 point distance minDistance nearestVertex1 nearestVertex2 |
 	vertex1 := particle1 position.
@@ -144,7 +146,7 @@ HGTrinding >> nearestEdgeTo: anHG2dPoint do: aBlock [
 	aBlock value: nearestVertex1 value: nearestVertex2
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGTrinding >> pairsDo: aBlock [
 	self area > 0.0
 		ifTrue: [ 
@@ -153,74 +155,74 @@ HGTrinding >> pairsDo: aBlock [
 			aBlock value: particle3 value: particle1 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle1 [
 	^ particle1 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle1: anHGParticle [
 	particle1 := anHGParticle 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle2 [
 	^ particle2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle2: anHGParticle [
 	particle2 := anHGParticle 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle3 [
 	^ particle3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> particle3: anHGParticle [
 	particle3 := anHGParticle 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGTrinding >> particlesDo: aBlock [
 	aBlock value: particle1.
 	aBlock value: particle2.
 	aBlock value: particle3
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance12 [ 
 	^ standardDistance12 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance12: aNumber [
 	standardDistance12 := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance23 [ 
 	^ standardDistance23
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance23: aNumber [
 	standardDistance23 := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance31 [ 
 	^ standardDistance31
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTrinding >> standardDistance31: aNumber [
 	standardDistance31 := aNumber
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGTrinding >> trindingsDo: aBlock [
 	aBlock value: self
 ]

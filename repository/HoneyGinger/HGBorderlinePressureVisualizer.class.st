@@ -1,14 +1,16 @@
 Class {
-	#name : #HGBorderlinePressureVisualizer,
-	#superclass : #HGAbstractBorderlinePressureVisualizer,
+	#name : 'HGBorderlinePressureVisualizer',
+	#superclass : 'HGAbstractBorderlinePressureVisualizer',
 	#instVars : [
 		'width',
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBorderlinePressureVisualizer class >> pressure: pressure width: width color: aColor [
 	^ self
 		pressure: pressure
@@ -19,7 +21,7 @@ HGBorderlinePressureVisualizer class >> pressure: pressure width: width color: a
 		color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBorderlinePressureVisualizer class >> pressure: pressure xgrids: xgrids ygrids: ygrids kernel: kernel width: width color: aColor [
 	^ self new
 		pressure: pressure;
@@ -31,17 +33,17 @@ HGBorderlinePressureVisualizer class >> pressure: pressure xgrids: xgrids ygrids
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlinePressureVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlinePressureVisualizer >> color: aColor [
 	color := aColor
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGBorderlinePressureVisualizer >> initialize0001to0111 [
 	marchingSquares
 		at: 2r0001
@@ -106,7 +108,7 @@ HGBorderlinePressureVisualizer >> initialize0001to0111 [
 				color: color ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGBorderlinePressureVisualizer >> initialize1000to1111 [
 	marchingSquares
 		at: 2r1000
@@ -172,12 +174,12 @@ HGBorderlinePressureVisualizer >> initialize1000to1111 [
 	marchingSquares at: 2r1111 put: [ :args |  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlinePressureVisualizer >> width [
 	^ width
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlinePressureVisualizer >> width: aNumber [
 	width := aNumber
 ]

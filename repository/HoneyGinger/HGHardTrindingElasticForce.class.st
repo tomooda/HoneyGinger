@@ -1,24 +1,26 @@
 Class {
-	#name : #HGHardTrindingElasticForce,
-	#superclass : #HGTrindingElasticForce,
+	#name : 'HGHardTrindingElasticForce',
+	#superclass : 'HGTrindingElasticForce',
 	#instVars : [
 		'convergenceCoefficient',
 		'steps'
 	],
-	#category : 'HoneyGinger-Actions-Elasticity'
+	#category : 'HoneyGinger-Actions-Elasticity',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Elasticity'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGHardTrindingElasticForce class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGHardTrindingElasticForce class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGHardTrindingElasticForce class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -27,7 +29,7 @@ HGHardTrindingElasticForce class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGHardTrindingElasticForce class >> steps: anInteger convergenceCoefficient: aNumber color: aColor [
 	^ (super color: aColor)
 		steps: anInteger;
@@ -35,17 +37,17 @@ HGHardTrindingElasticForce class >> steps: anInteger convergenceCoefficient: aNu
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardTrindingElasticForce >> convergenceCoefficient [
 	^ convergenceCoefficient 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardTrindingElasticForce >> convergenceCoefficient: aNumber [
 	convergenceCoefficient := aNumber min: 1.0 max: 0.0
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGHardTrindingElasticForce >> effect: particle1 and: particle2 deltaPosition: delta deltaT: deltaT [
 	| v |
 	particle1 addPosition: (particle1 position unitVector: particle2 position) by: delta / 2.0.
@@ -55,7 +57,7 @@ HGHardTrindingElasticForce >> effect: particle1 and: particle2 deltaPosition: de
 	particle2 velocity: v
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGHardTrindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 	| distanceBlock alpha |
 	distanceBlock := [ :particle1 :particle2 | particle1 velocity * aNumber + particle1 position distance: particle2 velocity * aNumber + particle2 position ].
@@ -84,12 +86,12 @@ HGHardTrindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 					alpha := alpha * convergenceCoefficient  ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardTrindingElasticForce >> steps [
 	^steps
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGHardTrindingElasticForce >> steps: anInteger [
 	steps := anInteger
 ]

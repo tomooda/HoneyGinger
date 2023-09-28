@@ -1,31 +1,33 @@
 Class {
-	#name : #HGViscosityBySmoothing,
-	#superclass : #HGAction,
+	#name : 'HGViscosityBySmoothing',
+	#superclass : 'HGAction',
 	#instVars : [
 		'kernel',
 		'changes'
 	],
-	#category : 'HoneyGinger-Actions-FluidDynamics'
+	#category : 'HoneyGinger-Actions-FluidDynamics',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-FluidDynamics'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGViscosityBySmoothing class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGViscosityBySmoothing class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGViscosityBySmoothing class >> kernel: anHGKernel [
 	^ (self new)
 		kernel: anHGKernel;
 		yourself
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGViscosityBySmoothing class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -34,7 +36,7 @@ HGViscosityBySmoothing class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGViscosityBySmoothing >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	| denominator velocity |
 	denominator := 0.0.
@@ -58,7 +60,7 @@ HGViscosityBySmoothing >> effect: anHGParticle in: anHGSimulator deltaT: aNumber
 			changes add: anHGParticle -> velocity ]
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGViscosityBySmoothing >> effectIn: anHGSimulator deltaT: aNumber [
 	changes := OrderedCollection new: anHGSimulator numberOfParticles.
 	super effectIn: anHGSimulator deltaT: aNumber.
@@ -66,12 +68,12 @@ HGViscosityBySmoothing >> effectIn: anHGSimulator deltaT: aNumber [
 	changes := nil
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGViscosityBySmoothing >> kernel [
 	^ kernel
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGViscosityBySmoothing >> kernel: anHGKernel [
 	kernel := anHGKernel
 ]
