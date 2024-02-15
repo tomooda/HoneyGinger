@@ -1,10 +1,12 @@
 Class {
-	#name : #HGSlipperyObstacle,
-	#superclass : #HGObstacle,
-	#category : 'HoneyGinger-Actions-Simulation'
+	#name : 'HGSlipperyObstacle',
+	#superclass : 'HGObstacle',
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGSlipperyObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	| position |
 	position := anHGParticle position.

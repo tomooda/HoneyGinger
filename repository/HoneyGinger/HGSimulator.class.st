@@ -1,6 +1,6 @@
 Class {
-	#name : #HGSimulator,
-	#superclass : #BorderedMorph,
+	#name : 'HGSimulator',
+	#superclass : 'BorderedMorph',
 	#instVars : [
 		'random',
 		'simulationOrigin',
@@ -17,20 +17,22 @@ Class {
 		'scale',
 		'form'
 	],
-	#category : #'HoneyGinger-Simulator'
+	#category : 'HoneyGinger-Simulator',
+	#package : 'HoneyGinger',
+	#tag : 'Simulator'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSimulator class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSimulator class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> aerowing [
 	"HGSimulator aerowing"
 
@@ -87,7 +89,7 @@ HGSimulator class >> aerowing [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> arrestingWire1 [
 	<script: 'HGSimulator arrestingWire1'>
 	| random simulator bindingAction stick firsts lasts |
@@ -146,7 +148,7 @@ HGSimulator class >> arrestingWire1 [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> arrestingWire5 [
 	<script: 'HGSimulator arrestingWire5'>
 
@@ -205,7 +207,7 @@ HGSimulator class >> arrestingWire5 [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> bouncingBalls [
 	"HGSimulator bouncingBalls"
 
@@ -234,7 +236,7 @@ HGSimulator class >> bouncingBalls [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-servers' }
+{ #category : 'applications-distributed-servers' }
 HGSimulator class >> bouncingBallsServer [
 	"HGSimulator bouncingBallsServer"
 
@@ -268,7 +270,7 @@ HGSimulator class >> bouncingBallsServer [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> burningHand [
 
 	<script: 'HGSimulator burningHand'>
@@ -344,7 +346,7 @@ HGSimulator class >> burningHand [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBall [
 	"HGSimulator butterBall"
 
@@ -382,7 +384,7 @@ HGSimulator class >> butterBall [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBallAtDie [
 	"HGSimulator butterBallAtDie"
 
@@ -429,7 +431,7 @@ HGSimulator class >> butterBallAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBallAtDie3D [
 
 	"HGSimulator butterBallAtDie3D"
@@ -497,7 +499,7 @@ HGSimulator class >> butterBallAtDie3D [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBallAtTriangle [
 	"HGSimulator butterBallAtTriangle"
 
@@ -538,7 +540,7 @@ HGSimulator class >> butterBallAtTriangle [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBallGraffitiAtDie [
 	"HGSimulator butterBallGraffitiAtDie"
 
@@ -603,7 +605,7 @@ HGSimulator class >> butterBallGraffitiAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> butterBallToonAtDie [
 	"HGSimulator butterBallToonAtDie"
 
@@ -659,7 +661,7 @@ HGSimulator class >> butterBallToonAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> butterKnifeCold [
 	"HGSimulator butterKnifeCold"
 
@@ -697,7 +699,7 @@ HGSimulator class >> butterKnifeCold [
 	^ simulator
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> butterKnifeHot [
 	"HGSimulator butterKnifeHot"
 
@@ -737,7 +739,7 @@ HGSimulator class >> butterKnifeHot [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> capuccino [
 	"HGSimulator capuccino"
 	
@@ -775,7 +777,7 @@ HGSimulator class >> capuccino [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> capuccino3D [
 	"HGSimulator capuccino3D"
 	
@@ -829,7 +831,7 @@ HGSimulator class >> capuccino3D [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> capuccinoPower [
 	"HGSimulator capuccinoPower"
 
@@ -867,7 +869,7 @@ HGSimulator class >> capuccinoPower [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> clearGreasyPit [
 
 	"HGSimulator clearGreasyPit"
@@ -950,7 +952,7 @@ HGSimulator class >> clearGreasyPit [
 	^ simulator
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> coldButterColdKnife [
 	"HGSimulator coldButterColdKnife"
 
@@ -985,7 +987,7 @@ HGSimulator class >> coldButterColdKnife [
 	^ simulator
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> coldButterHotKnife [
 	"HGSimulator coldButterHotKnife"
 
@@ -1019,7 +1021,7 @@ HGSimulator class >> coldButterHotKnife [
 	^ simulator
 ]
 
-{ #category : #images }
+{ #category : 'images' }
 HGSimulator class >> dot [
 	| form |
 	form := Form extent: 1 @ 1 depth: 32.
@@ -1029,7 +1031,7 @@ HGSimulator class >> dot [
 	^ form
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> dotsInUserImage: rate [
 
 	"HGSimulator dotsInUserImage: 0.5"
@@ -1091,7 +1093,7 @@ HGSimulator class >> dotsInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> dotsViewer [
 
 	"HGSimulator dotsViewer"
@@ -1120,7 +1122,7 @@ HGSimulator class >> dotsViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> floodPolygons [
 	"HGSimulator floodPolygons"
 
@@ -1155,7 +1157,7 @@ HGSimulator class >> floodPolygons [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> floodPressureMap [
 	"HGSimulator floodPressureMap"
 
@@ -1185,7 +1187,7 @@ HGSimulator class >> floodPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> footballViewer [
 	"HGSimulator footballViewer"
 
@@ -1202,13 +1204,13 @@ HGSimulator class >> footballViewer [
 	^ simulator
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HGSimulator class >> formFromWorld: aRectangle [
 
 	^ World asForm contentsOfArea: aRectangle
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> graffitiInUserImage: rate [
 
 	"HGSimulator graffitiInUserImage: 0.5"
@@ -1287,7 +1289,7 @@ HGSimulator class >> graffitiInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> grease [
 
 	<script: 'HGSimulator grease'>
@@ -1414,7 +1416,7 @@ HGSimulator class >> grease [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> greasyPit [
 
 	<script: 'HGSimulator greasyPit'>
@@ -1550,7 +1552,7 @@ HGSimulator class >> greasyPit [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> gumString1 [
 
 	<script: 'HGSimulator gumString1'>
@@ -1628,7 +1630,7 @@ HGSimulator class >> gumString1 [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> gumString5 [
 
 	<script: 'HGSimulator gumString5'>
@@ -1709,7 +1711,7 @@ HGSimulator class >> gumString5 [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> handVelocityViewer [
 	"HGSimulator handVelocityViewer"
 
@@ -1736,7 +1738,7 @@ HGSimulator class >> handVelocityViewer [
 	^ simulator
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HGSimulator class >> horizontalPanel: anArrayOfMorphs [
 	| panel |
 	panel := Morph new.
@@ -1750,7 +1752,7 @@ HGSimulator class >> horizontalPanel: anArrayOfMorphs [
 	^ panel
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> hotButterColdKnife [
 	"HGSimulator hotButterColdKnife"
 
@@ -1784,7 +1786,7 @@ HGSimulator class >> hotButterColdKnife [
 	^ simulator
 ]
 
-{ #category : #'applications-thermal' }
+{ #category : 'applications-thermal' }
 HGSimulator class >> hotButterHotKnife [
 	"HGSimulator hotButterHotKnife"
 
@@ -1817,7 +1819,7 @@ HGSimulator class >> hotButterHotKnife [
 	^ simulator
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> illustratedInUserImage: rate [
 
 	"HGSimulator illustratedInUserImage: 0.5"
@@ -1887,7 +1889,7 @@ HGSimulator class >> illustratedInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverBorderline [
 	"HGSimulator impossibeRiverBorderline"
 
@@ -1923,7 +1925,7 @@ HGSimulator class >> impossibeRiverBorderline [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverBorderlineFill [
 	"HGSimulator impossibeRiverBorderlineFill"
 
@@ -1959,7 +1961,7 @@ HGSimulator class >> impossibeRiverBorderlineFill [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverDots [
 	<script: 'HGSimulator impossibeRiverDots'>
 
@@ -2006,7 +2008,7 @@ HGSimulator class >> impossibeRiverDots [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverGraffiti [
 	"HGSimulator impossibeRiverGraffiti"
 
@@ -2054,7 +2056,7 @@ HGSimulator class >> impossibeRiverGraffiti [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverMesh [
 	<script: 'HGSimulator impossibeRiverMesh'>
 	| simulator |
@@ -2112,7 +2114,7 @@ HGSimulator class >> impossibeRiverMesh [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverPerspectiveDots [
 
 	"HGSimulator impossibeRiverPerspectiveDots"
@@ -2166,7 +2168,7 @@ HGSimulator class >> impossibeRiverPerspectiveDots [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverPolygon [
 	"HGSimulator impossibeRiverPolygon"
 
@@ -2202,7 +2204,7 @@ HGSimulator class >> impossibeRiverPolygon [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverPressureMap [
 	<script: 'HGSimulator impossibeRiverPressureMap'>
 	| simulator |
@@ -2261,7 +2263,7 @@ HGSimulator class >> impossibeRiverPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverRefraction [
 	<script: 'HGSimulator impossibeRiverRefraction'>
 
@@ -2297,7 +2299,7 @@ HGSimulator class >> impossibeRiverRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverSmokey [
 	"HGSimulator impossibeRiverSmokey"
 
@@ -2333,7 +2335,7 @@ HGSimulator class >> impossibeRiverSmokey [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverVoronoi [
 	"HGSimulator impossibeRiverVoronoi"
 
@@ -2403,7 +2405,7 @@ HGSimulator class >> impossibeRiverVoronoi [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> impossibeRiverWireframe [
 	"HGSimulator impossibeRiverWireframe"
 
@@ -2439,7 +2441,7 @@ HGSimulator class >> impossibeRiverWireframe [
 	^ simulator
 ]
 
-{ #category : #'applications-elastic' }
+{ #category : 'applications-elastic' }
 HGSimulator class >> jelloAtDie [
 	"HGSimulator jelloAtDie"
 
@@ -2481,7 +2483,7 @@ HGSimulator class >> jelloAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-elastic' }
+{ #category : 'applications-elastic' }
 HGSimulator class >> jelloAtGun [
 
 	"HGSimulator jelloAtGun"
@@ -2525,7 +2527,7 @@ HGSimulator class >> jelloAtGun [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> jelloAtMouse [
 
 	"HGSimulator jelloAtMouse"
@@ -2562,7 +2564,7 @@ HGSimulator class >> jelloAtMouse [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> jelloAtMouse2 [
 
 	"HGSimulator jelloAtMouse2"
@@ -2604,7 +2606,7 @@ HGSimulator class >> jelloAtMouse2 [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> jelloAtMouse3 [
 
 	"HGSimulator jelloAtMouse3"
@@ -2657,7 +2659,7 @@ HGSimulator class >> jelloAtMouse3 [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathDots [
 
 	"HGSimulator jetbathDots"
@@ -2706,7 +2708,7 @@ HGSimulator class >> jetbathDots [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathGraffiti [
 
 	"HGSimulator jetbathGraffiti"
@@ -2778,7 +2780,7 @@ HGSimulator class >> jetbathGraffiti [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathPressureMap [
 
 	"HGSimulator jetbathPressureMap"
@@ -2829,7 +2831,7 @@ HGSimulator class >> jetbathPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathRefraction [
 
 	"HGSimulator jetbathRefraction"
@@ -2880,7 +2882,7 @@ HGSimulator class >> jetbathRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathSmoke [
 
 	"HGSimulator jetbathSmoke"
@@ -2933,7 +2935,7 @@ HGSimulator class >> jetbathSmoke [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> jetbathSourceCode [
 
 	"HGSimulator jetbathSourceCode"
@@ -2986,7 +2988,7 @@ HGSimulator class >> jetbathSourceCode [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonDots [
 
 	"HGSimulator lagoonDots"
@@ -3027,7 +3029,7 @@ HGSimulator class >> lagoonDots [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonGraffiti [
 	"HGSimulator lagoonGraffiti"
 
@@ -3073,7 +3075,7 @@ HGSimulator class >> lagoonGraffiti [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPerspectiveDots [
 
 	"HGSimulator lagoonPerspectiveDots"
@@ -3126,7 +3128,7 @@ HGSimulator class >> lagoonPerspectiveDots [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPerspectivePolygons [
 
 	"HGSimulator lagoonPerspectivePolygons"
@@ -3197,7 +3199,7 @@ HGSimulator class >> lagoonPerspectivePolygons [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPerspectiveStudDots [
 
 	"HGSimulator lagoonPerspectiveStudDots"
@@ -3308,7 +3310,7 @@ HGSimulator class >> lagoonPerspectiveStudDots [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPerspectiveWireframe [
 
 	"HGSimulator lagoonPerspectiveWireframe"
@@ -3383,7 +3385,7 @@ HGSimulator class >> lagoonPerspectiveWireframe [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPolygons [
 	"HGSimulator lagoonPolygons"
 
@@ -3413,7 +3415,7 @@ HGSimulator class >> lagoonPolygons [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPressureMap [
 	"HGSimulator lagoonPressureMap"
 
@@ -3444,7 +3446,7 @@ HGSimulator class >> lagoonPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonPressureMapWorld [
 
 	"HGSimulator lagoonPressureMapWorld"
@@ -3490,7 +3492,7 @@ HGSimulator class >> lagoonPressureMapWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonReflectionWorld [
 
 	"HGSimulator lagoonReflectionWorld"
@@ -3537,7 +3539,7 @@ HGSimulator class >> lagoonReflectionWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonRefractionWorld [
 	<script: 'HGSimulator lagoonRefractionWorld'>
 
@@ -3585,7 +3587,7 @@ HGSimulator class >> lagoonRefractionWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonSmokeyWorld [
 
 	"HGSimulator lagoonSmokeyWorld"
@@ -3632,7 +3634,7 @@ HGSimulator class >> lagoonSmokeyWorld [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonTilt [
 
 	"HGSimulator lagoonTilt"
@@ -3679,7 +3681,7 @@ HGSimulator class >> lagoonTilt [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonTiltRefraction [
 
 	"HGSimulator lagoonTiltRefraction"
@@ -3731,7 +3733,7 @@ HGSimulator class >> lagoonTiltRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonVoronoi [
 	"HGSimulator lagoonVoronoi"
 
@@ -3797,7 +3799,7 @@ HGSimulator class >> lagoonVoronoi [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> lagoonWireframe [
 	"HGSimulator lagoonWireframe"
 
@@ -3827,7 +3829,7 @@ HGSimulator class >> lagoonWireframe [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> lint1000 [
 
 	"HGSimulator lint1000"
@@ -3904,7 +3906,7 @@ HGSimulator class >> lint1000 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> lint2000 [
 
 	"HGSimulator lint2000"
@@ -3980,7 +3982,7 @@ HGSimulator class >> lint2000 [
 	^ simulator
 ]
 
-{ #category : #'applications-bindings' }
+{ #category : 'applications-bindings' }
 HGSimulator class >> liquidOxgen [
 
 	"HGSimulator liquidOxgen"
@@ -4048,7 +4050,7 @@ HGSimulator class >> liquidOxgen [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> meshVelocityViewer [
 	"HGSimulator meshVelocityViewer"
 
@@ -4065,7 +4067,7 @@ HGSimulator class >> meshVelocityViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> nattoViewer [
 	"HGSimulator nattoViewer"
 
@@ -4083,7 +4085,7 @@ HGSimulator class >> nattoViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> particlesVelocityViewer [
 	"HGSimulator particlesVelocityViewer"
 
@@ -4105,7 +4107,7 @@ HGSimulator class >> particlesVelocityViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> polygonViewer [
 	"HGSimulator polygonViewer"
 
@@ -4122,7 +4124,7 @@ HGSimulator class >> polygonViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-bindings' }
+{ #category : 'applications-bindings' }
 HGSimulator class >> polymer800 [
 
 	"HGSimulator polymer800"
@@ -4194,7 +4196,7 @@ HGSimulator class >> polymer800 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> powder4000 [
 
 	"HGSimulator powder4000"
@@ -4259,7 +4261,7 @@ HGSimulator class >> powder4000 [
 	^ simulator
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> pressureMapInUserImage: rate [
 
 	"HGSimulator pressureMapInUserImage: 0.5"
@@ -4323,7 +4325,7 @@ HGSimulator class >> pressureMapInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSimulator class >> propagateLicense [
 	"HGSimulator propagateLicense"
 
@@ -4352,7 +4354,7 @@ HGSimulator class >> propagateLicense [
 							c class reformatMethodAt: #MITLicense ] ] ]
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> raftingDots [
 	"HGSimulator raftingDots"
 
@@ -4387,7 +4389,7 @@ HGSimulator class >> raftingDots [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> raftingPolygons [
 	"HGSimulator raftingPolygons"
 
@@ -4422,7 +4424,7 @@ HGSimulator class >> raftingPolygons [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> raftingPressureMap [
 	"HGSimulator raftingPressureMap"
 
@@ -4457,7 +4459,7 @@ HGSimulator class >> raftingPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> raftingPressureSpeaker [
 	"HGSimulator raftingPressureSpeaker"
 
@@ -4492,7 +4494,7 @@ HGSimulator class >> raftingPressureSpeaker [
 	^ simulator
 ]
 
-{ #category : #'applications-bindings' }
+{ #category : 'applications-bindings' }
 HGSimulator class >> ramen [
 	"HGSimulator ramen"
 
@@ -4536,7 +4538,7 @@ HGSimulator class >> ramen [
 	^ simulator
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> refractionMapInUserImage: rate [
 
 	"HGSimulator refractionMapInUserImage: 0.5"
@@ -4604,7 +4606,7 @@ HGSimulator class >> refractionMapInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-elastic' }
+{ #category : 'applications-elastic' }
 HGSimulator class >> rockAtDie [
 	"HGSimulator rockAtDie"
 
@@ -4646,7 +4648,7 @@ HGSimulator class >> rockAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-elastic' }
+{ #category : 'applications-elastic' }
 HGSimulator class >> rockAtGun [
 
 	"HGSimulator rockAtGun"
@@ -4697,7 +4699,7 @@ HGSimulator class >> rockAtGun [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> rockAtMouse [
 
 	"HGSimulator rockAtMouse"
@@ -4741,7 +4743,7 @@ HGSimulator class >> rockAtMouse [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> rockAtMouse2 [
 	"HGSimulator rockAtMouse2"
 
@@ -4778,7 +4780,7 @@ HGSimulator class >> rockAtMouse2 [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> rockAtMouse3 [
 
 	"HGSimulator rockAtMouse3"
@@ -4831,7 +4833,7 @@ HGSimulator class >> rockAtMouse3 [
 	^ simulator
 ]
 
-{ #category : #'applications-elastic' }
+{ #category : 'applications-elastic' }
 HGSimulator class >> rockIce [
 	"HGSimulator rockIce"
 
@@ -4885,7 +4887,7 @@ HGSimulator class >> rockIce [
 	^ simulator
 ]
 
-{ #category : #'applications-UI' }
+{ #category : 'applications-UI' }
 HGSimulator class >> rocknjello [
 	"HGSimulator rocknjello"
 
@@ -4924,7 +4926,7 @@ HGSimulator class >> rocknjello [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> sandbox1000 [
 	"HGSimulator sandbox1000"
 
@@ -4986,7 +4988,7 @@ HGSimulator class >> sandbox1000 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> sandbox2000 [
 	"HGSimulator sandbox2000"
 
@@ -5048,7 +5050,7 @@ HGSimulator class >> sandbox2000 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> sandbox3000 [
 	"HGSimulator sandbox3000"
 
@@ -5110,7 +5112,7 @@ HGSimulator class >> sandbox3000 [
 	^ simulator
 ]
 
-{ #category : #'applications-zen' }
+{ #category : 'applications-zen' }
 HGSimulator class >> sandbox4000 [
 
 	"HGSimulator sandbox4000"
@@ -5184,7 +5186,7 @@ HGSimulator class >> sandbox4000 [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> sandtrap [
 
 	<script: 'HGSimulator sandtrap'>
@@ -5279,7 +5281,7 @@ HGSimulator class >> sandtrap [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> sandtrap3D [
 
 	<script: 'HGSimulator sandtrap3D'>
@@ -5386,7 +5388,7 @@ HGSimulator class >> sandtrap3D [
 	^ simulator
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HGSimulator class >> selectorPanel: aString do: aBlock withAll: anArrayOfValues [
 	| panel |
 	panel := self horizontalPanel: (Array with: aString asMorph).
@@ -5396,7 +5398,7 @@ HGSimulator class >> selectorPanel: aString do: aBlock withAll: anArrayOfValues 
 	^ panel
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSimulator class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -5405,7 +5407,7 @@ HGSimulator class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> silkyString1 [
 	<script: 'HGSimulator silkyString1'>
 	| random simulator bindingAction stick resetBlock firsts lasts |
@@ -5474,7 +5476,7 @@ HGSimulator class >> silkyString1 [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> silkyString5 [
 	<script: 'HGSimulator silkyString5'>
 	| random simulator bindingAction stick firsts lasts resetBlock |
@@ -5549,7 +5551,7 @@ HGSimulator class >> silkyString5 [
 	^ simulator
 ]
 
-{ #category : #'applications-barriers' }
+{ #category : 'applications-barriers' }
 HGSimulator class >> slackFence [
 	"HGSimulator slackFence"
 
@@ -5652,7 +5654,7 @@ HGSimulator class >> slackFence [
 	^ simulator
 ]
 
-{ #category : #'applications-constraints' }
+{ #category : 'applications-constraints' }
 HGSimulator class >> smokeInUserImage: rate [
 	"HGSimulator smokeInUserImage: 0.5"
 
@@ -5700,7 +5702,7 @@ HGSimulator class >> smokeInUserImage: rate [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashDots [
 	"HGSimulator splashDots"
 
@@ -5732,7 +5734,7 @@ HGSimulator class >> splashDots [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPolygon [
 	"HGSimulator splashPolygon"
 
@@ -5764,7 +5766,7 @@ HGSimulator class >> splashPolygon [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPressureBorderline [
 	"HGSimulator splashPressureBorderline"
 
@@ -5796,7 +5798,7 @@ HGSimulator class >> splashPressureBorderline [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPressureBorderlineFill [
 	"HGSimulator splashPressureBorderlineFill"
 
@@ -5828,7 +5830,7 @@ HGSimulator class >> splashPressureBorderlineFill [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPressureBorderlineGraffitiFill [
 	"HGSimulator splashPressureBorderlineGraffitiFill"
 
@@ -5872,7 +5874,7 @@ HGSimulator class >> splashPressureBorderlineGraffitiFill [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPressureBorderlineToonFill [
 	"HGSimulator splashPressureBorderlineToonFill"
 
@@ -5905,7 +5907,7 @@ HGSimulator class >> splashPressureBorderlineToonFill [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashPressureMap [
 	"HGSimulator splashPressureMap"
 
@@ -5937,7 +5939,7 @@ HGSimulator class >> splashPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashRefraction [
 	"HGSimulator splashRefraction"
 
@@ -5970,7 +5972,7 @@ HGSimulator class >> splashRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-flows' }
+{ #category : 'applications-flows' }
 HGSimulator class >> splashSmoke [
 	"HGSimulator splashSmoke"
 
@@ -6003,7 +6005,7 @@ HGSimulator class >> splashSmoke [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> stationaryVelocityViewer [
 	"HGSimulator stationaryVelocityViewer"
 
@@ -6030,7 +6032,7 @@ HGSimulator class >> stationaryVelocityViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-presentations' }
+{ #category : 'applications-presentations' }
 HGSimulator class >> steampaint [
 	"HGSimulator steampaint"
 
@@ -6104,7 +6106,7 @@ HGSimulator class >> steampaint [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> stickyBeans [
 	"HGSimulator stickyBeans"
 
@@ -6149,7 +6151,7 @@ HGSimulator class >> stickyBeans [
 	^ simulator
 ]
 
-{ #category : #'applications-viscous' }
+{ #category : 'applications-viscous' }
 HGSimulator class >> stickyBeansAtDie [
 	"HGSimulator stickyBeansAtDie"
 
@@ -6196,7 +6198,7 @@ HGSimulator class >> stickyBeansAtDie [
 	^ simulator
 ]
 
-{ #category : #'applications-jun' }
+{ #category : 'applications-jun' }
 HGSimulator class >> submarineByJun4Pharo [
 	<script: 'HGSimulator submarineByJun4Pharo'>
 
@@ -6304,7 +6306,7 @@ HGSimulator class >> submarineByJun4Pharo [
 	^ simulator
 ]
 
-{ #category : #'applications-jun' }
+{ #category : 'applications-jun' }
 HGSimulator class >> submarineByJun4Pharo2 [
 	<script: 'HGSimulator submarineByJun4Pharo2'>
 
@@ -6412,7 +6414,7 @@ HGSimulator class >> submarineByJun4Pharo2 [
 	^ simulator
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HGSimulator class >> verticalPanel: anArrayOfMorphs [
 	| panel |
 	panel := Morph new.
@@ -6427,7 +6429,7 @@ HGSimulator class >> verticalPanel: anArrayOfMorphs [
 	^ panel
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> washoutDots [
 	"HGSimulator washoutDots"
 
@@ -6478,7 +6480,7 @@ HGSimulator class >> washoutDots [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> washoutPressureMap [
 	"HGSimulator washoutPressureMap"
 
@@ -6529,7 +6531,7 @@ HGSimulator class >> washoutPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> washoutRefraction [
 	"HGSimulator washoutRefraction"
 
@@ -6580,7 +6582,7 @@ HGSimulator class >> washoutRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-distributed-viewers' }
+{ #category : 'applications-distributed-viewers' }
 HGSimulator class >> waterImageViewer [
 	"HGSimulator waterImageViewer"
 
@@ -6601,7 +6603,7 @@ HGSimulator class >> waterImageViewer [
 	^ simulator
 ]
 
-{ #category : #'applications-presentations' }
+{ #category : 'applications-presentations' }
 HGSimulator class >> waterpaint [
 
 	"HGSimulator waterpaint"
@@ -6676,7 +6678,7 @@ HGSimulator class >> waterpaint [
 	^ simulator
 ]
 
-{ #category : #'applications-presentations' }
+{ #category : 'applications-presentations' }
 HGSimulator class >> waterpaintFromUser [
 	"HGSimulator waterpaintFromUser"
 
@@ -6736,7 +6738,7 @@ HGSimulator class >> waterpaintFromUser [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowDots [
 	"HGSimulator watershowDots"
 
@@ -6787,7 +6789,7 @@ HGSimulator class >> watershowDots [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowGraffiti [
 	"HGSimulator watershowGraffiti"
 
@@ -6850,7 +6852,7 @@ HGSimulator class >> watershowGraffiti [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowPressureMap [
 	"HGSimulator watershowPressureMap"
 
@@ -6901,7 +6903,7 @@ HGSimulator class >> watershowPressureMap [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowRefraction [
 	"HGSimulator watershowRefraction"
 
@@ -6954,7 +6956,7 @@ HGSimulator class >> watershowRefraction [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowSmoke [
 	"HGSimulator watershowSmoke"
 
@@ -7002,7 +7004,7 @@ HGSimulator class >> watershowSmoke [
 	^ simulator
 ]
 
-{ #category : #'applications-watershows' }
+{ #category : 'applications-watershows' }
 HGSimulator class >> watershowSourceCode [
 
 	"HGSimulator watershowSourceCode"
@@ -7060,17 +7062,17 @@ HGSimulator class >> watershowSourceCode [
 	^ simulator
 ]
 
-{ #category : #rules }
+{ #category : 'rules' }
 HGSimulator >> addAction: anHGAction [
 	actions add: anHGAction
 ]
 
-{ #category : #rules }
+{ #category : 'rules' }
 HGSimulator >> addInitializer: anHGRule [
 	initializers add: anHGRule
 ]
 
-{ #category : #particles }
+{ #category : 'particles' }
 HGSimulator >> addParticleAt: aPoint temperature: temperature mass: mass [
 	| particle |
 	particle := HGParticle
@@ -7083,20 +7085,20 @@ HGSimulator >> addParticleAt: aPoint temperature: temperature mass: mass [
 	^ particle
 ]
 
-{ #category : #particles }
+{ #category : 'particles' }
 HGSimulator >> clearParticles [
 	particles := Array new.
 	self updateParticleMap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> color: aColor [
 	super color: aColor.
 	form ifNotNil: [ form getCanvas fillColor: self color ].
 	visibleForm ifNotNil: [ visibleForm getCanvas fillColor: self color ]
 ]
 
-{ #category : #fields }
+{ #category : 'fields' }
 HGSimulator >> countAt: anHG2dPoint kernel: anHGKernel [
 	| count |
 	count := 0.
@@ -7107,7 +7109,7 @@ HGSimulator >> countAt: anHG2dPoint kernel: anHGKernel [
 	^ count
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGSimulator >> drawOn: aCanvas [
 	visibleForm
 		ifNotNil: [ :f | 
@@ -7119,7 +7121,7 @@ HGSimulator >> drawOn: aCanvas [
 						at: self position ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> extent: aPoint [
 	(simulationOrigin notNil and: [ simulationCorner notNil ])
 		ifTrue: [ scale := aPoint x / (simulationCorner x - simulationOrigin x)
@@ -7128,22 +7130,22 @@ HGSimulator >> extent: aPoint [
 	^ super extent: aPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> form [
 	^form
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 HGSimulator >> handlerForBlueButtonDown: anEvent [
 	^ nil  
 ]
 
-{ #category : #'event handling' }
+{ #category : 'event handling' }
 HGSimulator >> handlesMouseDown: anEvent [
 	^(super handlesMouseDown: anEvent) or: [anEvent redButtonPressed]  
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGSimulator >> initialize [
 	super initialize.
 	self color: Color white.
@@ -7155,7 +7157,7 @@ HGSimulator >> initialize [
 	self updateParticleMap
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGSimulator >> neighborsOf: anHG2dPoint within: aNumber do: aBlock [
 	| x y r |
 	x := anHG2dPoint x.
@@ -7178,12 +7180,12 @@ HGSimulator >> neighborsOf: anHG2dPoint within: aNumber do: aBlock [
 						ifTrue: [ aBlock value: particle value: d sqrt ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> numberOfParticles [
 	^ particles size
 ]
 
-{ #category : #'user interface' }
+{ #category : 'user interface' }
 HGSimulator >> openInWindowLabeled: aString [
 	| window |
 	window := super openInWindowLabeled: aString.
@@ -7191,7 +7193,7 @@ HGSimulator >> openInWindowLabeled: aString [
 	^ window
 ]
 
-{ #category : #'user interface' }
+{ #category : 'user interface' }
 HGSimulator >> openInWorld [
 	| window |
 	window := super openInWorld.
@@ -7199,54 +7201,54 @@ HGSimulator >> openInWorld [
 	^ window
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> particleAt: anInteger [
 	^ particles at: anInteger ifAbsent: []
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> particleMapResolution [
 	^ particleMapResolution
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> particleMapResolution: anInteger [
 	particleMapResolution := anInteger.
 	self updateParticleMap 
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGSimulator >> particlesDo: aBlock [
 	particles do: aBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> random [
 	^ random
 ]
 
-{ #category : #rules }
+{ #category : 'rules' }
 HGSimulator >> removeAction: anHGAction ifAbsent: errorBlock [
 	^ actions remove: anHGAction ifAbsent: errorBlock
 ]
 
-{ #category : #particles }
+{ #category : 'particles' }
 HGSimulator >> removeParticlesSuchThat: aBlock [
 	particles := particles reject: aBlock.
 	self updateParticleMap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> scale [
 	^ scale ifNil: [ 1.0 ]
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGSimulator >> setupSimulation [
 	self setupSimulationAt: Time millisecondClockValue
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGSimulator >> setupSimulationAt: millisecondClockValue [
 	"| time |
 	time := self timeFromMillis: millisecondClockValue.
@@ -7256,22 +7258,22 @@ HGSimulator >> setupSimulationAt: millisecondClockValue [
 	initializers do: [ :rule | rule effectIn: self deltaT: 0.0 ]
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSimulator >> showLicense [
 	self class showLicense
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> simulationCorner [
 	^simulationCorner
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> simulationOrigin [
 	^ simulationOrigin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> simulationOrigin: anHG2dPoint corner: anotherHG2dPoint [
 	simulationOrigin := anHG2dPoint.
 	simulationCorner := anotherHG2dPoint.
@@ -7283,17 +7285,17 @@ HGSimulator >> simulationOrigin: anHG2dPoint corner: anotherHG2dPoint [
 	self updateParticleMap
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> simulationTime [
 	^ simulationTime
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGSimulator >> step [
 	self stepAt: Time millisecondClockValue 
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGSimulator >> stepAt: millisecondClockValue [
 	| time deltaT |
 	"deltaT := (time := self timeFromMillis: millisecondClockValue) - simulationTime."
@@ -7304,22 +7306,22 @@ HGSimulator >> stepAt: millisecondClockValue [
 	self invalidRect: self fullBounds
 ]
 
-{ #category : #'stepping and presenter' }
+{ #category : 'stepping and presenter' }
 HGSimulator >> stepTime [
 	^10.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> time [
 	^ self timeFromMillis: Time millisecondClockValue
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> timeFromMillis: aNumber [
 	^ aNumber / 200.0.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSimulator >> updateForm [
 	| t |
 	t := visibleForm.
@@ -7330,7 +7332,7 @@ HGSimulator >> updateForm [
 		flush
 ]
 
-{ #category : #particles }
+{ #category : 'particles' }
 HGSimulator >> updateParticleMap [
 	(simulationOrigin notNil and: [ simulationCorner notNil ])
 		ifTrue: [ 
@@ -7340,7 +7342,7 @@ HGSimulator >> updateParticleMap [
 			particleMap := newParticleMap ]
 ]
 
-{ #category : #fields }
+{ #category : 'fields' }
 HGSimulator >> velocityAt: anHG2dPoint kernel: anHGKernel [
 	| velocity denominator |
 	velocity := HG2dPoint zero.

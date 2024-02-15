@@ -1,42 +1,44 @@
 Class {
-	#name : #HGVoronoiRegion,
-	#superclass : #Object,
+	#name : 'HGVoronoiRegion',
+	#superclass : 'Object',
 	#instVars : [
 		'center',
 		'edges'
 	],
-	#category : #'HoneyGinger-Geometry-Voronoi'
+	#category : 'HoneyGinger-Geometry-Voronoi',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Voronoi'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGVoronoiRegion class >> at: anHG2dPoint [
 	^ (self new)
 		center: anHG2dPoint;
 		yourself
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 HGVoronoiRegion >> addEdge: anHGVoronoiEdge [
 	^ edges add: anHGVoronoiEdge 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiRegion >> center [
 	^ center
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiRegion >> center: anHG2dPoint [
 	center := anHG2dPoint
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiRegion >> containsPoint: anHG2dPoint [
 	^ edges allSatisfy: [:edge |
 		edge seesSameSide: center and: anHG2dPoint]
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiRegion >> cutAgainst: anHGVoronoiRegion conflictEdgesDo: aBlock [
 	| newEdge |
 	newEdge := HGVoronoiEdge foreside: self backside: anHGVoronoiRegion.
@@ -49,7 +51,7 @@ HGVoronoiRegion >> cutAgainst: anHGVoronoiRegion conflictEdgesDo: aBlock [
 	^ newEdge
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiRegion >> cutAgainst: anHGVoronoiRegion conflictEdgesDo: aBlock parallelEdgesDo: anotherBlock [
 	| newEdge |
 	newEdge := HGVoronoiEdge foreside: self backside: anHGVoronoiRegion.
@@ -67,18 +69,18 @@ HGVoronoiRegion >> cutAgainst: anHGVoronoiRegion conflictEdgesDo: aBlock paralle
 	^ newEdge
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGVoronoiRegion >> edgesDo: aBlock [
 	edges do: aBlock
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGVoronoiRegion >> initialize [
 	super initialize.
 	edges := OrderedCollection new
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGVoronoiRegion >> origin: aPoint1 corner: aPoint2 pointsDo: aBlock [
 
 	| x1 x2 y1 y2 points |
@@ -137,7 +139,7 @@ HGVoronoiRegion >> origin: aPoint1 corner: aPoint2 pointsDo: aBlock [
 		do: [ :pair | aBlock value: pair value ]
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HGVoronoiRegion >> printOn: aStream [
 	aStream nextPutAll: self class name.
 	aStream nextPut: $(.
@@ -148,7 +150,7 @@ HGVoronoiRegion >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiRegion >> purgeExtraEdges [
 	^ (edges
 		select: [ :suspect | 
@@ -159,7 +161,7 @@ HGVoronoiRegion >> purgeExtraEdges [
 		yourself
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 HGVoronoiRegion >> removeEdge: anHGVoronoiEdge [
 	^ edges remove: anHGVoronoiEdge 
 ]

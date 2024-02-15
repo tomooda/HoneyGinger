@@ -1,23 +1,25 @@
 Class {
-	#name : #HoneyGingerSerializer,
-	#superclass : #HoneyGingerObjectProtocol,
+	#name : 'HoneyGingerSerializer',
+	#superclass : 'HoneyGingerObjectProtocol',
 	#instVars : [
 		'selectors'
 	],
-	#category : 'HoneyGinger-Communications-Serializers'
+	#category : 'HoneyGinger-Communications-Serializers',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Serializers'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializer class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializer class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 HoneyGingerSerializer class >> example1 [
 	"PcardSerializer example1"
 
@@ -30,7 +32,7 @@ HoneyGingerSerializer class >> example1 [
 	^ stream contents
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 HoneyGingerSerializer class >> example2 [
 	"PcardSerializer example2"
 
@@ -53,7 +55,7 @@ HoneyGingerSerializer class >> example2 [
 	^deserializer read
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializer class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -62,7 +64,7 @@ HoneyGingerSerializer class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HoneyGingerSerializer >> initialize [
 	super initialize.
 	selectors := IdentityDictionary new.
@@ -81,19 +83,19 @@ HoneyGingerSerializer >> initialize [
 	selectors at: #HG2dPoint put: #writeHG2dPoint:
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> nextPut: anObject [
 	self writeObject: anObject.
 	^ anObject
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> nextPutAll: aCollection [
 	aCollection do: [ :object | self nextPut: object ].
 	^ aCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerSerializer >> searchSelectorFor: anObject [
 	| class |
 	class := anObject class.
@@ -105,7 +107,7 @@ HoneyGingerSerializer >> searchSelectorFor: anObject [
 	^ self error: 'Unsupported type'
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> write: aKeyedCollection [
 	aKeyedCollection
 		keysAndValuesDo: [ :key :value | 
@@ -114,7 +116,7 @@ HoneyGingerSerializer >> write: aKeyedCollection [
 	self writeEnd
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeBinary: aByteArray [
 	| length first4bits stopBit |
 	length := aByteArray size.
@@ -136,12 +138,12 @@ HoneyGingerSerializer >> writeBinary: aByteArray [
 	stream nextPutAll: aByteArray
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeDefine [
 	stream nextPut: HGDefineType
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeDict: aDictionary [
 	stream nextPut: HGDictType.
 	aDictionary keysAndValuesDo: [ :key :value |
@@ -150,12 +152,12 @@ HoneyGingerSerializer >> writeDict: aDictionary [
 	stream nextPut: HGEndMarkType
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeEnd [
 	^ stream nextPut: HGEndMarkType
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeFloat: aFloat [
 	| bits |
 	bits := aFloat asIEEE32BitWord.
@@ -166,7 +168,7 @@ HoneyGingerSerializer >> writeFloat: aFloat [
 	stream nextPut: (bits bitAnd: 255)
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeHG2dPoint: aHG2dPoint [
 	| bits |
 	stream nextPut: 2r00010000.
@@ -182,7 +184,7 @@ HoneyGingerSerializer >> writeHG2dPoint: aHG2dPoint [
 	stream nextPut: (bits bitAnd: 255)
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeIndex: anInteger [
 	| index first5bits stopBit |
 	index := anInteger.
@@ -203,7 +205,7 @@ HoneyGingerSerializer >> writeIndex: anInteger [
 			index := index >> 7 ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeInteger: anInteger [
 	| integer  signBit first5bits stopBit |
 	integer := anInteger abs.
@@ -225,24 +227,24 @@ HoneyGingerSerializer >> writeInteger: anInteger [
 			integer := integer >> 7 ]
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeList: aCollection [
 	stream nextPut: HGListType.
 	aCollection do: [ :object | self writeObject: object].
 	stream nextPut: HGEndMarkType
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeNil: nilObject [
 	stream nextPut: HGNilType 
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeObject: anObject [
 	self perform: (selectors at: anObject class name ifAbsentPut: [ self searchSelectorFor: anObject ]) with: anObject
 ]
 
-{ #category : #writing }
+{ #category : 'writing' }
 HoneyGingerSerializer >> writeString: aString [
 	stream nextPut: HGStringType.
 	stream nextPutAll: aString asByteArray.

@@ -1,20 +1,22 @@
 Class {
-	#name : #HGRecyclingBoundingBox,
-	#superclass : #HGAction,
+	#name : 'HGRecyclingBoundingBox',
+	#superclass : 'HGAction',
 	#instVars : [
 		'recyclingBlock'
 	],
-	#category : 'HoneyGinger-Actions-Simulation'
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGRecyclingBoundingBox class >> recyclingBlock: aBlock [
 	^ (self new)
 		recyclingBlock: aBlock;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGRecyclingBoundingBox class >> sprintAtHand [
 	^ self
 		recyclingBlock: [ :simulator :particle | 
@@ -24,7 +26,7 @@ HGRecyclingBoundingBox class >> sprintAtHand [
 					(HG2dPoint fromPoint: (simulator random next - 0.5) @ (simulator random next * 2.0 - 1.8) * 40.0 + World activeHand position - simulator position ) ]
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGRecyclingBoundingBox >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	| x0 y0 x1 y1 position velocity |
 	x0 := anHGSimulator simulationOrigin x.
@@ -37,12 +39,12 @@ HGRecyclingBoundingBox >> effect: anHGParticle in: anHGSimulator deltaT: aNumber
 		ifTrue: [ recyclingBlock value: anHGSimulator value: anHGParticle ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRecyclingBoundingBox >> recyclingBlock [
 	^ recyclingBlock 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRecyclingBoundingBox >> recyclingBlock: aBlock [
 	recyclingBlock := aBlock
 ]

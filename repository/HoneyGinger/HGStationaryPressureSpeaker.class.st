@@ -1,6 +1,6 @@
 Class {
-	#name : #HGStationaryPressureSpeaker,
-	#superclass : #HGSpeaker,
+	#name : 'HGStationaryPressureSpeaker',
+	#superclass : 'HGSpeaker',
 	#instVars : [
 		'lastVelocity',
 		'volumeScale',
@@ -12,15 +12,17 @@ Class {
 		'durationScale',
 		'kernel'
 	],
-	#category : #'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStationaryPressureSpeaker class >> kernel: anHGKernel [
 	^ self new kernel: anHGKernel ; yourself
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGStationaryPressureSpeaker >> effectIn: anHGSimulator deltaT: aNumber [ 
 	| newPosition position sound pitch volume velocity denominator |
 	newPosition := World activeHand position.
@@ -39,7 +41,7 @@ HGStationaryPressureSpeaker >> effectIn: anHGSimulator deltaT: aNumber [
 	sound play
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGStationaryPressureSpeaker >> initialize [
 	super initialize.
 	lastVelocity := 0.0.
@@ -52,17 +54,17 @@ HGStationaryPressureSpeaker >> initialize [
 	durationScale := 100.0 / 1000.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStationaryPressureSpeaker >> kernel [
 	^ kernel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStationaryPressureSpeaker >> kernel: anHGKernel [
 	 kernel := anHGKernel
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGStationaryPressureSpeaker >> oldeffectIn: anHGSimulator deltaT: aNumber [ 
 	| newPosition position sound pitch volume velocity denominator |
 	newPosition := World activeHand position.
@@ -93,7 +95,7 @@ HGStationaryPressureSpeaker >> oldeffectIn: anHGSimulator deltaT: aNumber [
 	sound play
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGStationaryPressureSpeaker >> oldinitialize [
 	super initialize.
 	lastVelocity := HG2dPoint zero.

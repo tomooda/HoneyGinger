@@ -1,18 +1,20 @@
 Class {
-	#name : #HGBumpyObstacle,
-	#superclass : #HGObstacle,
+	#name : 'HGBumpyObstacle',
+	#superclass : 'HGObstacle',
 	#instVars : [
 		'rate'
 	],
-	#category : 'HoneyGinger-Actions-Simulation'
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBumpyObstacle class >> with: anHG2dRegion  color: aColor [
 	^ self with: anHG2dRegion rate: 1.0 color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBumpyObstacle class >> with: anHG2dRegion rate: aNumber color: aColor [
 	^ (self new)
 		setRegion: anHG2dRegion color: aColor;
@@ -20,7 +22,7 @@ HGBumpyObstacle class >> with: anHG2dRegion rate: aNumber color: aColor [
 		yourself
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGBumpyObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	| position |
 	position := anHGParticle position.
@@ -33,18 +35,18 @@ HGBumpyObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 			afterEffect ifNotNil: [ afterEffect value: anHGParticle value: aNumber] ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGBumpyObstacle >> initialize [
 	super initialize.
 	rate := 1.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBumpyObstacle >> rate [
 	^ rate
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBumpyObstacle >> rate: aNumber [
 	rate := aNumber
 ]

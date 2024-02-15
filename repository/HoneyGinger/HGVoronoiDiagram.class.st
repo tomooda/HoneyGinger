@@ -1,16 +1,18 @@
 Class {
-	#name : #HGVoronoiDiagram,
-	#superclass : #Object,
+	#name : 'HGVoronoiDiagram',
+	#superclass : 'Object',
 	#instVars : [
 		'random',
 		'distribution',
 		'regions',
 		'edges'
 	],
-	#category : 'HoneyGinger-Geometry-Voronoi'
+	#category : 'HoneyGinger-Geometry-Voronoi',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Voronoi'
 }
 
-{ #category : #examples }
+{ #category : 'examples' }
 HGVoronoiDiagram class >> exampleVoronoiDiagram [
 
 	"HGVoronoiDiagram exampleVoronoiDiagram"
@@ -46,7 +48,7 @@ HGVoronoiDiagram class >> exampleVoronoiDiagram [
 	^ diagram
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 HGVoronoiDiagram class >> exampleVoronoiMap [
 
 	"HGVoronoiDiagram exampleVoronoiMap"
@@ -87,7 +89,7 @@ HGVoronoiDiagram class >> exampleVoronoiMap [
 	^ diagram
 ]
 
-{ #category : #examples }
+{ #category : 'examples' }
 HGVoronoiDiagram class >> exampleVoronoiPlotter [
 
 	"HGVoronoiDiagram exampleVoronoiPlotter"
@@ -141,7 +143,7 @@ HGVoronoiDiagram class >> exampleVoronoiPlotter [
 	plotter openInWindowLabeled: 'Voronoi Plotter'
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 HGVoronoiDiagram >> addRegionAt: aPoint [
 	| thePoint newRegion |
 	thePoint := HG2dPoint x: aPoint x asFloat y: aPoint y asFloat.
@@ -168,12 +170,12 @@ HGVoronoiDiagram >> addRegionAt: aPoint [
 	^ regions add: newRegion
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGVoronoiDiagram >> edgesDo: aBlock [
 	edges do: aBlock
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGVoronoiDiagram >> initialize [
 	super initialize.
 	regions := OrderedCollection new.
@@ -182,7 +184,7 @@ HGVoronoiDiagram >> initialize [
 	distribution := 1.0
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGVoronoiDiagram >> origin: aPoint1 corner: aPoint2 pairsDo: aTwoArgumentBlock [
 	| x1 x2 y1 y2 |
 	x1 := aPoint1 x.
@@ -225,12 +227,12 @@ HGVoronoiDiagram >> origin: aPoint1 corner: aPoint2 pairsDo: aTwoArgumentBlock [
 						ifTrue: [ aTwoArgumentBlock value: (edge atT: from) value: (edge atT: to) ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGVoronoiDiagram >> purgeExtraEdges [
 	regions do: [ :region | region purgeExtraEdges ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiDiagram >> regionThatContains: anHG2dPoint [
 	| x y minSquaredDistance theRegion |
 	x := anHG2dPoint x.
@@ -248,7 +250,7 @@ HGVoronoiDiagram >> regionThatContains: anHG2dPoint [
 	^ theRegion
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HGVoronoiDiagram >> regionsDo: aBlock [
 	regions do: aBlock
 ]

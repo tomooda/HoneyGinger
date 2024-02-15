@@ -1,13 +1,15 @@
 Class {
-	#name : #HGBorderlineFillPressureVisualizer,
-	#superclass : #HGAbstractBorderlinePressureVisualizer,
+	#name : 'HGBorderlineFillPressureVisualizer',
+	#superclass : 'HGAbstractBorderlinePressureVisualizer',
 	#instVars : [
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBorderlineFillPressureVisualizer class >> pressure: pressure color: aColor [
 	^ self
 		pressure: pressure
@@ -17,7 +19,7 @@ HGBorderlineFillPressureVisualizer class >> pressure: pressure color: aColor [
 		color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGBorderlineFillPressureVisualizer class >> pressure: pressure xgrids: xgrids ygrids: ygrids kernel: kernel color: aColor [
 	^ self new
 		pressure: pressure;
@@ -28,17 +30,17 @@ HGBorderlineFillPressureVisualizer class >> pressure: pressure xgrids: xgrids yg
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlineFillPressureVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGBorderlineFillPressureVisualizer >> color: aColor [
 	color := aColor
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGBorderlineFillPressureVisualizer >> initialize0001to0111 [
 	marchingSquares
 		at: 2r0001
@@ -107,7 +109,7 @@ HGBorderlineFillPressureVisualizer >> initialize0001to0111 [
 				fillStyle: color ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGBorderlineFillPressureVisualizer >> initialize1000to1111 [
 	marchingSquares
 		at: 2r1000

@@ -1,15 +1,17 @@
 Class {
-	#name : #HGPerspectiveVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGPerspectiveVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'eyeHeight',
 		'depthBlock',
 		'vanishingPoint'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPerspectiveVisualizer class >> eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock [
 	^ self new
 		eyeHeight: height;
@@ -18,17 +20,17 @@ HGPerspectiveVisualizer class >> eyeHeight: height vanishingPoint: point depthBl
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> depthBlock [
 	^ depthBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> depthBlock: aBlock [
 	depthBlock := aBlock
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGPerspectiveVisualizer >> drawCornersIn: anHGSimulator on: aCanvas [
 	| cornerBlock |
 	cornerBlock := [ :position | 
@@ -50,17 +52,17 @@ HGPerspectiveVisualizer >> drawCornersIn: anHGSimulator on: aCanvas [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> eyeHeight [
 	^ eyeHeight
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> eyeHeight: aNumber [
 	eyeHeight := aNumber
 ]
 
-{ #category : #projecting }
+{ #category : 'projecting' }
 HGPerspectiveVisualizer >> project: anHGParticle in: anHGSimulator do: aBlock [
 	| p x y z a c r |
 	p := anHGParticle position.
@@ -73,7 +75,7 @@ HGPerspectiveVisualizer >> project: anHGParticle in: anHGSimulator do: aBlock [
 	^ aBlock value: x * a + vanishingPoint x value: y * a + vanishingPoint y value: z value: a
 ]
 
-{ #category : #projecting }
+{ #category : 'projecting' }
 HGPerspectiveVisualizer >> projectPoint: aPoint z: aNumber in: anHGSimulator do: aBlock [
 	|  x y a |
 	x := aPoint x - vanishingPoint x.
@@ -82,12 +84,12 @@ HGPerspectiveVisualizer >> projectPoint: aPoint z: aNumber in: anHGSimulator do:
 	^ aBlock value: x * a + vanishingPoint x value: y * a + vanishingPoint y value: aNumber value: a
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> vanishingPoint [
 	^ vanishingPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveVisualizer >> vanishingPoint: anHG2dPoint [
 	vanishingPoint := anHG2dPoint
 ]

@@ -1,28 +1,30 @@
 Class {
-	#name : #HGTriangulator,
-	#superclass : #Object,
+	#name : 'HGTriangulator',
+	#superclass : 'Object',
 	#instVars : [
 		'triangles'
 	],
-	#category : 'HoneyGinger-Geometry-Neighbors'
+	#category : 'HoneyGinger-Geometry-Neighbors',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Neighbors'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTriangulator class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTriangulator class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGTriangulator class >> origin: anHGPoint corner: anotherHGPoint step: aNumber [
 	^ self new setOrigin: anHGPoint corner: anotherHGPoint step: aNumber
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGTriangulator class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -31,7 +33,7 @@ HGTriangulator class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 HGTriangulator >> divideAt: anHG2dPoint [
 	| triangle from to triangle1 from1 to1 triangle2 from2 to2 triangle3 from3 to3 pair1 va1 pair2 va2 pair3 va3 agenda |
 	triangle := self triangleAt: anHG2dPoint.
@@ -154,7 +156,7 @@ HGTriangulator >> divideAt: anHG2dPoint [
 	self optimize: agenda
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGTriangulator >> flip: triangle1 with: neighborParams agenda: agenda [
 	| triangle2 v1 v2 va vb triangleA triangleB |
 	triangle2 := neighborParams at: 1.
@@ -249,7 +251,7 @@ HGTriangulator >> flip: triangle1 with: neighborParams agenda: agenda [
 			agenda add: triangleB ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGTriangulator >> minAngleOn: vertex1 on: vertex2 on: vertex3 [
 	| area d l12 l23 l31 angle1 angle2 angle3 |
 	area := vertex1 to: vertex2 cross: vertex3.
@@ -267,7 +269,7 @@ HGTriangulator >> minAngleOn: vertex1 on: vertex2 on: vertex3 [
 				ifFalse: [ area / (l12 * l23) sqrt ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGTriangulator >> neighborPairParams: anHG2dTriangle do: aBlock [
 	(triangles at: anHG2dTriangle)
 		do: [ :params | 
@@ -277,7 +279,7 @@ HGTriangulator >> neighborPairParams: anHG2dTriangle do: aBlock [
 						ifTrue: [ aBlock value: params value: pairParams ] ] ]
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 HGTriangulator >> optimize [
 	| agenda |
 	agenda := IdentitySet new: triangles size.
@@ -285,7 +287,7 @@ HGTriangulator >> optimize [
 	self optimize: agenda
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 HGTriangulator >> optimize: anIdentitySet [
 	[ anIdentitySet isEmpty ]
 		whileFalse: [ 
@@ -295,7 +297,7 @@ HGTriangulator >> optimize: anIdentitySet [
 			self optimize: anIdentitySet triangle: triangle ]
 ]
 
-{ #category : #operations }
+{ #category : 'operations' }
 HGTriangulator >> optimize: anIdentitySet triangle: anHG2dTriangle [
 	| minAngle1 |
 	minAngle1 := self minAngleOn: anHG2dTriangle vertex1 on: anHG2dTriangle vertex2 on: anHG2dTriangle vertex3.
@@ -315,7 +317,7 @@ HGTriangulator >> optimize: anIdentitySet triangle: anHG2dTriangle [
 				ifTrue: [ ^ self flip: anHG2dTriangle with: params agenda: anIdentitySet ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGTriangulator >> sanityCheck [
 	triangles
 		keysAndValuesDo: [ :triangle :paramsList | 
@@ -331,7 +333,7 @@ HGTriangulator >> sanityCheck [
 						ifFalse: [ self error: 'wrong edge vertices between neighbors.' ] ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGTriangulator >> setOrigin: anHGPoint corner: anotherHGPoint step: aNumber [
 	| x0 x1 y0 y1 v1 v2 v3 v4 t1 t2 |
 	x0 := anHGPoint x.
@@ -369,7 +371,7 @@ HGTriangulator >> setOrigin: anHGPoint corner: anotherHGPoint step: aNumber [
 						with: v2))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTriangulator >> triangleAt: anHG2dPoint [
 	| bestTriangle bestDepth |
 	bestTriangle := nil.
@@ -384,7 +386,7 @@ HGTriangulator >> triangleAt: anHG2dPoint [
 	^ bestTriangle
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGTriangulator >> trianglesDo: aBlock [
 	^ triangles keysDo: aBlock
 ]

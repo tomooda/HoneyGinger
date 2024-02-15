@@ -1,26 +1,28 @@
 Class {
-	#name : #HGAddTrindingElasticBody,
-	#superclass : #HGAction,
+	#name : 'HGAddTrindingElasticBody',
+	#superclass : 'HGAction',
 	#instVars : [
 		'region',
 		'numberOfParticles',
 		'mass',
 		'elasticForceAction'
 	],
-	#category : 'HoneyGinger-Actions-Elasticity'
+	#category : 'HoneyGinger-Actions-Elasticity',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Elasticity'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGAddTrindingElasticBody class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGAddTrindingElasticBody class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGAddTrindingElasticBody class >> on: anHGTrindingElasticForce region: anHG2dRegion numberOfParticles: anInteger mass: aNumber [
 	^ (self new)
 		elasticForceAction: anHGTrindingElasticForce;
@@ -30,7 +32,7 @@ HGAddTrindingElasticBody class >> on: anHGTrindingElasticForce region: anHG2dReg
 		yourself
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGAddTrindingElasticBody class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -39,7 +41,7 @@ HGAddTrindingElasticBody class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGAddTrindingElasticBody >> effectIn: anHGSimulator deltaT: aNumber [
 	| random particles triangulator kernel |
 	random := Random new.
@@ -68,42 +70,42 @@ HGAddTrindingElasticBody >> effectIn: anHGSimulator deltaT: aNumber [
 				ifTrue: [ elasticForceAction addTrindingAmong: particle1 and: particle2 and: particle3 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> elasticForceAction [
 	^ elasticForceAction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> elasticForceAction: anHGElasticForceAction [
 	elasticForceAction := anHGElasticForceAction 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> mass [
 	^ mass
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> mass: aNumber [
 	mass := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> numberOfParticles [
 	^ numberOfParticles 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> numberOfParticles: aNumber [
 	numberOfParticles := aNumber 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> region [
 	^ region
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGAddTrindingElasticBody >> region: anHG2dRegion [
 	region := anHG2dRegion
 ]

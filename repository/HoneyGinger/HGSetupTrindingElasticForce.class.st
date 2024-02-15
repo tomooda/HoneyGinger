@@ -1,24 +1,26 @@
 Class {
-	#name : #HGSetupTrindingElasticForce,
-	#superclass : #HGAction,
+	#name : 'HGSetupTrindingElasticForce',
+	#superclass : 'HGAction',
 	#instVars : [
 		'maxDistance',
 		'elasticForceAction'
 	],
-	#category : 'HoneyGinger-Actions-Elasticity'
+	#category : 'HoneyGinger-Actions-Elasticity',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Elasticity'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSetupTrindingElasticForce class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSetupTrindingElasticForce class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGSetupTrindingElasticForce class >> on: anHGElasticForceAction within: aNumber [
 	^ (self new)
 		elasticForceAction: anHGElasticForceAction;
@@ -26,7 +28,7 @@ HGSetupTrindingElasticForce class >> on: anHGElasticForceAction within: aNumber 
 		yourself
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGSetupTrindingElasticForce class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -35,12 +37,12 @@ HGSetupTrindingElasticForce class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGSetupTrindingElasticForce >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGSetupTrindingElasticForce >> effectIn: anHGSimulator deltaT: aNumber [
 	| particles triangulator kernel |
 	particles := IdentityDictionary new.
@@ -71,22 +73,22 @@ HGSetupTrindingElasticForce >> effectIn: anHGSimulator deltaT: aNumber [
 				ifTrue: [ elasticForceAction addTrindingAmong: particle1 and: particle2 and: particle3 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSetupTrindingElasticForce >> elasticForceAction [
 	^ elasticForceAction
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSetupTrindingElasticForce >> elasticForceAction: anHGElasticForceAction [
 	elasticForceAction := anHGElasticForceAction 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSetupTrindingElasticForce >> maxDistance [
 	^ maxDistance
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSetupTrindingElasticForce >> maxDistance: aNumber [
 	maxDistance := aNumber 
 ]
