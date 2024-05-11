@@ -32,7 +32,7 @@ HoneyGingerTestConnection class >> showLicense [
 { #category : #accessing }
 HoneyGingerTestConnection >> clientStream [
 	^ clientSocket
-		ifNotNilDo: [ :socket | 
+		ifNotNil: [ :socket | 
 			clientSocket := nil.
 			socket ]
 		ifNil: [ self error: 'Can''t listen to the same port more than once.' ]
@@ -49,7 +49,7 @@ HoneyGingerTestConnection >> initialize [
 { #category : #accessing }
 HoneyGingerTestConnection >> serverStream [
 	^ serverSocket
-		ifNotNilDo: [ :socket | 
+		ifNotNil: [ :socket | 
 			serverSocket := nil.
 			socket ]
 		ifNil: [ self error: 'Can''t listen to the same port more than once.' ]
