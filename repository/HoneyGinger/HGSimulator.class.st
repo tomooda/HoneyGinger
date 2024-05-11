@@ -1736,6 +1736,24 @@ HGSimulator class >> handVelocityViewer [
 	^ simulator
 ]
 
+{ #category : #menus }
+HGSimulator class >> honeyGingerMenuOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #HoneyGinger)
+		label: 'HoneyGinger';
+		order: 0.1;
+		with: [
+			(aBuilder item: #HoneyGingerLauncher)
+				parent: 'HoneyGinger';
+				label: 'open launcher';
+				order: 1;
+				target: HoneyGingerLauncher;
+				selector: #open;
+				help: 'Open a HoneyGinger Launcher';
+				withSeparatorAfter ]
+]
+
 { #category : #utilities }
 HGSimulator class >> horizontalPanel: anArrayOfMorphs [
 	| panel |
@@ -1823,7 +1841,7 @@ HGSimulator class >> illustratedInUserImage: rate [
 	"HGSimulator illustratedInUserImage: 0.5"
 
 	| form luminances border cursorForm simulator background gravity |
-	form := Form fromDisplay: (0 @ 0 corner: 50 @ 50).
+	form := Form fromDisplay: (0 @ 0 corner: 500 @ 500).
 	luminances := OrderedCollection new: 2500.
 	1 to: 50 do: [ :x | 
 		1 to: 50 do: [ :y | luminances add: (form colorAt: x @ y) luminance ] ].
@@ -1870,7 +1888,7 @@ HGSimulator class >> illustratedInUserImage: rate [
 	simulator addAction: HGLocalityMap new.
 	simulator addAction:
 		(background := HGBackgroundImageVisualizer form:
-			               (form magnifyBy: 10)).
+			               (form magnifyBy: 1)).
 	simulator addAction: ((HGBorderlineFillPressureVisualizer
 			  pressure: 0.05
 			  color: (Color blue alpha: 0.5)) kernel:
@@ -3020,7 +3038,6 @@ HGSimulator class >> lagoonDots [
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGDotsVisualizer radius: 2 color: Color black).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
 	400 timesRepeat: [ 
 		simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon (Dots)') position: 400 @ 1.
@@ -3067,9 +3084,87 @@ HGSimulator class >> lagoonGraffiti [
 				ygrids: 50;
 				yourself).
 	simulator addAction: HGLocalityMap new.
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
 	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'Lagoon (Graffiti)') position: 400 @ 1.
+	^ simulator
+]
+
+{ #category : #menus }
+HGSimulator class >> lagoonMenuOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #HoneyGingerLagoon)
+		parent: 'HoneyGinger';
+		label: 'lagoon';
+		order: 2;
+		with: [
+			(aBuilder item: #ReMobidycLagoonDots)
+				label: 'dots';
+				action: [ HGSimulator lagoonDots ];
+				help: 'Lagoon visualized with dots'.
+			(aBuilder item: #ReMobidycLagoonMesh)
+				label: 'mesh';
+				action: [ HGSimulator lagoonMesh ];
+				help: 'Lagoon visualized with velocity mesh'.
+			(aBuilder item: #ReMobidycLagoonGraffiti)
+				label: 'graffiti';
+				action: [ HGSimulator lagoonGraffiti ];
+				help: 'Lagoon visualized with graffiti rendering'.
+			(aBuilder item: #ReMobidycLagoonWireframe)
+				label: 'wireframe';
+				action: [ HGSimulator lagoonWireframe ];
+				help: 'Lagoon visualized with Delaunay triangles'.
+			(aBuilder item: #ReMobidycLagoonPolygons)
+				label: 'polygons';
+				action: [ HGSimulator lagoonPolygons ];
+				help: 'Lagoon visualized with Delaunay polygons'.
+			(aBuilder item: #ReMobidycLagoonRefraction)
+				label: 'refraction';
+				action: [ HGSimulator lagoonRefractionWorld ];
+				help: 'Lagoon visualized with refraction'.
+			(aBuilder item: #ReMobidycLagoonSmokey)
+				label: 'smoke';
+				action: [ HGSimulator lagoonSmokeyWorld ];
+				help: 'Lagoon visualized with smoke' ]
+]
+
+{ #category : #'applications-UI' }
+HGSimulator class >> lagoonMesh [
+
+	"HGSimulator lagoonMesh"
+
+	| simulator |
+	simulator := HGSimulator new.
+	simulator extent: 500 @ 500.
+	simulator
+		simulationOrigin: (HG2dPoint x: 0.0 y: 0.0)
+		corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer:
+		(HGRandomPosition origin: 200 @ 200 corner: 500 @ 500).
+	simulator addInitializer:
+		(HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 370).
+	simulator addInitializer: HGTemperatureViscosityCurve butter.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction:
+		(HGPressure gasConstant: 0.7 kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction:
+		(HGPressureRepulsion kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction:
+		(HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction:
+		(HGWorldSubmorphsObstacle withBoundsExpansion: 30).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: HGMeshVelocityVisualizer new.
+	400 timesRepeat: [ 
+		simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
+	(simulator openInWindowLabeled: 'Lagoon (Dots)') position: 400 @ 1.
 	^ simulator
 ]
 
@@ -3403,11 +3498,11 @@ HGSimulator class >> lagoonPolygons [
 	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
-	simulator addAction: (HGFakeHand at: 1 mickey: 0.5 image: Cursor normal asCursorForm).
+"	simulator addAction: (HGFakeHand at: 1 mickey: 0.5 image: Cursor normal asCursorForm)."
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGPolygonVisualizer color: (Color lightBlue mixed: 0.8 with: Color blue)).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
 	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon (Polygon)'.
 	^ simulator
@@ -3433,12 +3528,12 @@ HGSimulator class >> lagoonPressureMap [
 	simulator addAction: (HGViscosityTraction kernel: (HGSimpleKernel support: 70.0)).
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
-	simulator addAction: (HGFakeHand at: 1 mickey: 0.5 image: Cursor normal asCursorForm).
+	"simulator addAction: (HGFakeHand at: 1 mickey: 0.5 image: Cursor normal asCursorForm)."
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: ((HGMeshPressureVisualizer color: Color blue) kernel: (HGSimpleKernel support: 30)).
-	simulator addAction: (HGDotVisualizer at: 1 radius: 4.0 color: Color red).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
+	"simulator addAction: (HGDotVisualizer at: 1 radius: 4.0 color: Color red)."
 	400 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon'.
 	^ simulator
@@ -3483,7 +3578,6 @@ HGSimulator class >> lagoonPressureMapWorld [
 	simulator addAction:
 		((HGMeshPressureVisualizer color: Color blue) kernel:
 			 (HGSimpleKernel support: 30)).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
 	400 timesRepeat: [ 
 		simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon'.
@@ -3530,7 +3624,6 @@ HGSimulator class >> lagoonReflectionWorld [
 	simulator addAction: (HGReflectionVisualizer
 			 vector: (HG2dPoint x: 0.0 y: -0.7)
 			 color: Color yellow lighter muchLighter).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
 	400 timesRepeat: [ 
 		simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon Reflection World'.
@@ -3577,7 +3670,6 @@ HGSimulator class >> lagoonRefractionWorld [
 		addAction:
 			((HGMeshPressureVisualizer scale: 0.1 bias: 0.1 color: Color blue)
 				kernel: (HGSimpleKernel support: 30)).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
 	400
 		timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	(simulator openInWindowLabeled: 'HoneyGinger')
@@ -3625,7 +3717,6 @@ HGSimulator class >> lagoonSmokeyWorld [
 			 kernel: (HGSimpleKernel support: 20.0)
 			 scale: 10.0
 			 color: (Color lightGray alpha: 0.7)).
-	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
 	400 timesRepeat: [ 
 		simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Lagoon Refraction World'.
@@ -3819,6 +3910,7 @@ HGSimulator class >> lagoonWireframe [
 	simulator addAction: HGForceIntegration new.
 	simulator addAction: HGVelocityIntegration new.
 	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: (HGWorldSubmorphsObstacle withBoundsExpansion: 30).
 	simulator addAction: HGLocalityMap new.
 	simulator addAction: (HGWireframeVisualizer width: 2 color: Color blue).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 1200.
@@ -4065,6 +4157,27 @@ HGSimulator class >> meshVelocityViewer [
 	^ simulator
 ]
 
+{ #category : #menus }
+HGSimulator class >> miscMenuOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #HoneyGingerMisc)
+		parent: 'HoneyGinger';
+		label: 'misc';
+		order: 100;
+		with: [
+			(aBuilder item: #HoneyGingerBouncingBalls)
+				label: 'bouncing balls';
+				order: 1;
+				action: [ HGSimulator bouncingBalls ];
+				help: 'Bouncing balls'.
+			(aBuilder item: #HoneyGingerBurningHand)
+				label: 'burning hand';
+				order: 2;
+				action: [ HGSimulator burningHand ];
+				help: 'Burning hand' ]
+]
+
 { #category : #'applications-distributed-viewers' }
 HGSimulator class >> nattoViewer [
 	"HGSimulator nattoViewer"
@@ -4081,6 +4194,29 @@ HGSimulator class >> nattoViewer [
 	10 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: nil mass: 300 ].
 	simulator openInWindowLabeled: 'HoneyGinger Beans Viewer'.
 	^ simulator
+]
+
+{ #category : #menus }
+HGSimulator class >> paintMenuOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #HoneyGingerPaint)
+		parent: 'HoneyGinger';
+		label: 'paints';
+		order: 50;
+		with: [
+			(aBuilder item: #HoneyGingerStreamPaint)
+				label: 'steam paint';
+				action: [ HGSimulator steampaint ];
+				help: 'Steam paint'.
+			(aBuilder item: #HoneyGingerWaterPaint)
+				label: 'water paint';
+				action: [ HGSimulator waterpaint ];
+				help: 'Water paint'.
+			(aBuilder item: #HoneyGingerSnowSpray)
+				label: 'snow spray';
+				action: [ HGSimulator snowSpray ];
+				help: 'Water paint' ]
 ]
 
 { #category : #'applications-distributed-viewers' }
@@ -4265,7 +4401,7 @@ HGSimulator class >> pressureMapInUserImage: rate [
 	"HGSimulator pressureMapInUserImage: 0.5"
 
 	| form luminances border cursorForm simulator background gravity |
-	form := Form fromDisplay: (0 @ 0 corner: 50 @ 50).
+	form := Form fromDisplay: (0 @ 0 corner: 500 @ 500).
 	luminances := OrderedCollection new: 2500.
 	1 to: 50 do: [ :x | 
 		1 to: 50 do: [ :y | luminances add: (form colorAt: x @ y) luminance ] ].
@@ -4312,7 +4448,7 @@ HGSimulator class >> pressureMapInUserImage: rate [
 	simulator addAction: HGLocalityMap new.
 	simulator addAction:
 		(background := HGBackgroundImageVisualizer form:
-			               (form magnifyBy: 10)).
+			               (form magnifyBy: 1)).
 	simulator addAction:
 		(HGMeshPressureVisualizer scale: 1.0 bias: 0.0 color: Color blue).
 	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 3000.
@@ -5700,6 +5836,58 @@ HGSimulator class >> smokeInUserImage: rate [
 	^ simulator
 ]
 
+{ #category : #'applications-presentations' }
+HGSimulator class >> snowSpray [
+	"HGSimulator snowSpray"
+
+	| random form simulator clicked oldClicked |
+	random := Random new.
+	form := Form fromBinaryStream:
+		        (FileLocator desktop / 'snow.jpg') binaryReadStream.
+	form := form scaledToSize:
+		        500 @ (500 * form extent y / form extent x).
+	simulator := HGSimulator new.
+	clicked := false.
+	simulator extent: form extent.
+	simulator simulationOrigin: (HG2dPoint x: 0.0 y: 0.0) corner: (HG2dPoint x: 500.0 y: 500.0).
+	simulator addInitializer: (HGRandomPosition origin: 0 @ 400 corner: 500 @ 500).
+	simulator addInitializer: (HGVelocityInitialization with: HG2dPoint zero).
+	simulator addInitializer: (HGTemperatureInitialization with: 380).
+	simulator
+		addAction:
+			(HGTriggerBlockAction
+				whenever: [ 
+					oldClicked := clicked.
+					clicked := World activeHand anyButtonPressed.
+					oldClicked not and: [ clicked ] ]
+				do: [ 
+					| p d |
+					p := HG2dPoint fromPoint: World activeHand position - simulator position.
+					d := HG2dPoint x: 20.0 y: 20.0.
+					simulator
+						addAction:
+							(HGJet
+								v: (HG2dPoint x: (250 - p x) / 20 y: -25)
+								in: (HG2dRectangle origin: p - d corner: p + d)) ]).
+	simulator addAction: (HGPump v: (HG2dPoint x: 10.0 y: -20.0) at: (HG2dPoint x: 10.0 y: 200.0)).
+	simulator addAction: (HGHandParticle at: 1).
+	simulator addAction: HGTemperatureViscosityCurve normalizedButter.
+	simulator addAction: (HGForceInitialization with: HG2dPoint zero).
+	simulator addAction: (HGPressure gasConstant: 0.5 kernel: (HGSimpleKernel support: 50.0)).
+	simulator addAction: (HGGravity g: (HG2dPoint x: 0 y: 0.098)).
+	simulator addAction: (HGPressureRepulsion kernel: (HGSimpleKernel support: 20.0) maxPressure: 1000.0).
+	simulator addAction: HGForceIntegration new.
+	simulator addAction: HGVelocityIntegration new.
+	simulator addAction: (HGViscosityBySmoothing kernel: (HGSimpleKernel support: 30.0)).
+	simulator addAction: (HGBoundingBox reflectionRate: 0.1).
+	simulator addAction: HGLocalityMap new.
+	simulator addAction: (HGBackgroundImageVisualizer form: form).
+	simulator addAction: (HGSmokeyVisualizer kernel: (HGSimpleKernel support: 20.0) scale: 10.0 color: Color white).
+	simulator addParticleAt: 0 @ 0 temperature: 390 mass: 2000.
+	simulator openInWindowLabeled: 'Snow spray'.
+	^ simulator
+]
+
 { #category : #'applications-flows' }
 HGSimulator class >> splashDots [
 	"HGSimulator splashDots"
@@ -5730,6 +5918,37 @@ HGSimulator class >> splashDots [
 	399 timesRepeat: [ simulator addParticleAt: 0 @ 0 temperature: 390 mass: 300 ].
 	simulator openInWindowLabeled: 'Splash (Dots)'.
 	^ simulator
+]
+
+{ #category : #menus }
+HGSimulator class >> splashMenuOn: aBuilder [
+
+	<worldMenu>
+	(aBuilder item: #HoneyGingerSplash)
+		parent: 'HoneyGinger';
+		label: 'splash';
+		order: 3;
+		with: [
+			(aBuilder item: #ReMobidycSplashDots)
+				label: 'dots';
+				action: [ HGSimulator splashDots ];
+				help: 'Vertical view of water with dots'.
+			(aBuilder item: #ReMobidycSplashPressureBorderline)
+				label: 'borderline';
+				action: [ HGSimulator splashPressureBorderline ];
+				help: 'Vertical view of water with waterline'.
+			(aBuilder item: #ReMobidycSplashPressureBorderlineFill)
+				label: 'borderline fill';
+				action: [ HGSimulator splashPressureBorderlineFill ];
+				help: 'Vertical view of water with waterline fill'.
+			(aBuilder item: #ReMobidycSplashPressureBorderlineToonFill)
+				label: 'borderline toon fill';
+				action: [ HGSimulator splashPressureBorderlineToonFill ];
+				help: 'Vertical view of water with toon rendering'.
+			(aBuilder item: #ReMobidycSplashPressureBorderlineGraffitiFill)
+				label: 'borderline graffiti';
+				action: [ HGSimulator splashPressureBorderlineGraffitiFill ];
+				help: 'Vertical view of water with graffiti rendering' ]
 ]
 
 { #category : #'applications-flows' }
@@ -6037,7 +6256,7 @@ HGSimulator class >> steampaint [
 	| random form mask simulator rate gravity window refraction smoke |
 	random := Random new.
 	form := Form
-		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Pictures' / 'flunch.jpg') readStream.
+		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'misokatsu.jpeg') binaryReadStream.
 	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
 	rate := 1.0.
 	simulator := HGSimulator new.
@@ -6609,7 +6828,7 @@ HGSimulator class >> waterpaint [
 	| random form mask simulator gravity window |
 	random := Random new.
 	form := Form fromBinaryStream:
-		        (FileLocator desktop / 'Lille.jpg') binaryReadStream.
+		        (FileLocator desktop / 'soup.jpg') binaryReadStream.
 	form := form scaledToSize:
 		        500 @ (500 * form extent y / form extent x).
 	mask := Form extent: form extent depth: 1.
