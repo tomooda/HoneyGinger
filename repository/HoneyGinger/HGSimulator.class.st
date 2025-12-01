@@ -6308,7 +6308,7 @@ HGSimulator class >> steampaint [
 	random := Random new.
 	form := Form
 		fromBinaryStream: (FileSystem / 'Users' / 'tomohiro' / 'Desktop' / 'misokatsu.jpeg') binaryReadStream.
-	form := form scaledToSize: 500 @ (500 * form extent y / form extent x).
+	form := form scaledToSize: 700 @ (700 * form extent y / form extent x).
 	rate := 1.0.
 	simulator := HGSimulator new.
 	simulator extent: form extent.
@@ -6369,7 +6369,7 @@ HGSimulator class >> steampaint [
 						selectorPanel: 'Amount'
 						do: [:m | rate := m / 100.0]
 						withAll: #(1 10 100)))) addMorphBack: simulator;
-		 openInWindowLabeled: 'Steam-Paint') position: 400 @ 1.
+		 openInWindowLabeled: 'Steam-Paint') position: 400 @ 10; extent: 800@800.
 	simulator setupSimulation; startStepping.
 	^ simulator
 ]
@@ -6881,7 +6881,7 @@ HGSimulator class >> waterpaint [
 	form := Form fromBinaryStream:
 		        (FileLocator desktop / 'soup.jpg') binaryReadStream.
 	form := form scaledToSize:
-		        500 @ (500 * form extent y / form extent x).
+		        700 @ (700 * form extent y / form extent x).
 	mask := Form extent: form extent depth: 1.
 	mask getCanvas fillColor: Color white.
 	simulator := HGSimulator new.
