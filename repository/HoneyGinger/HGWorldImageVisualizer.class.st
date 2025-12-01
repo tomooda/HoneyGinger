@@ -1,14 +1,16 @@
 Class {
-	#name : #HGWorldImageVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGWorldImageVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'simulatorTopMorph',
 		'simulatorMorph'
 	],
-	#category : #'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGWorldImageVisualizer >> draw: anHGSimulator on: aCanvas [
 	"aCanvas drawImage: World imageForm at: simulatorMorph position negated."
 	World submorphs size to: (World submorphs indexOf: simulatorTopMorph) + 1
@@ -19,7 +21,7 @@ HGWorldImageVisualizer >> draw: anHGSimulator on: aCanvas [
 		aCanvas drawImage: form at: morph position - simulatorMorph position ]
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGWorldImageVisualizer >> effectIn: anHGSimulator deltaT: aNumber [
 	simulatorMorph := anHGSimulator.
 	simulatorTopMorph := anHGSimulator.

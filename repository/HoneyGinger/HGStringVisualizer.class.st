@@ -1,20 +1,22 @@
 Class {
-	#name : #HGStringVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGStringVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'font',
 		'color',
 		'defaultString'
 	],
-	#category : #'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStringVisualizer class >> color: aColor defaultString: aString [
 	^ self font: TextStyle defaultFont color: aColor defaultString: aString
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStringVisualizer class >> font: aFont color: aColor defaultString: aString [
 	^ (self basicNew)
 		font: aFont;
@@ -23,27 +25,27 @@ HGStringVisualizer class >> font: aFont color: aColor defaultString: aString [
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> color: anObject [
 	color := anObject
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> defaultString [
 	^ defaultString
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> defaultString: anObject [
 	defaultString := anObject
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGStringVisualizer >> draw: anHGSimulator on: aCanvas [
 
 	| h |
@@ -60,12 +62,12 @@ HGStringVisualizer >> draw: anHGSimulator on: aCanvas [
 				color: color ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> font [
 	^ font
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStringVisualizer >> font: anObject [
 	font := anObject
 ]

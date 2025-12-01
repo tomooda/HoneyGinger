@@ -1,13 +1,15 @@
 Class {
-	#name : #HGPerspectiveWireframeVisualizer,
-	#superclass : #HGPerspectiveTriangulatedVisualizer,
+	#name : 'HGPerspectiveWireframeVisualizer',
+	#superclass : 'HGPerspectiveTriangulatedVisualizer',
 	#instVars : [
 		'width'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPerspectiveWireframeVisualizer class >> width: aNumber color: aColor eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock [
 	^ (self
 		color: aColor
@@ -18,7 +20,7 @@ HGPerspectiveWireframeVisualizer class >> width: aNumber color: aColor eyeHeight
 		yourself
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGPerspectiveWireframeVisualizer >> drawTriangle: aPoint1 and: aPoint2 and: aPoint3 color: aColor on: aCanvas [
 	aCanvas
 		line: aPoint1
@@ -37,12 +39,12 @@ HGPerspectiveWireframeVisualizer >> drawTriangle: aPoint1 and: aPoint2 and: aPoi
 		color: aColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveWireframeVisualizer >> width [
 	^ width
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveWireframeVisualizer >> width: aNumber [
 	width := aNumber
 ]

@@ -1,20 +1,22 @@
 Class {
-	#name : #HGSpringBindingElasticForce,
-	#superclass : #HGBindingElasticForce,
+	#name : 'HGSpringBindingElasticForce',
+	#superclass : 'HGBindingElasticForce',
 	#instVars : [
 		'k'
 	],
-	#category : 'HoneyGinger-Actions-Elasticity'
+	#category : 'HoneyGinger-Actions-Elasticity',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Elasticity'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGSpringBindingElasticForce class >> k: aNumber color: aColor [
 	^ (self color: aColor)
 		k: aNumber;
 		yourself
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGSpringBindingElasticForce >> effect: particle1 and: particle2 deltaPosition: delta deltaT: deltaT [
 	| unit f |
 	unit := particle1 position unitVector: particle2 position.
@@ -24,7 +26,7 @@ HGSpringBindingElasticForce >> effect: particle1 and: particle2 deltaPosition: d
 	particle2 addForce: unit by: f * -1.0
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGSpringBindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 	| distanceBlock |
 	distanceBlock := [ :particle1 :particle2 | particle1 velocity * aNumber + particle1 position distance: particle2 velocity * aNumber + particle2 position ].
@@ -37,12 +39,12 @@ HGSpringBindingElasticForce >> effectShapesIn: anHGSimulator deltaT: aNumber [
 				deltaT: aNumber ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSpringBindingElasticForce >> k [
 	^ k
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSpringBindingElasticForce >> k: anObject [
 	k := anObject
 ]

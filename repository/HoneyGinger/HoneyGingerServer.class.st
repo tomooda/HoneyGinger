@@ -1,6 +1,6 @@
 Class {
-	#name : #HoneyGingerServer,
-	#superclass : #Object,
+	#name : 'HoneyGingerServer',
+	#superclass : 'Object',
 	#instVars : [
 		'socket',
 		'data',
@@ -8,27 +8,29 @@ Class {
 		'clientIDs',
 		'acceptingProcess'
 	],
-	#category : #'HoneyGinger-Communications-Server'
+	#category : 'HoneyGinger-Communications-Server',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Server'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServer class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServer class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HoneyGingerServer class >> on: aListeningSocket [
 	^ (self new)
 		setSocket: aListeningSocket;
 		yourself
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HoneyGingerServer class >> port: aNumber [
 	| socket |
 	socket := Socket tcpCreateIfFail: [ self error: 'Can''t create a socket' ].
@@ -36,7 +38,7 @@ HoneyGingerServer class >> port: aNumber [
 	^ self on: socket
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServer class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -45,7 +47,7 @@ HoneyGingerServer class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> clientIDFor: anInteger [
 	| id |
 	id := self privateClientIDFor: anInteger.
@@ -54,12 +56,12 @@ HoneyGingerServer >> clientIDFor: anInteger [
 	^ id
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 HoneyGingerServer >> defaultMaxIdleTimeForClient [
 	^ Duration seconds: 60
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerServer >> garbageCollectClientIDs [
 	| deadline deadClientIDs |
 	deadline := TimeStamp now + maxIdleTimeForClient negated.
@@ -71,7 +73,7 @@ HoneyGingerServer >> garbageCollectClientIDs [
 	deadClientIDs contents do: [ :clientID | clientIDs removeKey: clientID ifAbsent: [  ] ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HoneyGingerServer >> initialize [
 	super initialize.
 	data := Dictionary new: 800.
@@ -80,28 +82,28 @@ HoneyGingerServer >> initialize [
 	maxIdleTimeForClient := self defaultMaxIdleTimeForClient
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> maxIdleTimeForClient [
 	^ maxIdleTimeForClient 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> maxIdleTimeForClient: aDuration [
 	maxIdleTimeForClient := aDuration
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> particleAt: anInteger put: anObject [
 	^ (locks includesKey: anInteger)
 		ifFalse: [ data at: anInteger put: anObject ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> particleData [
 	^data
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerServer >> privateClientIDFor: anInteger [
 	^ (clientIDs includesKey: anInteger)
 		ifTrue: [ anInteger ]
@@ -116,19 +118,19 @@ HoneyGingerServer >> privateClientIDFor: anInteger [
 			clientID ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> refreshClientID: anInteger [
 	clientIDs at: anInteger put: TimeStamp now.
 	self garbageCollectClientIDs
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HoneyGingerServer >> releaseClientID: anInteger [
 	clientIDs removeKey: anInteger ifAbsent: [  ].
 	self garbageCollectClientIDs
 ]
 
-{ #category : #servicing }
+{ #category : 'servicing' }
 HoneyGingerServer >> serveFor: aSocket [
 	[ 
 	(HoneyGingerServerWorker
@@ -139,12 +141,12 @@ HoneyGingerServer >> serveFor: aSocket [
 				yourself)) process ] fork
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerServer >> setSocket: aSocket [
 	socket := aSocket
 ]
 
-{ #category : #servicing }
+{ #category : 'servicing' }
 HoneyGingerServer >> shutdown [
 	acceptingProcess
 		ifNotNil: [ 
@@ -156,7 +158,7 @@ HoneyGingerServer >> shutdown [
 			socket := nil ]
 ]
 
-{ #category : #servicing }
+{ #category : 'servicing' }
 HoneyGingerServer >> startup [
 
 	acceptingProcess := [ 

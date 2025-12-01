@@ -1,24 +1,26 @@
 Class {
-	#name : #HoneyGingerSocketStreamTest,
-	#superclass : #TestCase,
+	#name : 'HoneyGingerSocketStreamTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'serverStream',
 		'clientStream'
 	],
-	#category : 'HoneyGinger-Communications-Tests'
+	#category : 'HoneyGinger-Communications-Tests',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Tests'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSocketStreamTest class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSocketStreamTest class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSocketStreamTest class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -27,12 +29,12 @@ HoneyGingerSocketStreamTest class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerSocketStreamTest >> deserialize: aByteArray [
 	^ (HoneyGingerDeserializer on: aByteArray readStream) next
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerSocketStreamTest >> fork: aBlock and: anotherBlock [
 	| semaphore results |
 	results := Array new: 2.
@@ -47,7 +49,7 @@ HoneyGingerSocketStreamTest >> fork: aBlock and: anotherBlock [
 	semaphore wait
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerSocketStreamTest >> serialize: anObject [
 	| stream |
 	stream := ByteArray new writeStream.
@@ -55,7 +57,7 @@ HoneyGingerSocketStreamTest >> serialize: anObject [
 	^ stream contents
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 HoneyGingerSocketStreamTest >> setUp [
 	| connection |
 	connection := HoneyGingerTestConnection new.
@@ -63,13 +65,13 @@ HoneyGingerSocketStreamTest >> setUp [
 	clientStream := HoneyGingerClientSocketStream on: connection clientStream
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 HoneyGingerSocketStreamTest >> tearDown [
 	serverStream ifNotNil: [ serverStream close ].
 	clientStream ifNotNil: [ clientStream close ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testClientID [
 	| clientID |
 	clientID := 441.
@@ -79,7 +81,7 @@ HoneyGingerSocketStreamTest >> testClientID [
 	self assert: clientID equals: clientStream clientID
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testClientIDBlock [
 	| clientIDBlock |
 	clientIDBlock := [ :id | 441 ].
@@ -90,7 +92,7 @@ HoneyGingerSocketStreamTest >> testClientIDBlock [
 	self assert: 441 equals: clientStream clientID
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testDownload [
 	| testdata |
 	testdata := Dictionary new.
@@ -114,7 +116,7 @@ HoneyGingerSocketStreamTest >> testDownload [
 			self assert: testdata equals: receivedData ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testDownloadDo [
 	| testdata |
 	testdata := Dictionary new.
@@ -139,7 +141,7 @@ HoneyGingerSocketStreamTest >> testDownloadDo [
 			self assert: testdata equals: receivedData ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testStartSession [
 	self fork: [ serverStream startSession ] and: [ clientStream startSession ].
 	self assert: serverStream clientID notNil.
@@ -147,7 +149,7 @@ HoneyGingerSocketStreamTest >> testStartSession [
 	self assert: serverStream clientID equals: clientStream clientID
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSocketStreamTest >> testUpload [
 	| testdata |
 	testdata := Dictionary new.

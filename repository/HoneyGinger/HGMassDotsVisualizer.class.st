@@ -1,10 +1,12 @@
 Class {
-	#name : #HGMassDotsVisualizer,
-	#superclass : #HGDotsVisualizer,
-	#category : 'HoneyGinger-Actions-UI'
+	#name : 'HGMassDotsVisualizer',
+	#superclass : 'HGDotsVisualizer',
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGMassDotsVisualizer >> draw: anHGSimulator on: aCanvas [
 	anHGSimulator
 		particlesDo: [ :particle | 

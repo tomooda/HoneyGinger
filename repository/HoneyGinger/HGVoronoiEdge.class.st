@@ -1,6 +1,6 @@
 Class {
-	#name : #HGVoronoiEdge,
-	#superclass : #Object,
+	#name : 'HGVoronoiEdge',
+	#superclass : 'Object',
 	#instVars : [
 		'foreside',
 		'backside',
@@ -9,10 +9,12 @@ Class {
 		'fromT',
 		'toT'
 	],
-	#category : 'HoneyGinger-Geometry-Voronoi'
+	#category : 'HoneyGinger-Geometry-Voronoi',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Voronoi'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGVoronoiEdge class >> foreside: anHGVoronoiRegion1 backside: anHGVoronoiRegion2 [
 	| x1 y1 x2 y2 originX originY vectorX vectorY |
 	x1 := anHGVoronoiRegion1 center x.
@@ -26,12 +28,12 @@ HGVoronoiEdge class >> foreside: anHGVoronoiRegion1 backside: anHGVoronoiRegion2
 		vector: (HG2dPoint x: y2 - y1 y: x1 - x2)
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGVoronoiEdge class >> foreside: anHGVoronoiRegion1 backside: anHGVoronoiRegion2 origin: anHG2dPoint1 vector: anHG2dPoint2 [
 	^ self foreside: anHGVoronoiRegion1  backside: anHGVoronoiRegion2 origin:  anHG2dPoint1 vector: anHG2dPoint2 fromT: Float infinity negated toT:  Float infinity 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGVoronoiEdge class >> foreside: anHGVoronoiRegion1 backside: anHGVoronoiRegion2 origin: anHG2dPoint1 vector: anHG2dPoint2 fromT: aNumber1 toT: aNumber2 [
 	^ (self new)
 		foreside: anHGVoronoiRegion1;
@@ -43,62 +45,62 @@ HGVoronoiEdge class >> foreside: anHGVoronoiRegion1 backside: anHGVoronoiRegion2
 		yourself
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGVoronoiEdge >> atT: aNumber [
 	^ HG2dPoint x: vector x * aNumber + origin x y: vector y * aNumber + origin y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> backside [
 	^ backside 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> backside: anHGVoronoiRegion [
 	backside  := anHGVoronoiRegion 
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiEdge >> containsT: aNumber [
 	^ fromT <= aNumber and: [ aNumber <= toT ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiEdge >> containsT: aNumber accuracy: anotherNumber [
 	^ fromT - anotherNumber <= aNumber and: [ aNumber - anotherNumber <= toT ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> foreside [
 	^ foreside
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> foreside: anHGVoronoiRegion [
 	foreside := anHGVoronoiRegion 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> fromT [
 	^ fromT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> fromT: aNumber [
 	fromT := aNumber
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiEdge >> isEmpty [
 	^ fromT > toT
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiEdge >> notEmpty [
 	^ fromT <= toT
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiEdge >> on: anHGVoronoiRegion cutAtT: aNumber byEdge: anHGVoronoiEdge [
 	| center |
 	center := anHGVoronoiRegion center.
@@ -133,7 +135,7 @@ HGVoronoiEdge >> on: anHGVoronoiRegion cutAtT: aNumber byEdge: anHGVoronoiEdge [
 						ifTrue: [ fromT := aNumber ]) notNil ] ]
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiEdge >> on: anHGVoronoiRegion cutByEdge: anHGVoronoiEdge ifParallel: aBlock [
 	| a1 x1 b1 y1 a2 x2 b2 y2 det dx dy t1 t2 |
 	a1 := vector x.
@@ -157,17 +159,17 @@ HGVoronoiEdge >> on: anHGVoronoiRegion cutByEdge: anHGVoronoiEdge ifParallel: aB
 			anHGVoronoiEdge on: anHGVoronoiRegion cutAtT: t2 byEdge: self ]) notNil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> origin [
 	^ origin
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> origin: anHG2dPoint [
 	origin := anHG2dPoint
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HGVoronoiEdge >> printOn: aStream [
 	aStream nextPutAll: self class name.
 	aStream nextPut: $(.
@@ -187,19 +189,19 @@ HGVoronoiEdge >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #topology }
+{ #category : 'topology' }
 HGVoronoiEdge >> remove [
 	foreside removeEdge: self.
 	backside removeEdge: self
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HGVoronoiEdge >> seesSameSide: anHG2dPoint1 and: anHG2dPoint2 [
 	^ ((anHG2dPoint1 x - origin x) * vector y - ((anHG2dPoint1 y - origin y) * vector x)) < 0.0 xor: 
 		((anHG2dPoint2 x - origin x) * vector y - ((anHG2dPoint2 y - origin y) * vector x)) > 0.0
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGVoronoiEdge >> somePoint [
 	^ self
 		atT:
@@ -214,7 +216,7 @@ HGVoronoiEdge >> somePoint [
 						ifFalse: [ (fromT + toT) / 2.0 ] ])
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGVoronoiEdge >> tAtX: aNumber [
 	| t |
 	vector x abs < 1.0e-8
@@ -224,7 +226,7 @@ HGVoronoiEdge >> tAtX: aNumber [
 		ifTrue: [ t ]
 ]
 
-{ #category : #geometry }
+{ #category : 'geometry' }
 HGVoronoiEdge >> tAtY: aNumber [
 	| t |
 	vector y abs < 1.0e-8
@@ -233,7 +235,7 @@ HGVoronoiEdge >> tAtY: aNumber [
 	^ (self containsT: t) ifTrue: [ t ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> theOtherSide: anHGVoronoiRegion [
 	anHGVoronoiRegion == foreside
 		ifTrue: [ ^ backside ].
@@ -242,22 +244,22 @@ HGVoronoiEdge >> theOtherSide: anHGVoronoiRegion [
 	^ nil
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> toT [
 	^ toT
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> toT: aNumber [
 	toT := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> vector [
 	^ vector 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGVoronoiEdge >> vector: anHG2dPoint [
 	vector := anHG2dPoint 
 ]

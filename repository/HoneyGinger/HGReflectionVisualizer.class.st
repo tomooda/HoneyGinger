@@ -1,6 +1,6 @@
 Class {
-	#name : #HGReflectionVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGReflectionVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'vector',
 		'xgrids',
@@ -9,15 +9,17 @@ Class {
 		'scale',
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGReflectionVisualizer class >> vector: anHG2dPoint color: aColor [
 	^ self xgrids: 60 ygrids: 60 kernel: (HGSimpleKernel support: 40) vector: anHG2dPoint scale: 0.5 color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGReflectionVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel vector: anHG2dPoint scale: scale color: aColor [
 	^ (self new)
 		xgrids: xgirds;
@@ -29,17 +31,17 @@ HGReflectionVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel vec
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> color: aColor [
 	color := aColor
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGReflectionVisualizer >> draw: anHGSimulator on: aCanvas [
 	| random xstep ystep extent |
 	random := Random new.
@@ -73,44 +75,44 @@ HGReflectionVisualizer >> draw: anHGSimulator on: aCanvas [
 						corner: (x + (xstep / 2.0)) rounded @ (y + (ystep / 2.0)) rounded) color: (color alpha: (0.5 - r * 5.0 min: 1.0)) ]]]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGReflectionVisualizer >> initialize [
 	super initialize.
 	scale := 1.0.
 	vector := HG2dPoint zero.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> kernel: anHGKernel [
 	kernel := anHGKernel 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> scale: aNumber [
 	scale := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> vector [
 	^ vector
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> vector: anHG2dPoint [
 	vector := anHG2dPoint
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> xgrids: anInteger [
 	xgrids := anInteger 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGReflectionVisualizer >> ygrids: anInteger [
 	ygrids := anInteger 
 ]

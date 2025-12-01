@@ -1,15 +1,17 @@
 Class {
-	#name : #HGSmokeyVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGSmokeyVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'kernel',
 		'scale',
 		'forms'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGSmokeyVisualizer class >> kernel: anHGKernel scale: aNumber color: aColor [
 	^ self
 		kernel: anHGKernel
@@ -19,7 +21,7 @@ HGSmokeyVisualizer class >> kernel: anHGKernel scale: aNumber color: aColor [
 		color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGSmokeyVisualizer class >> kernel: anHGKernel scale: aNumber steps: anInteger extent: aPoint color: aColor [
 	^ (self new)
 		kernel: anHGKernel;
@@ -28,7 +30,7 @@ HGSmokeyVisualizer class >> kernel: anHGKernel scale: aNumber steps: anInteger e
 		yourself
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGSmokeyVisualizer >> draw: anHGSimulator on: aCanvas [
 	| random xstep ystep xgrids ygrids |
 	random := Random new.
@@ -58,7 +60,7 @@ HGSmokeyVisualizer >> draw: anHGSimulator on: aCanvas [
 			aCanvas translucentImage: ((forms at: pressure) at: (random next * 10 + 1) floor) at: (x - (xstep / 2.0)) rounded @ (y - (ystep / 2.0)) rounded]]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGSmokeyVisualizer >> initializeForms: anInteger extent: aPoint color: aColor [
 	| random |
 	random := Random new.
@@ -71,22 +73,22 @@ HGSmokeyVisualizer >> initializeForms: anInteger extent: aPoint color: aColor [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSmokeyVisualizer >> kernel [
 	^ kernel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSmokeyVisualizer >> kernel: anHGKernel [
 	kernel := anHGKernel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSmokeyVisualizer >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGSmokeyVisualizer >> scale: aNumber [
 	scale := aNumber
 ]

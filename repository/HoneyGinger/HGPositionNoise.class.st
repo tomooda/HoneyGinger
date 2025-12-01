@@ -1,30 +1,32 @@
 Class {
-	#name : #HGPositionNoise,
-	#superclass : #HGAction,
+	#name : 'HGPositionNoise',
+	#superclass : 'HGAction',
 	#instVars : [
 		'randomBlock'
 	],
-	#category : 'HoneyGinger-Actions-Simulation'
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPositionNoise class >> withBlock: aRandomBlock [
 	^ (self new)
 		randomBlock: aRandomBlock;
 		yourself
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGPositionNoise >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	anHGParticle addPosition: randomBlock value by: 1.0.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPositionNoise >> randomBlock [
 	^ randomBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPositionNoise >> randomBlock: aBlock [
 	randomBlock := aBlock
 ]

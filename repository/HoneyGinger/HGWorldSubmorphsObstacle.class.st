@@ -1,31 +1,33 @@
 Class {
-	#name : #HGWorldSubmorphsObstacle,
-	#superclass : #HGAction,
+	#name : 'HGWorldSubmorphsObstacle',
+	#superclass : 'HGAction',
 	#instVars : [
 		'simulatorTopMorph',
 		'boundsExpansion'
 	],
-	#category : #'HoneyGinger-Actions-Simulation'
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGWorldSubmorphsObstacle class >> withBoundsExpansion: aNumber [
 	^ (self new)
 		boundsExpansion: aNumber;
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGWorldSubmorphsObstacle >> boundsExpansion [
 	^ boundsExpansion
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGWorldSubmorphsObstacle >> boundsExpansion: aNumber [
 	boundsExpansion := aNumber
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 
 	| scale position morphicPosition |
@@ -51,7 +53,7 @@ HGWorldSubmorphsObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumb
 		morphicBounds: World activeHand bounds
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGWorldSubmorphsObstacle >> effect: anHGParticle position: position morphicPosition: morphicPosition morphicBounds: bounds [
 	| morphicBounds delta minDelta newPosition |
 	morphicBounds := bounds expandBy: boundsExpansion.
@@ -78,7 +80,7 @@ HGWorldSubmorphsObstacle >> effect: anHGParticle position: position morphicPosit
 	anHGParticle position set: newPosition
 ]
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGWorldSubmorphsObstacle >> effectIn: anHGSimulator deltaT: aNumber [
 	simulatorTopMorph := anHGSimulator.
 	[ simulatorTopMorph owner == World or: [ simulatorTopMorph owner isNil ] ]
@@ -86,7 +88,7 @@ HGWorldSubmorphsObstacle >> effectIn: anHGSimulator deltaT: aNumber [
 	super effectIn: anHGSimulator deltaT: aNumber
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGWorldSubmorphsObstacle >> initialize [
 	super initialize.
 	boundsExpansion := 0

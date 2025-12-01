@@ -1,31 +1,33 @@
 Class {
-	#name : #HoneyGingerServerWorker,
-	#superclass : #Object,
+	#name : 'HoneyGingerServerWorker',
+	#superclass : 'Object',
 	#instVars : [
 		'server',
 		'stream'
 	],
-	#category : 'HoneyGinger-Communications-Server'
+	#category : 'HoneyGinger-Communications-Server',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Server'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServerWorker class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServerWorker class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HoneyGingerServerWorker class >> server: aHoneyGingerServer transportStream: aStream [
 	^ (self new)
 		setServer: aHoneyGingerServer transportStream: aStream;
 		yourself
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerServerWorker class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -34,7 +36,7 @@ HoneyGingerServerWorker class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #servicing }
+{ #category : 'servicing' }
 HoneyGingerServerWorker >> process [
 	[ 
 	[ 
@@ -54,7 +56,7 @@ HoneyGingerServerWorker >> process [
 			stream endSession ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerServerWorker >> setServer: aHoneyGingerServer transportStream: aStream [
 	server := aHoneyGingerServer.
 	stream := HoneyGingerServerSocketStream on: aStream.

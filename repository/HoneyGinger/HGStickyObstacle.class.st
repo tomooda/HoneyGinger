@@ -1,13 +1,15 @@
 Class {
-	#name : #HGStickyObstacle,
-	#superclass : #HGObstacle,
+	#name : 'HGStickyObstacle',
+	#superclass : 'HGObstacle',
 	#instVars : [
 		'relativePositions'
 	],
-	#category : 'HoneyGinger-Actions-Simulation'
+	#category : 'HoneyGinger-Actions-Simulation',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-Simulation'
 }
 
-{ #category : #simulating }
+{ #category : 'simulating' }
 HGStickyObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 	| position |
 	position := anHGParticle position.
@@ -21,7 +23,7 @@ HGStickyObstacle >> effect: anHGParticle in: anHGSimulator deltaT: aNumber [
 		ifFalse: [ relativePositions removeKey: anHGParticle ifAbsent: [  ] ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGStickyObstacle >> initialize [
 	super initialize.
 	relativePositions := IdentityDictionary new.

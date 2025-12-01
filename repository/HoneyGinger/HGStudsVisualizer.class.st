@@ -1,25 +1,27 @@
 Class {
-	#name : #HGStudsVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGStudsVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'offsetRadiusColors'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStudsVisualizer class >> offset: aPoint radius: aNumber color: aColor [
 	^ self new setOffsetRadiusColors: (Array with: (Array with: aPoint with: aNumber with: aColor))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStudsVisualizer class >> offset: aPoint1 radius: aNumber1 color: aColor1 offset: aPoint2 radius: aNumber2 color: aColor2 [
 	^ self new
 		setOffsetRadiusColors:
 			(Array with: (Array with: aPoint1 with: aNumber1 with: aColor1) with: (Array with: aPoint2 with: aNumber2 with: aColor2))
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGStudsVisualizer class >> offset: aPoint1 radius: aNumber1 color: aColor1 offset: aPoint2 radius: aNumber2 color: aColor2 offset: aPoint3 radius: aNumber3 color: aColor3 [
 	^ self new
 		setOffsetRadiusColors:
@@ -29,12 +31,12 @@ HGStudsVisualizer class >> offset: aPoint1 radius: aNumber1 color: aColor1 offse
 				with: (Array with: aPoint3 with: aNumber3 with: aColor3))
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 HGStudsVisualizer >> addOffset: aPoint radius: aNumber color: aColor [
 	offsetRadiusColors := offsetRadiusColors copyWith: (Array with: aPoint with: aNumber with: aColor)
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGStudsVisualizer >> draw: anHGSimulator on: aCanvas [
 	offsetRadiusColors
 		do: [ :spec | 
@@ -51,24 +53,24 @@ HGStudsVisualizer >> draw: anHGSimulator on: aCanvas [
 						ifNotNil: [ aCanvas fillOval: ((p x - radius + offsetX) @ (p y - radius + offsetY) extent: 2 @ 2 * radius) color: color ] ] ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGStudsVisualizer >> initialize [
 	offsetRadiusColors := Array new
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStudsVisualizer >> offset: aPoint radius: aNumber color: aColor [
 	self setOffsetRadiusColors: (Array with: (Array with: aPoint with: aNumber with: aColor))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStudsVisualizer >> offset: aPoint1 radius: aNumber1 color: aColor1 offset: aPoint2 radius: aNumber2 color: aColor2 [
 	self
 		setOffsetRadiusColors:
 			(Array with: (Array with: aPoint1 with: aNumber1 with: aColor1) with: (Array with: aPoint2 with: aNumber2 with: aColor2))
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGStudsVisualizer >> offset: aPoint1 radius: aNumber1 color: aColor1 offset: aPoint2 radius: aNumber2 color: aColor2 offset: aPoint3 radius: aNumber3 color: aColor3 [
 	self
 		setOffsetRadiusColors:
@@ -78,7 +80,7 @@ HGStudsVisualizer >> offset: aPoint1 radius: aNumber1 color: aColor1 offset: aPo
 				with: (Array with: aPoint3 with: aNumber3 with: aColor3))
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HGStudsVisualizer >> setOffsetRadiusColors: anArray [
 	offsetRadiusColors := anArray copy
 ]

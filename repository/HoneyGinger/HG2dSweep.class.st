@@ -1,37 +1,39 @@
 Class {
-	#name : #HG2dSweep,
-	#superclass : #HG2dRegion,
+	#name : 'HG2dSweep',
+	#superclass : 'HG2dRegion',
 	#instVars : [
 		'from',
 		'to',
 		'radius'
 	],
-	#category : 'HoneyGinger-Geometry-Regions'
+	#category : 'HoneyGinger-Geometry-Regions',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Regions'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dSweep class >> from: anHG2dPoint1 to: anHG2dPoint2 radius: aNumber [
 	^ self new setFrom: anHG2dPoint1 to: anHG2dPoint2 radius: aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> area [
 	^ Float pi * radius * radius + (radius * (from distance: to) * 2.0)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> borderAt: anHG2dPoint [
 	| base |
 	base := from to: to nearestFrom: anHG2dPoint.
 	^ base plus: (base unitVector: anHG2dPoint) by: radius
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> center [
 	^ HG2dPoint x: (from x + to x) / 2.0 y: (from y + to y) / 2.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> center: anHG2dPoint [
 	| vx vy |
 	vx := anHG2dPoint x - (from x + to x / 2.0).
@@ -41,7 +43,7 @@ HG2dSweep >> center: anHG2dPoint [
 	self updateBounds
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dSweep >> conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint [
 	^ (from to: to conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint)
 		or: [ 
@@ -53,22 +55,22 @@ HG2dSweep >> conflictsWithLineSegment: anHG2dPoint to: anotherHG2dPoint [
 								or: [ (anHG2dPoint to: anotherHG2dPoint distance: to) <= radius ] ] ] ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dSweep >> contains: anHG2dPoint [
 	^ (bounds contains: anHG2dPoint) and: [(from to: to distance: anHG2dPoint) <= radius]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> depth: anHG2dPoint [
 	^ radius - (from to: to nearestFrom: anHG2dPoint) max: 0.0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> distance: anHG2dPoint [
 	^ (from to: to nearestFrom: anHG2dPoint) - radius max: 0.0
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HG2dSweep >> drawOn: aCanvas color: aColor [
 	aCanvas
 		line: from asPoint
@@ -77,32 +79,32 @@ HG2dSweep >> drawOn: aCanvas color: aColor [
 		color: aColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> from [
 	^ from
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> from: anHG2dPoint [
 	from := anHG2dPoint.
 	self updateBounds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> from: anHG2dPoint1 to: anHG2dPoint2 [
 	from := anHG2dPoint1.
 	to := anHG2dPoint2.
 	self updateBounds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> normAt: anHG2dPoint [
 	| base |
 	base := from to: to nearestFrom: anHG2dPoint.
 	^ base unitVector: anHG2dPoint
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HG2dSweep >> printOn: aStream [
 	aStream nextPutAll: self class name.
 	aStream nextPut: $(.
@@ -116,18 +118,18 @@ HG2dSweep >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> radius [
 	^ radius
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> radius:  aNumber [
 	radius := aNumber.
 	self updateBounds
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HG2dSweep >> setFrom: anHG2dPoint1 to: anHG2dPoint2 radius: aNumber [
 	from := anHG2dPoint1.
 	to := anHG2dPoint2.
@@ -135,18 +137,18 @@ HG2dSweep >> setFrom: anHG2dPoint1 to: anHG2dPoint2 radius: aNumber [
 	self updateBounds
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> to [
 	^ to
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dSweep >> to: anHG2dPoint [
 	to := anHG2dPoint.
 	self updateBounds
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HG2dSweep >> updateBounds [
 	bounds := HG2dRectangle
 		originX: (from x min: to x) - radius

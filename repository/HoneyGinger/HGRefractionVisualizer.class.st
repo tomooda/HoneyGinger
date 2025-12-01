@@ -1,6 +1,6 @@
 Class {
-	#name : #HGRefractionVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGRefractionVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'image',
 		'xgrids',
@@ -8,10 +8,12 @@ Class {
 		'kernel',
 		'scale'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGRefractionVisualizer class >> scale: aNumber [
 	^ self
 		xgrids: 60
@@ -21,7 +23,7 @@ HGRefractionVisualizer class >> scale: aNumber [
 		image: nil
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGRefractionVisualizer class >> scale: aNumber image: aForm [ 
 	^ self
 		xgrids: 60
@@ -31,7 +33,7 @@ HGRefractionVisualizer class >> scale: aNumber image: aForm [
 		image: aForm
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGRefractionVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel scale: scale image: image [
 	^ (self new)
 		xgrids: xgirds;
@@ -42,7 +44,7 @@ HGRefractionVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel sca
 		yourself
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGRefractionVisualizer >> draw: anHGSimulator on: aCanvas [
 	| form xstep ystep extent offset |
 	form := image ifNil: [anHGSimulator form].
@@ -76,43 +78,43 @@ HGRefractionVisualizer >> draw: anHGSimulator on: aCanvas [
 				sourceRect: (((norm mul: scale negated) asPoint + origin) floor + offset extent: extent) ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> image [
 	^ image
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> image: anImage [
 	image := anImage
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 HGRefractionVisualizer >> initialize [
 	super initialize.
 	scale := 1.0.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> kernel: anHGKernel [
 	kernel := anHGKernel 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> scale: aNumber [
 	scale := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> xgrids: anInteger [
 	xgrids := anInteger 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGRefractionVisualizer >> ygrids: anInteger [
 	ygrids := anInteger 
 ]

@@ -1,15 +1,17 @@
 Class {
-	#name : #HGPerspectiveDotsVisualizer,
-	#superclass : #HGPerspectiveVisualizer,
+	#name : 'HGPerspectiveDotsVisualizer',
+	#superclass : 'HGPerspectiveVisualizer',
 	#instVars : [
 		'colorBlock',
 		'radius',
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPerspectiveDotsVisualizer class >> radius: radius color: color eyeHeight: depth vanishingPoint: point depthBlock: simulatorAndParticleBlock [
 	^ self
 		radius: radius
@@ -20,7 +22,7 @@ HGPerspectiveDotsVisualizer class >> radius: radius color: color eyeHeight: dept
 		colorBlock: [ :c :z | c alpha: depth / (depth + z) ]
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGPerspectiveDotsVisualizer class >> radius: radius color: color eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock colorBlock: colorAndDepthBlock [
 	^ (self eyeHeight: height vanishingPoint: point depthBlock: simulatorAndParticleBlock)
 		radius: radius;
@@ -29,27 +31,27 @@ HGPerspectiveDotsVisualizer class >> radius: radius color: color eyeHeight: heig
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> color: aColor [
 	color := aColor
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> colorBlock [
 	^ colorBlock
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> colorBlock: aBlock [
 	colorBlock := aBlock
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGPerspectiveDotsVisualizer >> draw: anHGSimulator on: aCanvas [
 	self drawCornersIn: anHGSimulator on: aCanvas.
 	anHGSimulator
@@ -66,12 +68,12 @@ HGPerspectiveDotsVisualizer >> draw: anHGSimulator on: aCanvas [
 							aCanvas fillOval: ((x - r) @ (y - r) extent: 2 @ 2 * r) color: c ] ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> radius [
 	^ radius
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGPerspectiveDotsVisualizer >> radius: aNumber [
 	radius := aNumber
 ]

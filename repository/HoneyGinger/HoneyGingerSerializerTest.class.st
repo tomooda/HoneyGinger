@@ -1,25 +1,27 @@
 Class {
-	#name : #HoneyGingerSerializerTest,
-	#superclass : #TestCase,
+	#name : 'HoneyGingerSerializerTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'serializer',
 		'buffer',
 		'deserializer'
 	],
-	#category : 'HoneyGinger-Communications-Tests'
+	#category : 'HoneyGinger-Communications-Tests',
+	#package : 'HoneyGinger',
+	#tag : 'Communications-Tests'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializerTest class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializerTest class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HoneyGingerSerializerTest class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -28,20 +30,20 @@ HoneyGingerSerializerTest class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #setups }
+{ #category : 'setups' }
 HoneyGingerSerializerTest >> setUp [
 	buffer := HoneyGingerTestStream new.
 	serializer := HoneyGingerSerializer on: buffer.
 	deserializer := HoneyGingerDeserializer on: buffer
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testBinary [
 	self try: (0 to: 255 by: 3) asByteArray.
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testDict [
 	| testData |
 	testData := Dictionary new.
@@ -63,19 +65,19 @@ HoneyGingerSerializerTest >> testDict [
 	self try: testData
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testFloat [
 	self try: 0.0 accuracy: 0.00001.
 	self try: 3.14 accuracy: 0.00001.
 	self try: -15.8 accuracy: 0.00001
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testHG2dPoint [
 	self try: (HG2dPoint x: 1.0 y: -2.0) accuracy: 0.00001
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testInteger [
 	self try: 0.
 	self try: 1.
@@ -84,7 +86,7 @@ HoneyGingerSerializerTest >> testInteger [
 	self try: 20 factorial negated
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testList [
 	| testData |
 	testData := OrderedCollection new.
@@ -101,7 +103,7 @@ HoneyGingerSerializerTest >> testList [
 	self try: testData asArray
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testNextN [
 	| testData |
 	testData := OrderedCollection new.
@@ -119,7 +121,7 @@ HoneyGingerSerializerTest >> testNextN [
 	self assert: testData asArray equals: (deserializer next: testData size)
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testNextPutAll [
 	| testData |
 	testData := OrderedCollection new.
@@ -138,12 +140,12 @@ HoneyGingerSerializerTest >> testNextPutAll [
 		self assert: datum equals: deserializer next]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testNil [
 	self try: nil
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testScan [
 	| testData |
 	testData := Dictionary new.
@@ -172,19 +174,19 @@ HoneyGingerSerializerTest >> testScan [
 				ifFalse: [ self assert: (testData at: key) equals: (HoneyGingerDeserializer on: bytes readStream) next ] ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 HoneyGingerSerializerTest >> testString [
 	self try: ''.
 	self try: 'this is a string'.
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerSerializerTest >> try: anObject [
 	serializer nextPut: anObject.
 	self assert: anObject equals: deserializer next
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HoneyGingerSerializerTest >> try: anObject accuracy: aNumber [
 	serializer nextPut: anObject.
 	self assert: (anObject - deserializer next) abs <= aNumber

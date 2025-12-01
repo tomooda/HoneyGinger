@@ -1,6 +1,6 @@
 Class {
-	#name : #HGMeshPressureVisualizer,
-	#superclass : #HGVisualizer,
+	#name : 'HGMeshPressureVisualizer',
+	#superclass : 'HGVisualizer',
 	#instVars : [
 		'xgrids',
 		'ygrids',
@@ -9,20 +9,22 @@ Class {
 		'bias',
 		'color'
 	],
-	#category : 'HoneyGinger-Actions-UI'
+	#category : 'HoneyGinger-Actions-UI',
+	#package : 'HoneyGinger',
+	#tag : 'Actions-UI'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGMeshPressureVisualizer class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGMeshPressureVisualizer class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGMeshPressureVisualizer class >> color: aColor [
 	^ self
 		xgrids: 60
@@ -33,7 +35,7 @@ HGMeshPressureVisualizer class >> color: aColor [
 		color: aColor
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGMeshPressureVisualizer class >> new [
 	^ self
 		xgrids: 60
@@ -44,7 +46,7 @@ HGMeshPressureVisualizer class >> new [
 		color: Color white
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGMeshPressureVisualizer class >> scale: scale bias: bias color: aColor [
 	^ self
 		xgrids: 60
@@ -55,7 +57,7 @@ HGMeshPressureVisualizer class >> scale: scale bias: bias color: aColor [
 		color: aColor
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HGMeshPressureVisualizer class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -64,7 +66,7 @@ HGMeshPressureVisualizer class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HGMeshPressureVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel scale: scale bias: bias color: color [
 	^ (self basicNew)
 		initialize;
@@ -77,27 +79,27 @@ HGMeshPressureVisualizer class >> xgrids: xgirds ygrids: ygrids kernel: kernel s
 		yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> bias [
 	^ bias ifNil: [bias := 0.0]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> bias: aNumber [
 	bias := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> color [
 	^ color
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> color: aColor [
 	color := aColor 
 ]
 
-{ #category : #drawing }
+{ #category : 'drawing' }
 HGMeshPressureVisualizer >> draw: anHGSimulator on: aCanvas [
 	| xstep ystep |
 	xstep := (anHGSimulator simulationCorner x - anHGSimulator simulationOrigin x) / xgrids asFloat.
@@ -128,42 +130,42 @@ HGMeshPressureVisualizer >> draw: anHGSimulator on: aCanvas [
 				color: (color alpha: (pressure min: 1.0 max: 0.0)) ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> kernel [
 	^ kernel
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> kernel: anHGKernel [
 	kernel := anHGKernel 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> scale [
 	^ scale
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> scale: aNumber [
 	scale := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> xgrids [
 	^ xgrids
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> xgrids: anInteger [
 	xgrids := anInteger 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> ygrids [
 	^ ygrids 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HGMeshPressureVisualizer >> ygrids: anInteger [
 	ygrids := anInteger 
 ]

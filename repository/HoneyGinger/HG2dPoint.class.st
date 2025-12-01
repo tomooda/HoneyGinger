@@ -1,51 +1,53 @@
 Class {
-	#name : #HG2dPoint,
-	#superclass : #HGPoint,
+	#name : 'HG2dPoint',
+	#superclass : 'HGPoint',
 	#instVars : [
 		'x',
 		'y'
 	],
-	#category : 'HoneyGinger-Geometry-Points'
+	#category : 'HoneyGinger-Geometry-Points',
+	#package : 'HoneyGinger',
+	#tag : 'Geometry-Points'
 }
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dPoint class >> LICENSE [
 	^ self MITLicense
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dPoint class >> MITLicense [
 	^ 'Copyright (c) 2011 Tomohiro Oda and Software Research Associates, Inc.\\Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:\\The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software\\THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.' withCRs
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HG2dPoint class >> areaFromVolume: aNumber [
 	^ aNumber raisedTo: 0.5
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> fromNumber: aNumber [
 	^ self x: aNumber y: aNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> fromPoint: aPoint [
 	^ self x: aPoint x y: aPoint y
 ]
 
-{ #category : #utilities }
+{ #category : 'utilities' }
 HG2dPoint class >> lengthFromVolume: aNumber [
 	^ aNumber raisedTo: 0.5
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> randomFrom: anHG2dPoint to: anotherHG2dPoint with: aRandom [
 	^ self
 		x: (anotherHG2dPoint x - anHG2dPoint x) * aRandom next + anHG2dPoint x
 		y: (anotherHG2dPoint y - anHG2dPoint y) * aRandom next + anHG2dPoint y
 ]
 
-{ #category : #copyrights }
+{ #category : 'copyrights' }
 HG2dPoint class >> showLicense [
 	self LICENSE asText asMorph wrapFlag: true;
 		 autoFit: false;
@@ -54,154 +56,154 @@ HG2dPoint class >> showLicense [
 		 openInWindowLabeled: 'LICENSE'
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> theta: rad r: radius [
 	^ self x: rad cos * radius y: rad sin * radius
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> x: aNumber y: anotherNumber [
 	^self new setX: aNumber y: anotherNumber
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 HG2dPoint class >> zero [
 	^ self x: 0.0 y: 0.0
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> * aNumber [
 	^ self class x: x * aNumber y: y * aNumber
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> + anHG2dPoint [
 	^ self class x: x + anHG2dPoint x y: y + anHG2dPoint y
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> - anHG2dPoint [
 	^ self class x: x - anHG2dPoint x y: y - anHG2dPoint y
 	"^self copy minus: anHG2dPoint "
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> / aNumber [
 	^ self class x: x / aNumber y: y / aNumber
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> // aNumber [
 	^ self class x: x // aNumber y: y // aNumber
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> < anHG2dPoint [
 	^x < anHG2dPoint x and: [y < anHG2dPoint y]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> <= anHG2dPoint [
 	^x <= anHG2dPoint x and: [y <= anHG2dPoint y]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> = anHG2dPoint [
 	^ self class == anHG2dPoint class and: [ x = anHG2dPoint x and: [ y = anHG2dPoint y ] ]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> > anHG2dPoint [
 	^x > anHG2dPoint x and: [y > anHG2dPoint y]
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> >= anHG2dPoint [
 	^x >= anHG2dPoint x and: [y >= anHG2dPoint y]
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> add: aPoint by: aNumber [
 	x := aPoint x * aNumber + x.
 	y := aPoint y * aNumber + y
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> add: aPoint minus: anotherPoint by: aNumber [
 	x := (aPoint x - anotherPoint x) * aNumber + x.
 	y := (aPoint y - anotherPoint y) * aNumber + y
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> add: aPoint over: aNumber [
 	x := aPoint x / aNumber + x.
 	y := aPoint y / aNumber + y
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 HG2dPoint >> asPoint [
 	^ x @ y
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> ceiling [ 
 	^ self class x: x ceiling y: y ceiling
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HG2dPoint >> corner: anHGPoint do: aBlock [
 	x to: anHGPoint x do: [ :x0 | y to: anHGPoint y do: [ :y0 | aBlock value: (self class x: x0 y: y0) ] ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 HG2dPoint >> corner: anHGPoint elementsDo: aBlock [
 	x to: anHGPoint x do: [ :x0 | y to: anHGPoint y do: [ :y0 | aBlock value: x0 value: y0 ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> dimensions [
 	^2
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> distance: anHG2dPoint [
 	^ ((x - anHG2dPoint x) squared + (y - anHG2dPoint y) squared) sqrt
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> div: aNumber [
 	x := x / aNumber.
 	y := y / aNumber
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> dot: anHG2dPoint [
 	^ x * anHG2dPoint x + (y * anHG2dPoint y)
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> floor [
 	^ self class x: x floor y: y floor
 ]
 
-{ #category : #comparing }
+{ #category : 'comparing' }
 HG2dPoint >> hash [
 	^x hash bitXor: y hash
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dPoint >> in: anHG2dPoint radius: aNumber [
 	^ (x - anHG2dPoint x) abs < aNumber
 		and: [ (y - anHG2dPoint y) abs < aNumber and: [ super in: anHG2dPoint radius: aNumber ] ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> indexIn: anHGPoint [
 	^ (0 <= x and: [ x < anHGPoint x and: [ 0 <= y and: [ y < anHGPoint y ] ] ])
 		ifTrue: [ x * anHGPoint y + y + 1 ]
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> laplace: aBlock delta: aNumber [
 	| v vx1 vx2 vy1 vy2 |
 	v := aBlock value: self.
@@ -212,7 +214,7 @@ HG2dPoint >> laplace: aBlock delta: aNumber [
 	^ ((vx2 - v) / aNumber - ((v - vx1) / aNumber)) / aNumber + (((vy2 - v) / aNumber - ((v - vy1) / aNumber)) / aNumber)
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> length: aNumber [
 	| denominator |
 	denominator := ((x * x) + (y * y)) sqrt / aNumber.
@@ -220,43 +222,43 @@ HG2dPoint >> length: aNumber [
 	y := y / denominator
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> min: anHG2dPoint max: anotherHG2dPoint [
 	^ self class x: (x min: anHG2dPoint x max: anotherHG2dPoint x) y: (y min: anHG2dPoint y max: anotherHG2dPoint y)
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> mul: aNumber [
 	x := x * aNumber.
 	y := y * aNumber
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> norm1 [
 	^ x abs + y abs
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> norm2 [
 	^ (x squared  + y squared) sqrt
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> norm: aNumber [
 	^ (x raisedTo: aNumber) + (y raisedTo: aNumber) raisedTo: aNumber reciprocal
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> plus: aPoint by: aNumber [
 	^ self class x: aPoint x * aNumber + x y: aPoint y * aNumber + y
 ]
 
-{ #category : #arithmetics }
+{ #category : 'arithmetics' }
 HG2dPoint >> plus: aPoint over: aNumber [
 	^ self class x: aPoint x / aNumber + x y: aPoint y / aNumber + y
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 HG2dPoint >> printOn: aStream [
 	aStream nextPutAll: self class name.
 	aStream nextPut: $(.
@@ -267,42 +269,42 @@ HG2dPoint >> printOn: aStream [
 	aStream nextPut: $)
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> product [
 	^ x * y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> r [
 	^ self norm2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> set: aPoint [
 	x := aPoint x.
 	y := aPoint y
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 HG2dPoint >> setX: aNumber y: anotherNumber [
 	x := aNumber.
 	y := anotherNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> theta [
 	^ y < 0.0
 		ifTrue: [ Float pi * 2.0 - (x / (x * x + (y * y)) sqrt) arcCos ]
 		ifFalse: [ (x / (x * x + (y * y)) sqrt) arcCos ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dPoint >> to: anHG2dPoint conflictsWithLineSegment: anotherFrom to: anotherTo [
 	^ (self to: anHG2dPoint cross: anotherFrom) sign ~= (self to: anHG2dPoint cross: anotherTo) sign
 		and: [ (anotherFrom to: anotherTo cross: self) sign ~= (anotherFrom to: anotherTo cross: anHG2dPoint) sign ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 HG2dPoint >> to: anHG2dPoint contains: anotherHG2dPoint [
 	^ (self to: anHG2dPoint cross: anotherHG2dPoint) abs < 1.0e-1
 		and: [ 
@@ -311,7 +313,7 @@ HG2dPoint >> to: anHG2dPoint contains: anotherHG2dPoint [
 			dot between: 0.0 and: (self to: anHG2dPoint dot: anHG2dPoint) ]
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint cross: anotherHG2dPoint [
 	| x1 x2 y1 y2 |
 	x1 := anHG2dPoint x - x.
@@ -321,7 +323,7 @@ HG2dPoint >> to: anHG2dPoint cross: anotherHG2dPoint [
 	^ x1 * y2 - (y1 * x2)
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint crossPoint: anotherFrom to: anotherTo [
 	| min1 min2 max1 max2 x1 y1 x2 y2 x3 y3 x4 y4 t1 t2 t x0 y0 |
 	min1 := x min: anHG2dPoint x.
@@ -355,7 +357,7 @@ HG2dPoint >> to: anHG2dPoint crossPoint: anotherFrom to: anotherTo [
 		ifFalse: [ nil ]
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint crossPointX: aNumber [
 	(x max: anHG2dPoint x) < aNumber
 		ifTrue: [ ^ nil ].
@@ -364,7 +366,7 @@ HG2dPoint >> to: anHG2dPoint crossPointX: aNumber [
 	^ self class x: aNumber y: (anHG2dPoint y - y) * (aNumber - x) / (anHG2dPoint x - x) + y
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint crossPointY: aNumber [
 	(y max: anHG2dPoint y) < aNumber
 		ifTrue: [ ^ nil ].
@@ -373,12 +375,12 @@ HG2dPoint >> to: anHG2dPoint crossPointY: aNumber [
 	^ self class x: (anHG2dPoint x - x) * (aNumber - y) / (anHG2dPoint y - y) + x y: aNumber
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint distance: anotherHG2dPoint [
 	^ (self to: anHG2dPoint nearestFrom: anotherHG2dPoint) distance: anotherHG2dPoint 
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint dot: anotherHG2dPoint [
 	| x1 x2 y1 y2 |
 	x1 := anHG2dPoint x - x.
@@ -388,7 +390,7 @@ HG2dPoint >> to: anHG2dPoint dot: anotherHG2dPoint [
 	^ x1 * x2 + (y1 * y2)
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> to: anHG2dPoint nearestFrom: anotherHG2dPoint [
 	| distance |
 	^ (distance := self distance: anHG2dPoint) < 1.0e-8
@@ -398,7 +400,7 @@ HG2dPoint >> to: anHG2dPoint nearestFrom: anotherHG2dPoint [
 				* ((self to: anHG2dPoint dot: anotherHG2dPoint) / (self to: anHG2dPoint dot: anHG2dPoint) min: 1.0 max: 0.0) + self ]
 ]
 
-{ #category : #vector }
+{ #category : 'vector' }
 HG2dPoint >> unitVector: aPoint [
 	| vx vy denominator |
 	vx := aPoint x - x.
@@ -409,22 +411,22 @@ HG2dPoint >> unitVector: aPoint [
 	^ self class x: vx / denominator y: vy / denominator
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> x [ 
 	^x
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> x: aNumber [
 	x := aNumber
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> y [ 
 	^y
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 HG2dPoint >> y: aNumber [
 	y := aNumber
 ]
